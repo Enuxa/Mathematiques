@@ -1,0 +1,269 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+
+\geometry{hmargin=2cm}
+
+\title{Algèbre et géométrie 1}
+
+\author{Patrick Le Meur et Pierre Gervais}
+
+% Environnement type théorème
+\newtheorem{mythm}{Théorème}
+\newtheorem{myproposition}{Proposition}
+\newtheorem{myproperty}{Propriété}
+\newtheorem{mylemma}{Lemme}
+
+% Environnement type texte
+\theoremstyle{remark}
+\newtheorem{mynot}{Notation}
+\newtheorem{myrem}{Remarque}
+\newtheorem{myexer}{Exercice}
+\newtheorem{myproof}{Preuve}
+\newtheorem{myexmpl}{Exemple}
+
+% Environnement de définition
+\theoremstyle{definition}
+\newtheorem{mydef}{Définition}
+
+\setlist[itemize]{label=-}
+
+% Carré de fin de preuve
+\newcommand{\cqfd}{
+	\hfill$\square$
+}
+
+% "Checkmark" de fin d'étape de preuve
+\newcommand{\checked}{
+	\hfill$\checkmark$
+}
+
+% Définition de fonction
+\newcommand{\func}[5]{
+#1 ~ : ~ \left\{ \begin{array}{lcl}
+	#2 & \longrightarrow & #3 \\
+	#4 & \longmapsto & #5
+\end{array}
+\right.
+}
+
+\newcommand{\fun}[3]{
+#1 ~ : ~ #2 \longrightarrow #3
+}
+
+\newenvironment{proofpart}{
+	
+}{
+}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\part{Groupes}
+
+\section{Définitions et premiers exemples}
+
+\begin{mydef}
+	Un \textit{groupe} est un couple $(G, *)$ où
+	\begin{itemize}
+		\item $G$ est un ensemble
+		\item $\func{*}{G \times G}{G}{(g,h)}{g*h}$ est une loi de composition interne associative admettant un élément neutre $e$, c'est à dire tel que $\forall g \in G, g * e = e * g = g$
+		\item tout élément $g$ admet un symétrique pour $*$ noté $g^{-1}$ tel que $g*g^{-1}=g^{-1}*g=e$
+	\end{itemize}
+\end{mydef}
+
+\begin{myrem}
+\leavevmode
+\begin{itemize}
+	\item L'élément neutre et le symétrique d'un élément donné est unique.
+	\item Pour tout $g, h \in G$ on a $(g*h^{-1})=h^{-1}*g^{-1}$
+	\item Si on a $gh=e$, alors $g=h^{-1}$
+	\item Soit $g \in G$ et $n > 0$, on définit $g^n=\underbrace{g*g*g...g}_{n \text{ fois}}, ~ g^0=e, ~ g^{n+1}=g*g^n$ et $g^{-n}=\left(g^{-1}\right)^{n}$
+\end{itemize}
+\end{myrem}
+
+\begin{myexer}
+Montrer que pour tout $m, n \in \mathbb{Z}$ on a $g^{m+n}=g^m*g^n$ et $g^{-n}=\left(g^{-1}\right)^n$
+\end{myexer}
+
+\begin{myexmpl}
+	\leavevmode
+	\begin{enumerate}
+		\item $G=\mathbb{Z}, *=+$
+		\item Soit $E$ un espace vectoriel, $(E, +)$
+		\item $(\mathbb{C}^*, \times)$ et $(\mathbb{C}, +)$
+		\item Si $\mathbb{K}$ est un corps, $(\mathbb{K}, *)$
+
+		Ces exemples sont des groupes abéliens (c'est à dire commutatifs), les suivants n'en sont pas.
+		
+		\item Soit $(G, \cdot)$ un groupe fini, on définit $\func{\otimes}{\mathbb{Z}^G \times \mathbb{Z}^G}{\mathbb{Z}^G}{(f_1,f_2)}{\left(g \longmapsto \displaystyle \sum_{h \in G} f_1(h)f_2(h^{-1}*g)\right)}$
+		
+		\begin{myexer}
+			Montrer que $\mathbb{Z}^G$ muni de cette opération est un groupe.
+		\end{myexer}
+		\item $GL_n(\mathbb{R})$ muni de la multiplication de matrices.
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{myproposition}
+	Soit E un ensemble non-vide, on note $\mathfrak{S}(E)$ l'ensemble des applications bijectives de $E$ dans $E$ et $(\mathfrak{S}(E), \circ)$ est un groupe.
+\end{myproposition}
+
+\section{Sous-groupe}
+
+\begin{mydef}
+	Soit $(G, *)$ un groupe, on appelle \textit{sous-groupe} de $G$ toute partie $H \subseteq G$ munie de $*$ telle que $e \in H$, $\forall (h_1,h_2) \in H^2, h_1*h_2 \in H$  et $\forall h \in H, h^{-1} \in H$.
+	On note $H \leqslant G$
+\end{mydef}
+
+\begin{myexmpl}
+	\begin{enumerate}
+		\item Si $(G, *)$ est un groupe alors $\{e\} \leqslant G$
+		\item On définit $SL_n(\mathbb{R})=\{M \in \mathcal{M}_n | \det M = 1\}$ le \textit{groupe spécial linéaire} qui est un sous-groupe de $GL_n(\mathbb{R})$
+		\item On définit $\mathcal{O}_n(\mathbb{R})=\{M \in \mathcal{M}_n | \,^tMM = I_n\}$ le \textit{groupe orthogonal} qui est un sous-groupe de $GL_n(\mathbb{R})$
+		\item $\mathfrak{U} = \{z \in \mathbb{C} ~ | ~ |z| = 1\} \leqslant (\mathbb{C}^*, \times)$
+		\item Pour $n > 0$, $\mathfrak{U}_n = \{z \in \mathbb{C}^* ~ | ~ z^n = 1\} \leqslant \mathfrak{U} \leqslant \mathbb{C}^*$
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{myproposition}
+	\leavevmode
+	\begin{enumerate}
+		\item Soit $n \in \mathbb{Z}$, $n\mathbb{Z} \leqslant \mathbb{Z}$
+		\item Tout sous-groupe de $\mathbb{Z}$ est de cette forme
+	\end{enumerate}
+\end{myproposition}
+
+\begin{myproof}
+	\leavevmode
+	\begin{enumerate}
+		\item $n\mathbb{Z} \subseteq \mathbb{Z}$, $0 \in \mathbb{Z}$, $xn + yn = (x+y)n \in n\mathbb{Z}$ et $-(xn) \in n\mathbb{Z}$
+		\item Soit $H \leqslant \mathbb{Z}$, si $H = \{0\}$ \checkmark
+		
+		Soit $n = min\{h \in H ~|~ h > 0\}$ (il existe par la propriété de la borne supérieure), montrons $H = n\mathbb{Z}$
+
+		{\boldmath $nZ \subseteq H$} \checkmark
+
+		\begin{proofpart}{$nZ \subset H$}
+			Soit $h \in H$, on considère sa division euclidienne par n : $h = nq + r$ avec $0 \leqslant r < n$.
+			$h - nq = r\in H$, et $n$ est le plus petit élément non-nul, donc $r = 0$.
+		\end{proofpart}
+		
+		\cqfd
+	\end{enumerate}
+\end{myproof}
+
+\begin{mylemma}
+	Soit $G$ un groupe et $\left(H_i\right)_i \in I$ une famille de sous-groupes de $G$, alors $\displaystyle \bigcap_{i \in I}H_i \leqslant G$
+\end{mylemma}
+
+\begin{mydef}
+	Soit $G$ un groupe et $A$ une partie de G, l'intersection des sous-groupes de $G$ contenant $A$ est appelée \textit{sous-groupe engendré par $A$} et notée $\left\langle A \right\rangle$.
+\end{mydef}
+
+\begin{myproperty}
+	\leavevmode
+	\begin{itemize}
+		\item $A \subseteq \langle A \rangle \leqslant G$
+		\item Si $H$ est un sous-groupe contenant $A$, alors $\langle A \rangle \subseteq H$
+	\end{itemize}
+\end{myproperty}
+
+\begin{myexer}
+	Montrer que $\langle A \rangle$ est l'unique sous-groupe vérifiant ces propriétés.
+\end{myexer}
+
+\begin{myproperty}
+	Soit $G$ un groupe et $g \in G$, $\left\langle\{g\}\right\rangle = \langle g \rangle = \{g^n, n \in \mathbb{Z}\}$
+\end{myproperty}
+
+\begin{myexer}
+	Le démontrer.
+\end{myexer}
+
+\part{Opérations de groupes}
+\part{Groupes symétriques}
+\part{Sous-groupes distingués et groupes quotient}
+\part{Théorème de Sylow}
+
+\part{Solutions des exercices}
+
+\paragraph{Solution de l'exercice 1}
+
+Commençons par montrer pour tout $n > 0$, $( g^n )^{-1} = g^{-n}$ :
+
+$$\left( g^n \right)^{-1} = (g * g^{n-1})^{-1} = ((g^{n-1})^{-1}*g^{-1})^{-1}$$
+
+$$\left( g^n \right)^{-1} = ((g^{n-2})^{-1}*g^{-1}*g^{-1})^{-1}$$
+
+$$\cdots$$
+
+$$\left( g^n \right)^{-1} = \underbrace{g^{-1}*g^{-1} ... g^{-1}}_{n \text{ fois}} = (g^{-1})^n = g^{-n}$$
+
+Pour tout $m, n \in \mathbb{Z}$, on distingue plusieurs cas :
+\begin{itemize}
+	\item $m = 0$ ou $n = 0$ \checkmark
+	\item $m, n > 0$ : \checkmark
+	\item $m > 0, n < 0$ avec $m + n < 0$ : $$g^m * g^n = g^m * \left(g^{-1}\right)^{|n|} = g^m*\left(g^{-1}\right)^m*\left(g^{-1}\right)^{|n| - m} = e * \left(g^{-1}\right)^{|n|-m}=\left(g^{-1}\right)^{-n-m}=g^{m+n}$$
+	\item $m, n < 0$ : $$g^{m+n}=\left(g^{-1}\right)^{|m|+|n|}=\left(g^{-1}\right)^{|m|}*\left(g^{-1}\right)^{|n|}=g^m*g^n$$
+	\item les autres cas se démontrent de la même façon
+\end{itemize}
+
+\paragraph{Solution de l'exercice 2}
+
+Supposons par l'absurde que $\left(\mathbb{Z}^G, \otimes\right)$ est un groupe :
+
+\subparagraph{Stabilité de l'opération :} \checkmark
+
+\subparagraph{Élément neutre :} On cherche $\fun{\epsilon}{G}{\mathbb{Z}}$ tel que
+$$\forall f \in \mathbb{Z}^G, ~ \forall g \in G, ~ \sum_{h \in G}\epsilon(h)f(h^{-1}*g)=\sum_{h \in G}f(h)\epsilon(h^{-1}*g)=f(g)$$
+
+Pour $f$ valant $1$ sur $G$ on a
+$$\sum_{h \in G}\epsilon(h)=\sum_{h \in G}\epsilon(h^{-1}*g)=1$$
+
+Vérifions que si $\epsilon$ est définie par $\epsilon(g) = \left\{
+\begin{array}{l}
+	1, \text{ si } g = e \\
+	0, \text{ sinon}
+\end{array}
+\right.$, alors elle est neutre pour $\otimes$ :
+
+$$\sum_{h \in G}\underbrace{\epsilon(h)}_{1 \text{ \textit{ssi} } h = e}f(h^{-1}*g) = f(e^{-1}*g) = f(g)$$
+
+$$\sum_{h \in G}f(h)\underbrace{\epsilon(h^{-1}*g)}_{1 \text{ ssi } h = g}=f(g)$$
+
+\checked
+
+\subparagraph{Existence d'un inverse :}
+Soit $\fun{f}{G}{\mathbb{Z}}$, il existe $\fun{\phi}{G}{\mathbb{Z}}$ telle que $f \otimes \phi = \phi \otimes f = \epsilon$
+
+$$\forall g \neq e, ~ \sum_{h \in G}\phi(h)f(h^{-1}*g)=\sum_{h \in G}f(h)\phi(h^{-1}*g)=0$$
+
+et
+
+$$\sum_{h \in G}\phi(h)f(h^{-1})=\sum_{h \in G}f(h)\phi(h^{-1})=1$$
+
+la deuxième égalité est impossible lorsque $f$ est la fonction nulle, $\left(\mathbb{Z}^G, \otimes\right)$ n'est donc pas un groupe.
+
+\paragraph{Solution de l'exercice 3}
+Soit $H$ un sous-groupe vérifiant les propriété énoncées, montrons que $H=\langle A \rangle$
+
+$H$ vérifie la première propriété donc $A \subseteq H$ donc par la deuxième propriété $\langle A \rangle \subseteq H$.
+
+De plus, $H$ 
+
+\paragraph{Solution de l'exercice 4}
+On pose $A = \{g^n ~ | ~ n \geqslant 0\}$.
+
+$\langle g \rangle \subseteq A$ est le plus petit sous-groupe contenant $g$, or tout sous-groupe contient $g$ \textbf{si et seulement si} il contient $A$, d'où $A \subseteq \langle g \rangle$.
+
+\end{document}

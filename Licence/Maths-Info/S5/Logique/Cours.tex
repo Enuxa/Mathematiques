@@ -1,0 +1,281 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{geometry}
+
+\geometry{hmargin=2cm}
+
+\title{Analyse}
+
+\author{Arnaud Durand et Pierre Gervais}
+
+% Environnement type théorème
+\newtheorem{mythm}{Théorème}
+\newtheorem{myproposition}{Proposition}
+\newtheorem{myproperty}{Propriété}
+\newtheorem{mylemma}{Lemme}
+
+% Environnement type texte
+\theoremstyle{remark}
+\newtheorem{mynot}{Notation}
+\newtheorem{myrem}{Remarque}
+\newtheorem{myexer}{Exercice}
+\newtheorem{myproof}{Preuve}
+\newtheorem{myexmpl}{Exemple}
+
+% Environnement de définition
+\theoremstyle{definition}
+\newtheorem{mydef}{Définition}
+
+\setlist[itemize]{label=-}
+
+% Carré de fin de preuve
+\newcommand{\cqfd}{
+	\hfill$\square$
+}
+
+% Définition de fonction
+\newcommand{\func}[5]{
+#1 ~ : ~ \left\{ \begin{array}{lcl}
+	#2 & \longrightarrow & #3 \\
+	#4 & \longmapsto & #5
+\end{array}
+\right.
+}
+
+\newcommand{\fun}[3]{
+#1 ~ : ~ #2 \longrightarrow #3
+}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\part{Calcul propositionnel}
+
+\section{Syntaxe}
+
+Le \textit{calcul propositionnel} est un langage \textit{inductivement} et \textit{librement engendré} par un ensemble de règles.
+
+C'est à dire qu'une formule ne peut pas être obtenu de deux façons différentes.
+
+\begin{mydef}	
+	Soit $\mathcal{P}$ un ensemble de constantes propositionnelles, on définit $\mathcal{F}_\mathcal{P}$ le calcul propositionnel sur $\mathcal{P}$ obtenu par les règles suivantes :
+	\begin{itemize}
+		\item si $p \in \mathcal{P}$, alors $p \in \mathcal{F}_\mathcal{P}$
+		
+		\item $\perp \in \mathcal{F}_\mathcal{P}$
+		
+		\item si $F \in \mathcal{F}_\mathcal{P}$, alors $\left(\neg F\right) \in \mathcal{F}_\mathcal{P}$
+		
+		\item si $F, G \in \mathcal{F}_\mathcal{P}$ alors $(F \lor G), (F \land G), (F \rightarrow G) \in \mathcal{F}_\mathcal{P}$
+	\end{itemize}
+\end{mydef}
+
+\begin{mynot}
+	S'il n'y a pas d'ambiguïté, on notera $\mathcal{F}_\mathcal{P} = \mathcal{F}$
+\end{mynot}
+
+\begin{mydef}
+	Une définition alternative de $\mathcal{F}$ est $\displaystyle \mathcal{F} = \bigcup_{n \geqslant 0} \mathcal{F}_n$
+	où
+	\begin{itemize}
+		\item $\mathcal{F}_0 = \mathcal{P}$
+		\item $\mathcal{F}_{n+1} = \mathcal{F}_n \cup \{(\neg F) ~ | ~ F \in \mathcal{F}_n)\} \cup \{(F \star G) ~ | ~ F, G \in \mathcal{F}_n, ~ \star \in \{\land, \lor, \rightarrow\}\}$, avec $n \geqslant 0$
+	\end{itemize}
+	
+	On définit la \textit{hauteur} d'une formule $F$ par le plus petit $n$ tel que $F \in \mathcal{F}_n$.
+\end{mydef}
+
+\begin{myrem}
+	Ce langage est fortement parenthésé et toute formule peut être représentée par un arbre de décomposition.
+\end{myrem}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics{Arbre_decomposition}
+	\caption{Arbre de décomposition}
+\end{figure}
+
+\begin{myproperty}{Propriété de lecture unique}
+
+	Pour tout $F \in \mathcal{F}$, un seul de ces cas est vrai :
+	
+	\begin{enumerate}
+		\item $F \in \mathcal{P}$
+		\item Il existe un \textit{unique} $G \in \mathcal{F}$ tel que $F = (\neg G)$
+
+		\item Il existe d'\textit{uniques} $G,H \in \mathcal{F}$ et $\star \in \{\lor, \land, \rightarrow \}$ tels que $F = G \star H$
+	\end{enumerate}
+
+	C'est-à-dire que toute formule ne peut se décomposer que d'une seule façon.
+\end{myproperty}
+
+\subsection{Raisonnements}
+
+On démontrera généralement les propriétés s'appliquant à $\mathcal{F}$ par induction :
+pour démontrer une proposition $A$ s'appliquant à $\mathcal{F}$, on la démontre sur $\mathcal{P}$ et pour tout $(F \star G)$ et $(\neg F)$ où on suppose que $F, G \in \mathcal{F}$ vérifient $A$ et $\star \in \{\land, \lor, \rightarrow\}.$
+
+\subsection{Définition alternative de $\mathcal{F}_\mathcal{P}$}
+
+Soit $\Sigma = \mathcal{P} \cup \{(, ), \neg, \land, \lor, \rightarrow, \perp \}$, $\Sigma^*$ est l'ensemble des mots sur $\Sigma$.
+
+\begin{myexmpl}
+	\leavevmode
+	\begin{itemize}
+		\item $F = (\land \neg x_1)(( \in \Sigma^*$
+		\item $F = (\neg x_1) \in \Sigma^*$
+	\end{itemize}
+\end{myexmpl}
+
+\begin{mydef}
+	$\mathcal{F}$ est le plus petit sous-ensemble de $\Sigma^*$ contenant $\mathcal{P} \cup \{\perp\}$ et \textbf{clos} par les opérations
+	\begin{enumerate}
+		\item $(F, G) \longmapsto (F \lor G)$
+		\item $(F, G) \longmapsto (F \land G)$
+		\item $(f, G) \longmapsto (F \rightarrow G)$
+	\end{enumerate}
+\end{mydef}
+
+\begin{myrem}
+	On peut montrer que les deux définitions correspondent.
+	$\mathcal{F}$ satisfait la propriété de lecture unique (voir TD). 
+\end{myrem}
+
+\subsubsection{Sous-formule, hauteur, arbre de décomposition}
+
+\begin{mydef}
+	Soit $F \in \mathcal{F}$, on définit $\mathcal{S}(F)$ l'ensemble des \textit{sous-formules de $F$} telles que
+	
+	\begin{itemize}
+		\item si $F \in \mathcal{P}$, $\mathcal{S}(F) = \{F\}$
+		\item si $F = (\neg G)$ alors $\mathcal{S}(F) = \{F \} \cup \mathcal{S}(G)$
+		\item si $F = (G \star H)$ où $\star \in \{\land, \lor, \rightarrow \}$, alors $\mathcal{S}(F) = \{F\} \cup \mathcal{S}(G) \cup \mathcal{S}(H)$
+	\end{itemize}
+\end{mydef}
+
+TODO : vérifier dernier point
+
+\begin{mydef}
+	Soit $F \in \mathcal{F}$ on définit la \textit{hauteur} $h(F)$ de $F$ par
+	\begin{itemize}
+		\item $h(F) = 0$, si $F \in \mathcal{F}$
+		\item si $=(\neg G)$, alors $h(F) = 1 + h(G)$
+		\item si $F = (G \star H)$, alors $h(F) = 1 + \max\{h(G), h(H)\}$
+	\end{itemize}
+\end{mydef}
+
+\begin{mydef}
+	Soit $F \in \mathcal{F}$, l'\textit{arbre de décomposition de $F$} $arb(F)$ est un graphe étiqueté défini par
+	
+	\begin{enumerate}
+		\item si $F \in \mathcal{P}$, $arb(F)$ est réduit à un sommet étiqueté par $F$.
+		\item si $F = (\neg G)$, alors $arb(F) = \neg - arb(G)$
+		\item si $F = (G \star H)$, alors $arb(F) = G - \star - H$
+	\end{enumerate}
+\end{mydef}
+
+\begin{mynot}
+	Soit $F$ une formule, $var(F)$ est l'ensemble des variables de $F$, $occ(F)$ est le multi-ensemble des variables de $F$ et $arb(F)$ est le graphe
+	\begin{itemize}
+		\item dont les sommets sont $V$
+		\item et muni d'une fonction d'étiquetage $\lambda ~ : ~ V \longrightarrow \{\neg, \perp, \lor, \land, \rightarrow \} \cup var(F)$.
+	\end{itemize}
+\end{mynot}
+
+\begin{myrem}
+	Toutes les définitions sont univoques par la propriété de lecture unique.
+\end{myrem}
+
+\begin{myrem}
+	On définit la hauteur d'une formule par la hauteur de son arbre de décomposition, c'est-à-dire la distance maximum entre les feuilles et la racine. 
+\end{myrem}
+
+\begin{mynot}
+	\leavevmode
+	\begin{itemize}
+		\item $\top$ comme abréviation pour $(\perp \rightarrow \perp)$
+		\item $(p \longleftrightarrow q)$ pour $(p \leftarrow q) \land (p \rightarrow q)$
+		\item $\bigwedge\limits_{i=1}^n A_i = (((A_1 \land A_2) \land A_3)... \land A_n)$
+	\end{itemize}
+\end{mynot}
+
+\section{Sémantique}
+
+On s'intéresse à des propositions dont la valeur de vérité est soit vrai soit faux. On a besoin d'une \textbf{interprétation} (en terme de vrai ou faux) de ces constantes propositionnelles.
+
+\begin{mydef}
+	Une \textit{valuation} est une fonction $v ~ : ~ \mathcal{P} \longrightarrow \{0, 1\}$ (on l'appelle aussi interprétation).
+	Étant donné une valuation $v$, on définit l'\textit{interprétation} $\fun{\overline{v}}{\mathcal{F}}{\{0, 1\}}$ comme ceci
+	\begin{itemize}
+		\item si $F = p \in \mathcal{P}$ alors $\overline{v}=v(p)$
+		\item si $F = (\neg G) \in \mathcal{P}$ alors $\overline{v}(F) = 1$ si et seulement si $\overline{v}(G) = 0$
+		\item $\overline{v}(\perp)=0$
+		\item $\overline{v}(F \land G) = 1$ si et seulement si $\overline{v} (F) = \overline{v} (G) = 1$
+	\end{itemize}
+\end{mydef}
+
+On peut décrire l'interprétation d'une formule par sa \textit{table de vérité} :
+
+$$
+	\begin{array}{|c|c||c|c|c|}
+		\hline
+		F & G & \neg G & F \land G & F \rightarrow G \\
+		\hline
+		0 & 0 & 1 & 0 & 1 \\
+		\hline
+		0 & 1 & 1 & 0 & 1 \\
+		\hline
+	\end{array}
+$$
+
+On définit formellement la \textit{table de vérité} par une fonction $\fun{v}{\{0, 1\}^\mathcal{P}}{\{0, 1\}}$
+
+\begin{mydef}
+	\leavevmode
+	\begin{itemize}
+		\item $F \in \mathcal{F}$ est dit \textit{satisfaisable} s'il existe une valuation $v$ de $\mathcal{P}$ tel que $\overline{v}(F)=1$
+		\item $F$ est dit \textit{valide} si pour toute valuation $v$ de $\mathcal{P}$, $\overline{v}(F) = 1$, on dit aussi que $F$ est une \textit{tautologie}.
+		\item $F$ et $G$ sont dites \textit{équivalentes}, notées $F \equiv G$, si pour toute valuation $v$, $\overline{v}(F)=\overline{v}(G)$
+	\end{itemize}
+\end{mydef}
+
+\begin{myexer}
+	Vérifier que $F \equiv G$ si et seulement si $F \leftrightarrow G$ est valide.
+\end{myexer}
+
+\begin{myproposition}
+	Pour tout $F \in \mathcal{F}$, $F$ est satisfaisable si et seulement si $(\neg F)$ n'est pas valide.
+\end{myproposition}
+
+\section{Exemples de formalisation}
+
+\subsection{Contraites de compatibilité/exclusion}
+
+\paragraph{Problème :}On possède $n$ produits chimiques à ranger dans $k \leqslant n$ conteneurs. Certains produits ne peuvent pas être stockés ensemble dans un conteneur.
+
+La contrainte est donnée sous la forme d'un ensemble $\mathcal{L} \subseteq [n]$ tel que $I = \{i_1, ..., i_k\} \subseteq \mathcal{L}$ si et seulement si les produits $i_1, .., i_k$ ne peuvent pas être stockés ensemble.
+
+\paragraph{Enjeu :}
+Écrire une formule propositionnelle $F$ telle que $F$ est satisfaisable si le problème a une solution.
+
+Les variables propositionnelles $\mathcal{P}=p(i, j), ~ i \leqslant n, ~ j \leqslant k$ sont interprétées par "le produit chimique $i$ est dans le camion $j$".
+
+On exprime deux propositions :
+\begin{itemize}
+	\item Chaque produit se trouve dans un unique conteneur :
+	$F = \underbrace{\left(\bigwedge\limits_{i \leqslant n} \left(\bigvee\limits_{j \leqslant k} p(i, j)\right) \right)}_{\substack{\text{Chaque produit } i \text{ est stocké} \\ \text{dans au moins un camion } j}} \land
+	\underbrace{\left(\bigwedge\limits_{i \leqslant n} \left(\bigwedge\limits_{\substack{j, j' \leqslant k \\ j \neq j'}}(\neg\left(p(i, j) \land p(i, j')\right))\right)\right)}_{\substack{\text{Pour chaque produit } i \\ \text{ et chaque paire de camions } j \neq j' \\ \text{ il est faux que  } i \text{ est à la fois dans } j \text{ et } j'}}$
+	
+	\item On respecte les incompatibilités : $G = \underbrace{\bigwedge\limits_{I \subseteq \mathcal{L}} \left( \bigwedge\limits_{j \leqslant k}\neg \left( \bigwedge\limits_{i \in I}p(i, j)\right)\right)}_{\substack{\text{Pour chaque ensemble } I \text{ de produits } \\ \text{ne pouvant pas être stockés ensemble} \\ \text{et pour chaque camion } j , \\ \text{aucun produit de } I \text{ n'est présent dans le camion}}}$
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="151.47784mm"
+   height="146.44432mm"
+   viewBox="0 0 536.73252 518.8972"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="Ouverts_fermes2.svg"
+   inkscape:export-filename="/home/pierre/Documents/Mathematiques/Licence/Maths-Info/S5/Analyse/Ouverts_fermes2.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="218.53066"
+     inkscape:cy="258.34394"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1047"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-86.803158,-213.6279)">
+    <ellipse
+       style="fill:#ffbcbc;fill-opacity:1;stroke:none;stroke-width:1.35499346;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4139"
+       cx="352.23566"
+       cy="472.90933"
+       rx="263.98184"
+       ry="258.67111" />
+    <path
+       style="fill:#c5bcff;fill-opacity:1;stroke:none;stroke-width:1.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 431.42859,422.36221 C 698.32721,307.80382 339.08927,628.0765 265.7143,628.0765 c -73.37498,0 82.7644,-114.01173 -21.42858,-205.71429 -94.69574,-83.34383 -19.08925,-132.85714 54.28572,-132.85714 73.37497,0 -3.14644,191.23268 132.85715,132.85714 z"
+       id="path4136"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssss" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#3a37ff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="318.47098"
+       y="473.37085"
+       id="text4141"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4143"
+         x="318.47098"
+         y="473.37085">X</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff3737;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="500.47098"
+       y="348.37085"
+       id="text4141-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4143-6"
+         x="500.47098"
+         y="348.37085">U</tspan></text>
+    <ellipse
+       style="fill:#ff9393;fill-opacity:0.60769228;stroke:none;stroke-width:1.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4222"
+       cx="596.71021"
+       cy="376.29395"
+       rx="26.825489"
+       ry="26.464607" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:14.60187912px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ff3737;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="602.15979"
+       y="371.16904"
+       id="text4141-3-7"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4143-6-5"
+         x="602.15979"
+         y="371.16904">x</tspan></text>
+    <path
+       inkscape:connector-curvature="0"
+       style="fill:#ff80ea;fill-opacity:0.54230766;stroke:none;stroke-width:1.35499346;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 585.5563,352.19003 a 26.825489,26.464607 0 0 0 -15.67187,24.0332 26.825489,26.464607 0 0 0 26.82617,26.46484 26.825489,26.464607 0 0 0 9.02929,-1.57031 263.98184,258.67111 0 0 0 -20.18359,-48.92773 z"
+       id="path4139-6" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#d60000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 596.07336,375.72959 580.08818,396.6826"
+       id="path4242"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <ellipse
+       style="fill:none;fill-opacity:1;stroke:#d60000;stroke-width:1.35499346;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4139-2"
+       cx="351.60715"
+       cy="473.02292"
+       rx="263.98184"
+       ry="258.67111" />
+    <circle
+       style="fill:#ff3737;fill-opacity:1;stroke:none;stroke-width:1.51091218;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4220"
+       cx="596.4397"
+       cy="376.09866"
+       r="3.3352792" />
+    <ellipse
+       style="fill:none;fill-opacity:1;stroke:#0300d6;stroke-width:1.55499995;stroke-miterlimit:4;stroke-dasharray:9.33, 9.33;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4139-2-9"
+       cx="351.5625"
+       cy="473.07651"
+       rx="263.98184"
+       ry="258.67111" />
+  </g>
+</svg>
