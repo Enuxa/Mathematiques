@@ -2,6 +2,8 @@
 
 Fiches sur le cours d'arithmétique de Rached Mneimné.
 
+*Comment sent on le parfum de C2 x C2 ? - Lorsque l'on a deux involutions qui commutent - Rched Mneimné*
+
 **Attention** : La première preuve de la trivialité du centre du groupe symétrique est fausse, la seconde est (a priori) correcte.
 
 # Preuves
