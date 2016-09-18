@@ -141,7 +141,7 @@ Soit $\Sigma = \mathcal{P} \cup \{(, ), \neg, \land, \lor, \rightarrow, \perp \}
 	\begin{enumerate}
 		\item $(F, G) \longmapsto (F \lor G)$
 		\item $(F, G) \longmapsto (F \land G)$
-		\item $(f, G) \longmapsto (F \rightarrow G)$
+		\item $(F, G) \longmapsto (F \rightarrow G)$
 	\end{enumerate}
 \end{mydef}
 
@@ -167,7 +167,7 @@ TODO : vérifier dernier point
 \begin{mydef}
 	Soit $F \in \mathcal{F}$ on définit la \textit{hauteur} $h(F)$ de $F$ par
 	\begin{itemize}
-		\item $h(F) = 0$, si $F \in \mathcal{F}$
+		\item $h(F) = 0$, si $F \in \mathcal{P}$
 		\item si $=(\neg G)$, alors $h(F) = 1 + h(G)$
 		\item si $F = (G \star H)$, alors $h(F) = 1 + \max\{h(G), h(H)\}$
 	\end{itemize}
