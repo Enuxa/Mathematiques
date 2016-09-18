@@ -65,7 +65,7 @@ On remarquera que si $g$ s'annule au voisinage de $a$, alors $f$ aussi.
 	
 	\item Un fonction négligeable est généralement utilisée pour exprimer un reste, c'est une sorte "d'erreur de mesure".
 	
-	On peut faire un parallèle avec les mesures en sciences expérimentales : on fournit un résultat de 5 cm avec une marge d'erreur de $\pm 0,01$ cm, tandis qu'ici on donne la valeur de $f(x)=g(x)+o_a(u(x))$ quand $x$ est proche de $a$ avec une marge d'erreur inférieure à $v(x)$ (en valeurs absolues) pour $x$ suffisamment proche de $a$. Plus cette marge d'erreur est grande, plus elle est "grossière", ainsi si on a $u \prec v$, la marge d'erreur $o(v)$ est plus grossière que $o(u)$, et $o(u)$ est plus fine que $o(v)$.
+	On peut faire un parallèle avec les mesures en sciences expérimentales : on fournit un résultat de 5 cm avec une marge d'erreur inférieure à $0,01$ cm, tandis qu'ici on approxime $f(x)=g(x)+o_a(u(x))$ par $g(x)$ avec une marge d'erreur inférieure à $u(x)$ (en valeur absolue) pour $x$ suffisamment proche de $a$. Plus cette marge d'erreur est grande, plus elle est "grossière", ainsi si on a $u \prec v$, la marge d'erreur $o(v)$ est plus grossière que $o(u)$, et $o(u)$ est plus fine que $o(v)$.
 	
 	De la même manière que quand on additionne les valeurs de deux mesures expérimentales, on utilise la marge d'erreur la plus grossière, lorsqu'on additionne deux fonctions exprimées à l'aide de restes, on utilise celui qui est le plus grossier :
 	
@@ -75,7 +75,7 @@ On remarquera que si $g$ s'annule au voisinage de $a$, alors $f$ aussi.
 		u=o(v)
 	\end{array} \right\} \Longrightarrow f + g = u + v + o(u) + o(v) = u + v + o(v) + o(v) = u + v + o(v)$$
 
-	On remarque également que $o(f)$ "absorbe" toute fonction $g=o(f)$ qu'on lui ajoute, ce qui est logique si $g$ est négligeable devant l'écart de mesure.
+	$o(f)$ "absorbe" toute fonction $g=o(f)$ qu'on lui ajoute, ce qui est logique si $g$ est négligeable devant l'écart de mesure.
 
 	\paragraph{Exemple}
 	$\sin(x)+\ln(1+x^2)=x+o_0(x)+x^2+o_0(x^2)=x+o_0(x)$
@@ -99,6 +99,7 @@ $f=o_a(1) \Longleftrightarrow \lim\limits_{a} \frac{f}{1} = 0 \Longleftrightarro
 
 \paragraph[Définition]{}
 En $a$, $f$ et $g$ sont équivalentes en $a$ si et seulement si $f=g+o_a(g)$, noté $f \sim_a g$
+
 Plus simplement, si $g$ ne s'annule pas au voisinage de $a$, $\displaystyle f \sim_a g \Leftrightarrow \lim_a \frac{f}{g}=1$.
 
 \paragraph{Exemples}
@@ -155,7 +156,7 @@ Plus simplement, si $g$ ne s'annule pas au voisinage de $a$, $\displaystyle f \s
 	Par exemple, en $0$ on a $\ln(1+x) \sim x$, et en posant $u=\frac{1}{x}$, on obtient en $+\infty$ $\ln(1+u)\sim u$, c'est à dire $\ln\left(1+\frac{1}{x}\right) \sim \frac{1}{x}$.
 	
 	\paragraph{Remarque}
-	L'équivalence est très adapté à la simplification d'un quotient ou produit, par exemple l'hideuse expression
+	L'équivalence est très adaptée à la simplification d'un quotient ou produit, par exemple l'hideuse expression
 	$$\frac{\left(n \, sin \left(\frac{1}{n}\right)\right)\left(\displaystyle \sum_{k=1}^{42} n^k + e^n\right)}{e^{n}} \left(\sqrt{n} + \ln^7(n)\right)$$
 	
 	peut être remplacée selon le contexte (par exemple pour un calcul de limite) par un équivalent en $+\infty$ :
