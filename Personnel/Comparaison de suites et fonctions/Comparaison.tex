@@ -34,7 +34,7 @@ On remarquera que si $g$ s'annule au voisinage de $a$, alors $f$ aussi.
 
     \item En $+ \infty$, $x^\alpha=o(e^{\beta x})$, avec $\alpha$ et $\beta$ strictement positifs, car d'après le théorème des croissances comparées, $\displaystyle \lim_{x \to +\infty} \frac{x^\alpha}{e^{\beta x}} = 0$
     
-    On a aussi $ln^\alpha(x)=o(x^\beta)$
+    On a aussi $\ln^\alpha(x)=o(x^\beta)$
 \end{enumerate}
 
 \paragraph{Propriétés}
@@ -44,7 +44,7 @@ On remarquera que si $g$ s'annule au voisinage de $a$, alors $f$ aussi.
 		f=o(g) \\
 		\phi = o(\psi)
 	\end{array} \right\} \Longrightarrow f \phi = o(g \psi)$$
-	Par exemple, $\sqrt{x}=o(x)$, $ln(x)=o(x)$ et $\sqrt{x} \cdot ln(x)=o(x^2)$
+	Par exemple, $\sqrt{x}=o(x)$, $\ln(x)=o(x)$ et $\sqrt{x} \cdot \ln(x)=o(x^2)$
 	
 	\newpage
 	\item La relation de prépondérance est transitive : 
@@ -78,7 +78,7 @@ On remarquera que si $g$ s'annule au voisinage de $a$, alors $f$ aussi.
 	On remarque également que $o(f)$ "absorbe" toute fonction $g=o(f)$ qu'on lui ajoute, ce qui est logique si $g$ est négligeable devant l'écart de mesure.
 
 	\paragraph{Exemple}
-	$sin(x)+ln(1+x^2)=x+o_0(x)+x^2+o_0(x^2)=x+o_0(x)$
+	$\sin(x)+\ln(1+x^2)=x+o_0(x)+x^2+o_0(x^2)=x+o_0(x)$
 
 	\begin{figure}[!h]
 		\includegraphics[width=500pt]{Images/SommeResteGrossier1}
@@ -105,9 +105,9 @@ Plus simplement, si $g$ ne s'annule pas au voisinage de $a$, $\displaystyle f \s
 \begin{enumerate}
 	\item En $+ \infty$, $e^x + x^{2016} \sim e^x$ car $x^{2016}=o(e^x)$
 	
-	\item Si le développement limité de $f$ en $0$ à l'ordre $n$ est $f(x)=P(x)+o(x^n)$, alors $f(x) \sim P(x)$, par exemple $sin(x)=x-\frac{x^3}{6}+o(x^4)$, donc $sin(x) \sim x-\frac{x^3}{6}$.
+	\item Si le développement limité de $f$ en $0$ à l'ordre $n$ est $f(x)=P(x)+o(x^n)$, alors $f(x) \sim P(x)$, par exemple $\sin(x)=x-\frac{x^3}{6}+o(x^4)$, donc $\sin(x) \sim x-\frac{x^3}{6}$.
 	
-	\item En $+\infty$, $ln(P(x)) \sim d \cdot ln(a_dx)$ avec $P = a_d X^d + a_{d-1}X^{d-1} + ... + a_0$ car $P(x) = a_d x^d + o(x^d)$ et $ln(P(x))=ln(a_d x^d(1+o(1)))=ln(a_dx^d)+ln(1+o(1)) \sim d \cdot ln(a_d x)$
+	\item En $+\infty$, $\ln(P(x)) \sim d \cdot \ln(a_dx)$ avec $P = a_d X^d + a_{d-1}X^{d-1} + ... + a_0$ car $P(x) = a_d x^d + o(x^d)$ et $\ln(P(x))=\ln(a_d x^d(1+o(1)))=\ln(a_dx^d)+\ln(1+o(1)) \sim d \cdot \ln(a_d x)$
 \end{enumerate}
 
 \paragraph{Propriétés}
@@ -137,12 +137,12 @@ Plus simplement, si $g$ ne s'annule pas au voisinage de $a$, $\displaystyle f \s
 	\paragraph{Exercice}
 	Soient $f$ et $g$ équivalentes en $a$, et soit $\alpha \ne 0$, montrez que $f^\alpha \sim_a g^\alpha$.
 	
-	En supposant à présent que $f \ne 0$ au voisinage de $a$, montrez $ln(f) \sim_a ln(g)$.
+	En supposant à présent que $f \ne 0$ au voisinage de $a$, montrez $\ln(f) \sim_a \ln(g)$.
 	
 	\paragraph{Solution}
 	$f^\alpha = (g+o(g))^\alpha = (g(1+o(1)))^\alpha=g^\alpha (1+o(1))^\alpha$, et comme $\lim\limits_{a} (1+o(1))^\alpha = 1$, on en déduit $f^\alpha \sim_a g^\alpha$
 	
-	$ln(f)=ln(g+o(g))=ln(g(1+o(1)))=ln(g)+ln(1+o(1))$, sachant $\lim\limits_{a} ln(1+o(1))=0$, on déduit $ln(f) \sim_a ln(g)$
+	$\ln(f)=\ln(g+o(g))=\ln(g(1+o(1)))=\ln(g)+\ln(1+o(1))$, sachant $\lim\limits_{a} \ln(1+o(1))=0$, on déduit $\ln(f) \sim_a \ln(g)$
 	
 	\item La relation d'équivalence est en revanche compatible avec la composition à droite sous certaines conditions :
 		$$\left. \begin{array}{c c}
@@ -152,11 +152,11 @@ Plus simplement, si $g$ ne s'annule pas au voisinage de $a$, $\displaystyle f \s
 	
 	En pratique, cela signifie que l'on peut effectuer un changement de variable tant que la limite de celle-ci reste la même.
 	
-	Par exemple, en $0$ on a $ln(1+x) \sim x$, et en posant $u=\frac{1}{x}$, on obtient en $+\infty$ $ln(1+u)\sim u$, c'est à dire $ln\left(1+\frac{1}{x}\right) \sim \frac{1}{x}$.
+	Par exemple, en $0$ on a $\ln(1+x) \sim x$, et en posant $u=\frac{1}{x}$, on obtient en $+\infty$ $\ln(1+u)\sim u$, c'est à dire $\ln\left(1+\frac{1}{x}\right) \sim \frac{1}{x}$.
 	
 	\paragraph{Remarque}
 	L'équivalence est très adapté à la simplification d'un quotient ou produit, par exemple l'hideuse expression
-	$$\frac{\left(n \, sin \left(\frac{1}{n}\right)\right)\left(\displaystyle \sum_{k=1}^{42} n^k + e^n\right)}{e^{n}} \left(\sqrt{n} + ln^7(n)\right)$$
+	$$\frac{\left(n \, sin \left(\frac{1}{n}\right)\right)\left(\displaystyle \sum_{k=1}^{42} n^k + e^n\right)}{e^{n}} \left(\sqrt{n} + \ln^7(n)\right)$$
 	
 	peut être remplacée selon le contexte (par exemple pour un calcul de limite) par un équivalent en $+\infty$ :
 	
@@ -174,7 +174,7 @@ On utilise cette relation pour indiquer que \textit{$f$ ne croît pas plus vite 
 \begin{enumerate}
 	\item $4x^5=O_{+\infty}(x^5)$
 	
-	\item Les grands $O$ sont utilisés pour exprimer la complexité d'un algorithme; on peut estimer le nombre d'étapes de calculs exécutées dans le pire des cas.
+	\item Les grands $O$ sont utilisés pour exprimer la complexité d'un algorithme; on peut majorer (à une constante multiplicative près) le nombre d'étapes de calculs exécutées dans le pire des cas.
 	
 	Par exemple celle de l'algorithme du \textit{tri à bulle} (ou \textit{tri par propagation}), pour trier un tableau de $n$ éléments $(e_i)_{1 \leqslant i < n}$.
 	
@@ -182,7 +182,7 @@ On utilise cette relation pour indiquer que \textit{$f$ ne croît pas plus vite 
 	
 	On effectue moins de $n^2$ échanges, c'est à dire $O(n^2)$ échanges, et le nombres d'instructions utilisées pour implémenter l'algorithme ne change pas ce grand $O$ car la relation de domination est stable par multiplication par une constante non-nulle (comme pour la prépondérance).
 	
-	\item $x \cdot sin(x) = O_{+\infty}(x)$
+	\item $x \cdot \sin(x) = O_{+\infty}(x)$
 \end{enumerate}
 
 \paragraph{Remarque}
@@ -191,7 +191,7 @@ Si $f=o(g)$, alors $f=O(g)$
 \paragraph{Attention aux composition de fonctions}
 Si on a $f < g$ et $h$ croissante, alors on a $h \circ f = O(h \circ g)$, mais l'implication $f=O(g) \Longrightarrow h \circ f = O(h \circ g)$ est fausse !
 
-Par exemple en $+\infty$, $ln(x)=O\left(\frac{1}{2}ln(x)\right)$
+Par exemple en $+\infty$, $\ln(x)=O\left(\frac{1}{2}\ln(x)\right)$
 
 et $exp$ est croissante, mais on n'a pas $x = O(\sqrt{x})$.
 
@@ -206,20 +206,20 @@ et $exp$ est croissante, mais on n'a pas $x = O(\sqrt{x})$.
 	
 	\item $x + x^2 \sim_0 x+3x^2$ donc $e^{x + x^2} \sim_0 e^{x + 3x^2}$
 	
-	\item $1+x \sim_0 1+x^2$ donc $ln(1+x^2) \sim_{0} ln(1+x)$
+	\item $1+x \sim_0 1+x^2$ donc $\ln(1+x^2) \sim_{0} \ln(1+x)$
 	
-	\item $ln(x^2+sin (x)) \sim_{+\infty} 2x$
+	\item $\ln(x^2+sin (x)) \sim_{+\infty} 2\cdot \ln(x)$
 	
 \end{enumerate}
 
 \textit{Morale} : Soyez prudent avec les compositions d'équivalents.
 
-A moins de chercher à simplifier un produit/quotient ou d'effectuer un changement de variable (sous-entendu dire que $sin\left(\frac{1}{n}\right) \sim_{+\infty} \frac{1}{n}$ sachant $sin(x) \sim_0 x$), je conseille de passer par les développements limités afin de contrôler le reste (le petit $o$).
+A moins de chercher à simplifier un produit/quotient ou d'effectuer un changement de variable (sous-entendu dire que $sin\left(\frac{1}{n}\right) \sim_{+\infty} \frac{1}{n}$ sachant $\sin(x) \sim_0 x$), je conseille de passer par les développements limités afin de contrôler le reste (le petit $o$).
 
 \item Soient $f$ et $g$ définies au voisinage de $a \in \overline{\mathbb{R}}$, donnez une condition nécessaire et suffisante sur $f-g$ pour que $e^f \sim_a e^g$.
 
 \item
-Calculez $\displaystyle \lim_{x \to 0}cos(x)^{ln|x|}$
+Calculez $\displaystyle \lim_{x \to 0}\cos(x)^{\ln|x|}$
 
 \item On peut facilement montrer $\sqrt{x^2+3x+5}\sim_{+\infty}x+\frac{3}{2}+\frac{11}{8x}$.
 
@@ -229,24 +229,24 @@ On cherche à savoir "à quelle vitesse" ces deux valeurs se rapprochent : trouv
 
 \item Donner des équivalent des expressions suivantes : 
 \begin{enumerate}
-	\item $\frac{2^n + 3^n}{n^2+ln(n)+5^n}$
+	\item $\frac{2^n + 3^n}{n^2+\ln(n)+5^n}$
 
-	\item $arccos\left(\frac{n-1}{n}\right)$
+	\item $\arccos\left(\frac{n-1}{n}\right)$
 	
-	\textit{Indication :} utiliser $cos(h) \sim_0 1 - \frac{h^2}{2}$
+	\textit{Indication :} utiliser $\cos(h) \sim_0 1 - \frac{h^2}{2}$
 \end{enumerate}
 
 \item
 Soit $c > 0$ une constante.
 \begin{enumerate}
-\item Montrer qu'en $+\infty$, $ln(x+c) \sim ln(x)$ et $\sqrt{x+c} \sim \sqrt{x}$.
+\item Montrer qu'en $+\infty$, $\ln(x+c) \sim \ln(x)$ et $\sqrt{x+c} \sim \sqrt{x}$.
 
-\item Soit $f$ dérivable sur $\mathbb{R}$, à l'aide du théorème des accroissements finis, montrer que si $\lim\limits_{+\infty} f' = 0$, alors pour toute constante $c$ on a en $+\infty$, $f(x) \sim f(x+c)$.
+\item Soit $f$ dérivable sur $\mathbb{R}$, à l'aide du théorème des accroissements finis, montrer que si $\lim\limits_{+\infty} f' = 0$ et s'il existe $M > 0$ tel que pour $x$ assez grand on ait $f(x) \geqslant M$, alors pour toute constante $c$ on a en $+\infty$, $f(x) \sim f(x+c)$.
 \end{enumerate}
 
 \item \textit{Exercice 4 de l'examen de MM3 du 7 janvier 2016 :}
 \begin{enumerate}
-	\item Montrer que la série de terme général $u_n=\frac{(-1)^n}{ln(1+\sqrt{n})}$ converge, mais ne converge pas absolument.
+	\item Montrer que la série de terme général $u_n=\frac{(-1)^n}{\ln(1+\sqrt{n})}$ converge, mais ne converge pas absolument.
 	
 	\item Déterminer la nature de la série de terme général $u_n = \left\{ \begin{array}{c @{,} c}
  		1/n & $si $n$ est un carré$ \\
@@ -260,24 +260,24 @@ Soit $c > 0$ une constante.
 
 \item Étudier la convergence des séries numériques de termes généraux suivants
 \begin{enumerate}
-	\item $sin \left(\frac{n^2+n}{n} \pi\right)$
+	\item $\sin \left(\frac{n^2+n}{n} \pi\right)$
 	
-	\textit{Indication} : utiliser la formule d'addition pour le sinus $sin(a+b)=sin(a)cos(b)+sin(b)cos(a)$
+	\textit{Indication} : utiliser la formule d'addition pour le sinus $\sin(a+b)=\sin(a)\cos(b)+\sin(b)\cos(a)$
 	
 	\item $\frac{1}{n^{1+\frac{1}{\sqrt{n}}}}$
 \end{enumerate}
 
-\item On cherche un équivalent de $ln(n!)$ quand $n$ tends vers $+\infty$.
+\item On cherche un équivalent de $\ln(n!)$ quand $n$ tends vers $+\infty$.
 \begin{enumerate}
-	\item Montrez que $\displaystyle \int_0^1 ln$ est une intégrale impropre convergente et calculez sa valeur.
+	\item Calculez la valeur de l'intégrale impropre $\displaystyle \int_0^1 \ln$
 	
-	\item Justifiez que $\displaystyle \lim\limits_{n} ~ \frac{1}{n}(ln(n!) - n \cdot ln(n)) = \int_{0}^{1} ln$
+	\item Justifiez que $\displaystyle \lim\limits_{n} ~ \frac{1}{n}(\ln(n!) - n \cdot \ln(n)) = \int_{0}^{1} \ln$
 	
-	\textit{Indication} : Développez $ln(n!)$ puis utilisez une somme de Riemann.
+	\textit{Indication} : Développez $\ln(n!)$ puis utilisez une somme de Riemann.
 	
-	\item Donnez un équivalent de $ln(n!)-n \cdot ln(n)$.
+	\item Donnez un équivalent de $\ln(n!)-n \cdot \ln(n)$.
 	
-	Concluez que $ln(n!) \sim n \cdot ln(n)$.
+	Concluez que $\ln(n!) \sim n \cdot \ln(n)$.
 \end{enumerate}
 
 \end{enumerate}
@@ -287,13 +287,13 @@ Soit $c > 0$ une constante.
 \begin{enumerate}
 \item \textit{Exercice 3 de l'examen de MM4 du 24 mai 2016 :}
 
-On définit la suite $\textbf{f}=(f_n)_{n \in \mathbb{N}^*}$ avec pour tout $n > 0$, $f_n : [0, \frac{\pi}{2}] \longrightarrow \mathbb{R}, ~ x \longmapsto n sin(x) cos^n(x)$
+On définit la suite $\textbf{f}=(f_n)_{n \in \mathbb{N}^*}$ avec pour tout $n > 0$, $f_n : [0, \frac{\pi}{2}] \longrightarrow \mathbb{R}, ~ x \longmapsto n \sin(x) \cos^n(x)$
 
 \begin{enumerate}
 	\item Pour chaque $x \in [0, \frac{\pi}{2}],$ calculer $\displaystyle \lim\limits_{n} f_n(x)$
 	\item Calculer $\displaystyle I_n=\int_0^{\frac{\pi}{2}}f_n$ puis $\lim\limits_{n} I_n$
-	\item La suite $(f_n)_{n \in \mathbb{N}^*}$ converge-t-elle uniformément sur $[0, \frac{\pi}{2}]$ ?
-	\item Montrer que $(f_n)_{n \in \mathbb{N}^*}$ converge uniformément sur $[a,b]$ avec $0 < a < b \leqslant \frac{\pi}{2}$
+	\item La suite $\textbf{f}$ converge-t-elle uniformément sur $[0, \frac{\pi}{2}]$ ?
+	\item Montrer que $\textbf{f}$ converge uniformément sur $[a,b]$ avec $0 < a < b \leqslant \frac{\pi}{2}$
 \end{enumerate}
 
 \paragraph{Rappel} Pour montrer que $\displaystyle \sum f_n$ converge uniformément on peut entre autre :
@@ -319,9 +319,9 @@ On définit la suite $\textbf{f} = (f_n)_{n \in \mathbb{N}^*}$ avec $f_n : \math
 	
 	\textit{Indication :} Rappelez vous que pour tout $\alpha, \beta, \gamma > 0$, $e^{-\alpha n^\beta}=O(n^{-\gamma})$.
 	
-	\item Soit $a > 0$, la série de fonctions converge-t-elle normalement sur $A= [a, +\infty]$ ?
-	
 	\item Converge-t-elle normalement sur $\mathbb{R}_+$ ?
+	
+	\item Soit $a > 0$, la série de fonctions converge-t-elle normalement sur $A= [a, +\infty[$ ?
 	
 	\item Converge-t-elle uniformément sur $\mathbb{R}_+$ ?
 	
@@ -331,12 +331,13 @@ On définit la suite $\textbf{f} = (f_n)_{n \in \mathbb{N}^*}$ avec $f_n : \math
 \newpage
 \item \textit{Exercice 5 de l'examen de MM4 du 24 mai 2016 :}
 
-On définit la suite $\textbf{f}=(f_n)_{n \in \mathbb{N}^*}$ avec pour tout $\displaystyle n > 0$, $f_n : \mathbb{R} \longrightarrow \mathbb{R}$ et $f_n(x) = \frac{1}{n^2} arctan(nx)$.
+On définit la suite $\textbf{f}=(f_n)_{n \in \mathbb{N}^*}$ avec pour tout $\displaystyle n > 0$, $f_n : \mathbb{R} \longrightarrow \mathbb{R}$ et $f_n(x) = \frac{1}{n^2} \arctan(nx)$.
 
 \paragraph{Rappel}
 la fonction $arctan$ est dérivable sur $\mathbb{R}$ de dérivée $arctan'(x)=\frac{1}{1+x^2}$, strictement croissante, impaire et telle que $\displaystyle \lim\limits_{+\infty} arctan = \frac{\pi}{2}$.
 
 \begin{figure}[!h]
+	\centering
 	\includegraphics[width=350pt]{Images/Arctan}
 	\caption{La fonction arctan}
 \end{figure}
@@ -351,10 +352,13 @@ la fonction $arctan$ est dérivable sur $\mathbb{R}$ de dérivée $arctan'(x)=\f
 
 \item Calculer les rayons de convergence $R$ des séries entières suivantes:
 \begin{enumerate}
-	\item $\displaystyle \sum_{n > 0}\frac{ln(n)}{ln(n+1)}z^n$
-	\item $\displaystyle \sum_{n > 0}\frac{ln(n)}{n^2}z^{2n}$
+	\item $\displaystyle \sum_{n > 0}\frac{\ln(n)}{\ln(n+1)}z^n$
+	
+	\item $\displaystyle \sum_{n > 0}\frac{\ln(n)}{n^2}z^{2n}$
+	
 	\item $\displaystyle \sum_{n \geqslant 0}a_n z^{2n}$ avec $R'$ le rayon de convergence de $\displaystyle \sum_{n \geqslant 0}a_n z^n$
-	\item $\displaystyle \sum_{n > 0}sin \left(\frac{1}{\sqrt{n}}\right) z^n$ et étudier la convergence en $\pm R$
+	
+	\item $\displaystyle \sum_{n > 0} \sin \left(\frac{1}{\sqrt{n}}\right) z^n$ et étudier la convergence en $\pm R$
 	\end{enumerate}
 
 \paragraph{Rappel} La série entière $\sum a_n z^n$ n'est qu'un cas particulier de série ! On peut encore utiliser les critères de séries numériques, notamment les équivalents / petits o / grand O, critères de d'Alembert / Cauchy / Abel.
@@ -363,7 +367,7 @@ Par exemple, si $a_n \sim b_n$, pour un $z$ fixé $\sum a_n z^n$ converge \texti
 
 Ou encore, si $a_n z^n = O\left( \frac{1}{n^\alpha}\right)$ avec $\alpha > 1$, alors $\sum a_n z^n$ converge pour tout $z$, ce qui signifie que son rayon de convergence est $R= +\infty$.
 
-\item Démontrer que si $l = \lim\limits_{n} \left|\frac{a_n}{a_{n+1}}\right|$ existe, alors le rayon de convergence de $\sum a_nz^n$ vaut $l$.
+\item Démontrer que si $l = \lim\limits_{n} \left|\frac{a_n}{a_{n+1}}\right|$ existe et est fini, alors le rayon de convergence de $\sum a_nz^n$ vaut $l$.
 
 \paragraph{Rappel} La série entière $\sum P(n)a_n z^n$ où $P$ est un polynôme a le même rayon de convergence que $\sum a_n z^n$. C'est pourquoi pour toute fraction rationnelle $F$, $\sum F(n) a_n z^n$ a le même rayon de convergence que $\sum a_n z^n$.
 
@@ -371,7 +375,7 @@ En effet si $F = \frac{P(n)}{Q(n)}$, alors $\sum F(n) a_n z^n = \sum \frac{P}{Q}
 
 \item Soit $f : \mathbb{R} \longrightarrow \mathbb{R}$ dérivable en tout ordre en $0$ et telle qu'il existe $M \geqslant 0$ vérifiant $\forall n \in \mathbb{N}, ~ ||f^{(n)}||_{\infty} \leqslant M$, montrer que le développement en série entière autour de $0$ de $f$ a un rayon de convergence infini.
 
-En déduire le rayon de convergence du développement en série entière de $cos$ et $sin$.
+En déduire le rayon de convergence du développement en série entière de $\cos$ et $\sin$.
 
 \end{enumerate}
 
@@ -384,25 +388,25 @@ En déduire le rayon de convergence du développement en série entière de $cos
 \begin{enumerate}
 	\item $\frac{e^{n+1}}{e^n}=e \ne 1$. Faux.
 	\item Les deux expressions tendent vers une même limite non-nulle. Vrai.
-	\item $ln(1+x) = x + o(x)$ et $ln(1+x^2)=x^2+o(x^2)$, mais $\displaystyle \lim\limits_{x \to 0} \frac{x+o(x)}{x^2+o(x^2)}= \infty$. Faux.
-	\item $ln(x^2+sin(x))=ln\left(x^2\left(1+\frac{sin(x)}{x^2}\right)\right)=ln(x^2)+ln\left(1+\frac{sin(x)}{x^2}\right)$
+	\item $\ln(1+x) = x + o(x)$ et $\ln(1+x^2)=x^2+o(x^2)$, mais $\displaystyle \lim\limits_{x \to 0} \frac{x+o(x)}{x^2+o(x^2)}= \infty$. Faux.
+	\item $\ln(x^2+\sin(x))=\ln\left(x^2\left(1+\frac{\sin(x)}{x^2}\right)\right)=\ln(x^2)+\ln\left(1+\frac{\sin(x)}{x^2}\right)$
 	
-	$ln(x^2+sin(x))=2ln(x)+\frac{sin(x)}{x^2}+o\left(\frac{1}{x^2}\right) \sim 2ln(x)$. Vrai.
+	$\ln(x^2+\sin(x))=2\ln(x)+\frac{\sin(x)}{x^2}+o\left(\frac{1}{x^2}\right) \sim 2\ln(x)$. Vrai.
 \end{enumerate}
 
 \item $e^f \sim_a e^g \Leftrightarrow \lim\limits_{a} \frac{e^f}{e^g} = 1 \Leftrightarrow \lim\limits_{a} e^{f-g} = 1 \Leftrightarrow \lim\limits_{a}(f-g)=0$.
 
-\item La fonction $x \longmapsto cos(x)^{ln |x|}$ est paire, on se contentera donc d'étudier la limite en $0$ à droite.
+\item La fonction $x \longmapsto \cos(x)^{\ln |x|}$ est paire, on se contentera donc d'étudier la limite en $0$ à droite.
 
-$cos(x)^{ln (x)}=exp(ln(cos(x)) ln(x))$
+$\cos(x)^{\ln (x)}=exp(\ln(\cos(x)) \ln(x))$
 
-Or $cos(x) = 1 - \frac{x^2}{2}+ o(x^2)$
+Or $\cos(x) = 1 - \frac{x^2}{2}+ o(x^2)$
 
-Donc, $cos(x)^{ln(x)} = exp(ln((1 - \frac{x^2}{2} + o(x^2)) \cdot ln(x))$
+Donc, $\cos(x)^{\ln(x)} = exp(\ln((1 - \frac{x^2}{2} + o(x^2)) \cdot \ln(x))$
 
-$cos(x)^{ln(x)} = exp((-\frac{x^2}{2}+o(x^2)) \cdot ln(x))=exp(-\frac{x}{2} \cdot x \, ln(x) + o(x^2ln(x))$
+$\cos(x)^{\ln(x)} = exp((-\frac{x^2}{2}+o(x^2)) \cdot \ln(x))=exp(-\frac{x}{2} \cdot x \, \ln(x) + o(x^2\ln(x))$
 
-Enfin, d'après le théorème des croissances comparées, $x \, ln(x) \to 0$, donc $cos(x)^{ln(x)} \to 1$
+Enfin, d'après le théorème des croissances comparées, $x \, \ln(x) \to 0$, donc $\cos(x)^{\ln(x)} \to 1$
 
 \item $\sqrt{x^2+3x+5}=|x|\sqrt{1+\frac{3}{x}+\frac{5}{x^2}}$
 
@@ -435,29 +439,33 @@ Cela marche \textit{uniquement} car $m$ est une constante : $o(n^m)$ est stable 
 \begin{enumerate}
 \item $2^n = o(3^n)$, donc $2^n+3^n \sim 3^n$
 
-$n^2, ln(n)=o(5^n)$, donc $n^2+ln(n) + 5^n \sim 5^n$
+$n^2, \ln(n)=o(5^n)$, donc $n^2+\ln(n) + 5^n \sim 5^n$
 
-Ainsi $\frac{2^n+3^n}{n^2+ln(n)+5^n} \sim \left(\frac{3}{5}\right)^n$
+Ainsi $\frac{2^n+3^n}{n^2+\ln(n)+5^n} \sim \left(\frac{3}{5}\right)^n$
 
-\item $\frac{n-1}{n} \to 1$ donc $u_n \to 0$, on peut alors affirmer $cos(u_n) \sim 1 - \frac{u^2_n}{2}$
+\item $\frac{n-1}{n} \to 1$ donc $u_n \to 0$, on peut alors affirmer $\cos(u_n) \sim 1 - \frac{u^2_n}{2}$
 
-Or $cos(u_n)=\frac{n-1}{n}$, d'où $1-\frac{1}{n} \sim 1- \frac{u^2_n}{2}$ et donc $u_n \sim \sqrt{\frac{2}{n}}$
+Or $\cos(u_n)=\frac{n-1}{n}$, d'où $1-\frac{1}{n} \sim 1- \frac{u^2_n}{2}$ et donc $u_n \sim \sqrt{\frac{2}{n}}$
 
 \end{enumerate}
 
 \item
 \begin{enumerate}
-	\item $ln(x+c)=ln\left(x\left(\frac{c}{x}+1\right)\right)=ln(x)+ln\left(1+\frac{c}{x}\right) \sim ln(x)$
+	\item $\ln(x+c)=\ln\left(x\left(\frac{c}{x}+1\right)\right)=\ln(x)+\ln\left(1+\frac{c}{x}\right) \sim \ln(x)$
 	
-	Ou bien $\lim\limits_{x \to +\infty} \frac{ln(x+c)}{ln(x)}=\lim\limits_{x \to +\infty} \frac{x}{x+c}=1$ d'après la règle de l'Hôpital.
+	Ou bien $\lim\limits_{x \to +\infty} \frac{\ln(x+c)}{\ln(x)}=\lim\limits_{x \to +\infty} \frac{x}{x+c}=1$ d'après la règle de l'Hôpital.
 	
 	$\sqrt{x+c}=\sqrt{x\left(\frac{c}{x}+1\right)}=\sqrt{x} \cdot \sqrt{1+\frac{c}{x}} \sim \sqrt{x}$
 	
 	Ou bien $\lim\limits_{x \to +\infty} \frac{\sqrt{x+c}}{\sqrt{x}}=\lim\limits_{x \to +\infty} \sqrt{\frac{x+c}{x}}=\lim\limits_{x \to +\infty} \sqrt{1+\frac{c}{x}}$
 	
-	\item D'après le théorème des accroissements finis, pour tout $x > 0$ il existe un $\alpha_x \in ]x, x+c[$ tel que $\frac{f(x+c)-f(x)}{(x+c)-x}=\frac{f(x+c)-f(x)}{c}=f'(\alpha_x)$
+	\item D'après le théorème des accroissements finis, pour tout $x > 0$ il existe un $\alpha_x \in ]x, x+c[$ tel que $$\frac{f(x+c)-f(x)}{(x+c)-x}=\frac{f(x+c)-f(x)}{c}=f'(\alpha_x)$$
 	
-	C'est pourquoi, si $\lim\limits_{+\infty}f'=0$, alors $\lim\limits_{x \to +\infty} f(x+c)-f(x)=0$
+	$$f(x+c)-f(x)=c \cdot f'(\alpha_x)$$
+
+	$$f(x+c)-f(x)= o(f(x))$$
+	
+	car $\frac{c \cdot f'(\alpha_x)}{f(x)} \leqslant \frac{c \cdot f'(\alpha_x)}{M} \longrightarrow 0$
 	
 	Ainsi $f(x+c) \sim f(x)$
 	
@@ -467,73 +475,87 @@ Or $cos(u_n)=\frac{n-1}{n}$, d'où $1-\frac{1}{n} \sim 1- \frac{u^2_n}{2}$ et do
 	\end{figure}
 \end{enumerate}
 
+\newpage
+
 \item
 \begin{enumerate}
-	\item $\frac{1}{ln(1+\sqrt{n})}$ est positive, décroissante et tend vers $0$, donc d'après le critère d'Abel la série $\sum u_n$ converge.
+	\item $\frac{1}{\ln(1+\sqrt{n})}$ est positive, décroissante et tend vers $0$, donc d'après le critère d'Abel la série $\sum u_n$ converge.
 	
-	Cependant $ln(1+\sqrt{n}) \sim ln(\sqrt{n})=\frac{1}{2}ln(n)$, de plus pour $n$ assez grand, $ln(n) < n$ d'où $\frac{2}{ln(n)} > \frac{2}{n}$ et alors $\sum u_n$ ne converge pas absolument.
+	Cependant $\ln(1+\sqrt{n}) \sim \ln(\sqrt{n})=\frac{1}{2}\ln(n)$, de plus pour $n$ assez grand, $\ln(n) < n$ d'où $\frac{2}{\ln(n)} > \frac{2}{n}$ et alors $\sum u_n$ ne converge pas absolument.
 	
-	\item Pour tout $n$, $u_n$ est de la forme $\frac{1}{k^2}$ avec $k \in \mathbb{N}^*$, tout $\frac{1}{k^2}$ apparaît au plus deux fois, on a alors la majoration $\displaystyle \sum_{n=1}^{N} u_n \leqslant 2\sum_{n = 1}^{N} \frac{1}{n^2}$ et donc $\sum u_n$ converge.
+	\item Soit $N > 0$, on a $$\sum_{n=1}^{N} u_n = \sum_{\substack{1 \leqslant n \leqslant N \\ n = k^2}}^{N} u_n + \sum_{\substack{1 \leqslant n \leqslant N \\ n \neq k^2}}^{N} u_n$$
+	
+	$$\sum_{n=1}^{N} u_n = \sum_{\substack{1 \leqslant n \leqslant N \\ n = k^2}} \frac{1}{k^2} + \sum_{\substack{1 \leqslant n \leqslant N \\ n \neq k^2}} \frac{1}{n^2}$$
+	
+	$$\sum_{n=1}^{N} u_n = \sum_{\substack{1 \leqslant k \leqslant \sqrt{N}}} \frac{1}{k^2} + \sum_{\substack{1 \leqslant n \leqslant N \\ n \neq k^2}} \frac{1}{n^2}$$
+	
+	$$\sum_{n=1}^{N} u_n \leqslant \sum_{1 \leqslant n \leqslant N} \frac{1}{n^2} + \sum_{\substack{1 \leqslant n \leqslant N \\ n \neq k^2}} \frac{1}{n^2}$$
+	
+	$$\sum_{n=1}^{N} u_n \leqslant \sum_{1 \leqslant n \leqslant N} \frac{1}{n^2} + \sum_{1 \leqslant n \leqslant N} \frac{1}{n^2} = 2\sum_{1 \leqslant n \leqslant N} \frac{1}{n^2}$$
+	
+	$\sum \frac{1}{n^2}$ converge donc $\sum u_n$ converge également.
 	
 	\item On cherche à montrer que $\sum u_n$ diverge, sachant $u_n$ non-nulle pour tout $n$, il suffirait de montrer qu'à partir d'un certain rang elle est largement croissante, c'est à dire que pour $n$ assez grand $\frac{u_{n+1}}{u_n} \geqslant 1$.
 	
-	On sait que $(n+1)^{3/4} \sim n^{3/4}$ et que $(v_n)$ est croissante, donc $\frac{v_{n+1}}{v_n} \geqslant 1$.
+	On sait que $(v_n)$ est croissante, donc $\frac{v_{n+1}}{v_n} \geqslant 1$.
 	
 	Ainsi, si on montre que pour $n$ assez grand $\frac{u_{n+1}}{u_n} \geqslant \frac{v_{n+1}}{v_n}$ on aura $\frac{u_{n+1}}{u_n} \geqslant 1$.
 	
 	$$\frac{u_{n+1}}{u_n} \geqslant \frac{v_{n+1}}{v_n} \Longleftrightarrow \frac{3n+2}{3(n+1)} \geqslant \left(\frac{n}{n+1}\right)^{3/4}$$
 	
-	$$\frac{u_{n+1}}{u_n} \geqslant \frac{v_{n+1}}{v_n} \Longleftrightarrow \left(1-\frac{1}{3n+2}\right) \geqslant \left(1-\frac{1}{n+1}\right)^{3/4}$$
+	$$\frac{u_{n+1}}{u_n} \geqslant \frac{v_{n+1}}{v_n} \Longleftrightarrow \left(1-\frac{1}{3n+3}\right) \geqslant \left(1-\frac{1}{n+1}\right)^{3/4}$$
 	
 	$$\frac{u_{n+1}}{u_n} \geqslant \frac{v_{n+1}}{v_n} \Longleftrightarrow 1 - \frac{1}{3n} + o\left(\frac{1}{n}\right) \geqslant 1 - \frac{3}{4n} + o\left(\frac{1}{n}\right)$$
 	
 	$$\frac{u_{n+1}}{u_n} \geqslant \frac{v_{n+1}}{v_n} \Longleftrightarrow \frac{1}{3n} \leqslant \frac{3}{4n} +o\left(\frac{1}{n}\right)$$
 	
-	$\frac{1}{3} < \frac{3}{4}$ donc pour $n$ assez grand on a bien $\frac{u_{n+1}}{u_n} \geqslant \frac{v_{n+1}}{v_n}$ !
+	$$\frac{u_{n+1}}{u_n} \geqslant \frac{v_{n+1}}{v_n} \Longleftrightarrow \frac{1}{3} \leqslant \frac{3}{4} +o(1)$$
+	
+	$\frac{1}{3} \leqslant \frac{3}{4}$ donc pour $n$ assez grand on a bien $\frac{u_{n+1}}{u_n} \geqslant \frac{v_{n+1}}{v_n}$, d'où la divergence de $\sum u_n$ !
 \end{enumerate}
 
 \item
 \begin{enumerate}
-	\item $sin\left(\frac{n^2+1}{n}\pi\right)=sin\left(n\pi+\frac{\pi}{n}\right)=sin(n\pi)cos\left(\frac{\pi}{n}\right) + cos(n\pi)sin\left(\frac{\pi}{n}\right)$
+	\item $\sin\left(\frac{n^2+1}{n}\pi\right)\sin\left(n\pi+\frac{\pi}{n}\right)=\sin(n\pi)\cos\left(\frac{\pi}{n}\right) + \cos(n\pi\sin\left(\frac{\pi}{n}\right)$
 	
-	$sin\left(\frac{n^2+1}{n}\pi\right) = 0 \cdot cos\left(\frac{\pi}{n}\right) + (-1)^n sin\left(\frac{\pi}{n}\right)$
+	$\sin\left(\frac{n^2+1}{n}\pi\right) = 0 \cdot \cos\left(\frac{\pi}{n}\right) + (-1)^n\sin\left(\frac{\pi}{n}\right)$
 	
-	$sin\left(\frac{n^2+1}{n}\pi\right) = (-1)^n sin\left(\frac{\pi}{n}\right)$
+	$\sin\left(\frac{n^2+1}{n}\pi\right) = (-1)^n\sin\left(\frac{\pi}{n}\right)$
 	
-	$sin\left(\frac{n^2+1}{n}\pi\right) \sim (-1)^n \frac{\pi}{n}$
+	$\sin\left(\frac{n^2+1}{n}\pi\right) \sim (-1)^n \frac{\pi}{n}$
 	
-	$\sum \frac{(-1)^n}{n}$ converge, donc $\sum sin\left(\frac{n^2+1}{n}\pi\right)$ converge.
+	$\sum \frac{(-1)^n}{n}$ converge, donc $\sum\sin\left(\frac{n^2+1}{n}\pi\right)$ converge.
 	
 	\item
 	$\frac{1}{n^{1+1/\sqrt{n}}} = \frac{1}{
 	n} \cdot \frac{1}{n^\frac{1}{\sqrt{n}}} = \frac{1}{
-		n} \cdot \frac{1}{e^{\frac{ln(n)}{\sqrt{n}}}} \sim \frac{1}{n}$ donc la série diverge.
+		n} \cdot \frac{1}{e^{\frac{\ln(n)}{\sqrt{n}}}} \sim \frac{1}{n}$ donc la série diverge.
 \end{enumerate}
 
 \item
 \begin{enumerate}
-	\item Soit $\epsilon > 0$, $\displaystyle \int_{\epsilon}^{1}ln = [x\cdot ln(x)-x]_\epsilon^1=-1-\epsilon\cdot ln(\epsilon)+\epsilon$
+	\item Soit $\epsilon > 0$, $\displaystyle \int_{\epsilon}^{1}\ln = [x\cdot \ln(x)-x]_\epsilon^1=-1-\epsilon\cdot \ln(\epsilon)+\epsilon$
 	
-	$\displaystyle \int_0^1 ln = \lim\limits_{\epsilon \to 0} \int_{\epsilon}^{1} ln = -1$
+	$\displaystyle \int_0^1 \ln = \lim\limits_{\epsilon \to 0} \int_{\epsilon}^{1} \ln = -1$
 	
-	\item $ln(n!) - n \cdot ln(n) = \displaystyle \sum_{k=1}^{n} ln(k) - n \cdot ln(n)$
+	\item $\ln(n!) - n \cdot \ln(n) = \displaystyle \sum_{k=1}^{n} \ln(k) - n \cdot \ln(n)$
 	
-	$ln(n!) - n \cdot ln(n) = \displaystyle \sum_{k=1}^{n} (ln(k) - ln(n))$
+	$\ln(n!) - n \cdot \ln(n) = \displaystyle \sum_{k=1}^{n} (\ln(k) - \ln(n))$
 	
-	$ln(n!) - n \cdot ln(n) = \displaystyle \sum_{k=1}^{n} ln \left(\frac{k}{n}\right)$
+	$\ln(n!) - n \cdot \ln(n) = \displaystyle \sum_{k=1}^{n} \ln \left(\frac{k}{n}\right)$
 	
-	$\frac{1}{n} (ln(n!) - n \cdot ln(n)) = \frac{1}{n}\displaystyle \sum_{k=1}^{n} ln \left(\frac{k}{n}\right)$
+	$\frac{1}{n} (\ln(n!) - n \cdot \ln(n)) = \frac{1}{n}\displaystyle \sum_{k=1}^{n} \ln \left(\frac{k}{n}\right)$
 	
-	On se retrouve avec une somme de Riemann, on peut alors conclure que $\displaystyle \lim\limits_{n} \frac{1}{n} (ln(n!) - n \cdot ln(n)) = \int_0^1 ln = -1$
+	On se retrouve avec une somme de Riemann, on peut alors conclure que $\displaystyle \lim\limits_{n} \frac{1}{n} (\ln(n!) - n \cdot \ln(n)) = \int_0^1 \ln = -1$
 	
-	\item $\displaystyle \lim\limits_{n} \frac{1}{n} (ln(n!) - n \cdot ln(n)) = \int_0^1 ln = -1$, c'est à dire :
-	$$\frac{1}{n} (ln(n!) - n \cdot ln(n)) = -1 + o(1)$$
+	\item $\displaystyle \lim\limits_{n} \frac{1}{n} (\ln(n!) - n \cdot \ln(n)) = \int_0^1 \ln = -1$, c'est à dire :
+	$$\frac{1}{n} (\ln(n!) - n \cdot \ln(n)) = -1 + o(1)$$
 	
-	$$ln(n!) - n \cdot ln(n) = -n + o(n)$$
+	$$\ln(n!) - n \cdot \ln(n) = -n + o(n)$$
 	
-	$$ln(n!) = n \cdot ln(n) - n + o(n)$$
+	$$\ln(n!) = n \cdot \ln(n) - n + o(n)$$
 	
-	Ainsi, $ln(n!) \sim n(ln(n)-1)$, et plus grossièrement, $ln(n!) = n \cdot ln(n) + o(n \cdot ln(n)) \sim n \cdot ln(n)$
+	Ainsi, $\ln(n!) \sim n(\ln(n)-1)$, et plus grossièrement, $\ln(n!) = n \cdot \ln(n) + o(n \cdot \ln(n)) \sim n \cdot \ln(n)$
 \end{enumerate}
 
 \end{enumerate}
@@ -544,19 +566,19 @@ Or $cos(u_n)=\frac{n-1}{n}$, d'où $1-\frac{1}{n} \sim 1- \frac{u^2_n}{2}$ et do
 
 \item
 \begin{enumerate}
-	\item Si $x = 0, \frac{\pi}{2}$, alors $sin(x)cos(x) = 0$.
+	\item Si $x = 0, \frac{\pi}{2}$, alors $\sin(x)\cos(x) = 0$.
 	
-	Si $0 < x < \frac{\pi}{2}$, alors $0 < cos(x) = \alpha < 1$ et $f_n(x)=sin(x) \cdot n \alpha^n$, or $sin(x)$ est constant lorsque $n$ tend vers $\infty$ et $n \alpha^n \to 0$.
+	Si $0 < x < \frac{\pi}{2}$, alors $0 < \cos(x) = \alpha < 1$ et $f_n(x)=\sin(x) \cdot n \alpha^n$, or $\sin(x)$ est constant lorsque $n$ tend vers $\infty$ et $n \alpha^n \to 0$.
 	
 	C'est à dire $f_n \to 0$
 	
-	\item On connaît la dérivée de $cos^{n+1}(x)$ : c'est $-(n+1)sin(x)cos^n(x)$, et donc $$I_n = \int_{0}^{\frac{\pi}{2}}f_n = \int_{0}^{\frac{\pi}{2}}n sin(x) cos^n(x)$$
+	\item On connaît la dérivée de $\cos^{n+1}(x)$ : c'est $-(n+1)\sin(x\cos^n(x)$, et donc $$I_n = \int_{0}^{\frac{\pi}{2}}f_n = \int_{0}^{\frac{\pi}{2}}n \sin(x)\cos^n(x)dx$$
 	
-	$$I_n = - \int_{0}^{\frac{\pi}{2}}-\frac{n+1}{n+1} n sin(x) cos(x)^n$$
+	$$I_n = - \int_{0}^{\frac{\pi}{2}}-\frac{n+1}{n+1} n \sin(x) \cos(x)^ndx$$
 	
-	$$I_n = -\frac{n}{n+1}\int_{0}^{\frac{\pi}{2}} - (n+1) sin(x) cos^n(x)$$
+	$$I_n = -\frac{n}{n+1}\int_{0}^{\frac{\pi}{2}} - (n+1) \sin(x)\cos^n(x)dx$$
 	
-	$$I_n = - \frac{n}{n+1}[cos^{n+1}(x)]^{\frac{\pi}{2}}_0 = $$
+	$$I_n = - \frac{n}{n+1}\left[\cos^{n+1}(x)\right]^{\frac{\pi}{2}}_0$$
 	
 	$$I_n=\frac{n}{n+1}$$
 	
@@ -564,9 +586,9 @@ Or $cos(u_n)=\frac{n-1}{n}$, d'où $1-\frac{1}{n} \sim 1- \frac{u^2_n}{2}$ et do
 	
 	\item La suite $\textbf{f}$ ne peut pas converger uniformément ; si c'était le cas on aurait $\displaystyle \lim\limits_{n} \int_{0}^{\frac{\pi}{2}}f_n = \int_{0}^{\frac{\pi}{2}} \lim\limits_{n}f_n$.
 	
-	Or d'une part $\displaystyle \lim\limits_{n} f_n = 0$ d'après (a) et $\displaystyle \int_{0}^{\frac{\pi}{2}} 0 = 0$, et $\displaystyle \int_{0}^{\frac{\pi}{2}} f_n = I_n \to 1$ d'après (b). Il y a contradiction.
+	Or d'une part $\displaystyle \lim\limits_{n} f_n = 0$ d'après (a) et $\displaystyle \int_{0}^{\frac{\pi}{2}} 0 = 0$, d'autre part $\displaystyle \int_{0}^{\frac{\pi}{2}} f_n = I_n \to 1$ d'après (b). Il y a contradiction.
 	
-	\item Pour $0 < a < x < b \leqslant \frac{\pi}{2}$, $|sin(x)| \leqslant 1$ et $|cos(x)| \leqslant |cos(a)| = \alpha < 1$
+	\item Pour $0 < a < x < b \leqslant \frac{\pi}{2}$, $|\sin(x)| \leqslant 1$ et $|\cos(x)| \leqslant |\cos(a)| = \alpha < 1$
 	
 	Ainsi $|f_n(x)| < n \alpha^n$ pour tout $x \in [a, b]$ et donc $||f_n||_{\infty, [a,b]} \leqslant n \alpha^n$ qui tend vers 0 quand $n$ tend vers $\infty$.
 \end{enumerate}
@@ -580,23 +602,26 @@ Or $cos(u_n)=\frac{n-1}{n}$, d'où $1-\frac{1}{n} \sim 1- \frac{u^2_n}{2}$ et do
 	\end{itemize}
 	\item Calculons $||f_n||_{\infty, \mathbb{R_+}}$ pour tout $n > 0$ :
 	
-	$f_n$ est dérivable sur $A$, de dérivée $f'_n(x)=n (2x e^{-x\sqrt{n}}-\sqrt{n} \, e^{-x\sqrt{n}}x^2)=nxe^{-x\sqrt{n}}(2-x\sqrt{n})$
+	$f_n$ est dérivable sur $\mathbb{R}_+$, de dérivée $f'_n(x)=n (2x e^{-x\sqrt{n}}-\sqrt{n} \, e^{-x\sqrt{n}}x^2)=nxe^{-x\sqrt{n}}(2-x\sqrt{n})$
 	
-	$||f_n||_{\infty, A}=\left|f_n\left(\frac{2}{\sqrt{n}}\right)\right|=\frac{4}{e^2}$
+	$||f_n||_{\infty, \mathbb{R}_+}=\left|f_n\left(\frac{2}{\sqrt{n}}\right)\right|=\frac{4}{e^2}$
 	
 	$\displaystyle \sum_{n > 0} f_n$ ne converge pas normalement sur $\mathbb{R}_+$.
 	
 	\paragraph{Astuce} Si on est face à une fonction $f$ de signe constant, dérivable et telle que $\lim\limits_{+\infty}f=0$ et dont la dérivée change de signe en un seul point $a$, on peut immédiatement dire que $\max~|f|=|f(a)|$, il est inutile de passer par un tableau de signe !
 	
 	\begin{figure}[!h]
+		\centering
 		\includegraphics[width=350pt]{Images/max_liminfinini}
 	\end{figure}
 	
 	\item Pour $n$ assez grand, $\frac{2}{\sqrt{n}} < a$, alors $||f_n||_{\infty, A}=\max |f_n|=f_n(a)$ car $f_n$ est décroissante sur $A$.
 	
-	Or comme on l'a vu en (a), $f_n(a)=O(n^{-2})$, donc $\displaystyle \sum f_n$ converge uniformément sur $A$.
+	Or comme on l'a vu en (a), $f_n(a)=O(n^{-3})$, donc $\displaystyle \sum f_n$ converge uniformément sur $A$.
 	
-	\item Chaque $f_n$ et donc $\displaystyle \sum_{k=1}^{n} f_n$ est continue sur $A$, d'où $h$ est continue sur $A$.
+	\item Si $\sum f_n$ convergeait uniformément sur $\mathbb{R}_+$, nécessairement $\|f_n\|_{\infty, \mathbb{R}_+} \longrightarrow 0$, ce qui est faux d'après (b).
+	
+	\item Chaque $f_n$ est continue et donc $\displaystyle \sum_{k=1}^{n} f_n$ est continue sur $A$, d'où $h$ est continue sur $A$ par la convergence uniforme de la série.
 \end{enumerate}
 
 \item
@@ -631,50 +656,54 @@ On notera $\displaystyle F_n = \sum_{k = 1}^{n}f_k$ la suite des sommes partiell
 
 \item
 \begin{enumerate}
-	\item Il est inutile d'appliquer le critère de d'Alembert : $ln(n+1) \sim ln(n)$ donc $a_n z^n \sim z^n$ et ainsi $\sum a_n z^n$ a le même rayon de convergence que $\sum z^n$ : $R=1$.
+	\item Il est inutile d'appliquer le critère de d'Alembert : $\ln(n+1) \sim \ln(n)$ donc $a_n z^n \sim z^n$ et ainsi $\sum a_n z^n$ a le même rayon de convergence que $\sum z^n$ : $R=1$.
 	
 		
-	\item Pour la série $S(z)=\displaystyle \sum_{n>0} \frac{ln(n)}{n^2}z^{2n}$, nous ne pouvons malheureusement pas appliquer la règle de d'Alembert car si on réécrit la série sous la forme $\sum a_n z^n$, tous les coefficients des puissances impaires seront nuls.
+	\item Pour la série $S(z)=\displaystyle \sum_{n>0} \frac{\ln(n)}{n^2}z^{2n}$, nous ne pouvons malheureusement pas appliquer la règle de d'Alembert car si on réécrit la série sous la forme $\sum a_n z^n$, tous les coefficients des puissances impaires seront nuls.
 	
-	On pose alors une nouvelle série entière $T(u)=\displaystyle \sum_{n > 0} \frac{ln(n)}{n^2} u^n$ avec $u=z^2$, dont on peut calculer le rayon de convergence : $R = \lim\limits_{n} \frac{ln(n)}{n^2} \cdot \frac{(n+1)^2}{ln(n+1)} = 1$
+	On pose alors une nouvelle série entière $T(u)=\displaystyle \sum_{n > 0} \frac{\ln(n)}{n^2} u^n$ avec $u=z^2$, dont on peut calculer le rayon de convergence : $R = \lim\limits_{n} \frac{\ln(n)}{n^2} \cdot \frac{(n+1)^2}{\ln(n+1)} = 1$
 	
 	$T(u)=S(z^2)$ converge pour $|z^2| < 1$ et diverge pour $|z^2| > 1$, ainsi le rayon de convergence de $S(z)$ est $1$.
 	
+	\item Pour la même raison que précédemment, on a que $\displaystyle \sum_{n > 0} a_n z^{2n}$ converge pour $|z^2| < R$ et diverge pour $|z^2| > R$, son rayon de convergence est donc $\sqrt{R}$.
+	
 	\item
-	$sin\left(\frac{1}{\sqrt{n}}\right) \sim \frac{1}{\sqrt{n}}$
+	$\sin\left(\frac{1}{\sqrt{n}}\right) \sim \frac{1}{\sqrt{n}}$
 	
 	En appliquant la règle de d'Alembert on trouve que le rayon de convergence est $1$.
 	
 	Étudions à présent la convergence en $\pm 1$ :
 	
-	$\sum sin\left(\frac{1}{\sqrt{n}}\right)1^n=\sum sin\left(\frac{1}{\sqrt{n}}\right)$ diverge car $sin\left(\frac{1}{\sqrt{n}}\right) \sim \frac{1}{\sqrt{n}}$
+	$\sum\sin\left(\frac{1}{\sqrt{n}}\right)1^n=\sum\sin\left(\frac{1}{\sqrt{n}}\right)$ diverge car $\sin\left(\frac{1}{\sqrt{n}}\right) \sim \frac{1}{\sqrt{n}}$
 	
-	En revanche, $\sum sin\left(\frac{1}{\sqrt{n}}\right)(-1)^n$ converge d'après le critère d'Abel sur les séries alternées car $sin\left(\frac{1}{\sqrt{n}}\right)(-1)^n \sim \frac{(-1)^n}{\sqrt{n}}$.
+	En revanche, $\sum\sin\left(\frac{1}{\sqrt{n}}\right)(-1)^n$ converge d'après le critère d'Abel sur les séries alternées car $\sin\left(\frac{1}{\sqrt{n}}\right)(-1)^n \sim \frac{(-1)^n}{\sqrt{n}}$.
 \end{enumerate}
 
-\item Supposons que $\lim\limits_{n} \left|\frac{a_n}{a_{n+1}}\right|=l$ existe.
+\item Supposons que $\lim\limits_{n} \left|\frac{a_n}{a_{n+1}}\right|=l$ existe et est fini.
 
 On considère la série entière $\sum a_n z^n$ comme une série numérique avec un paramètre $z$.
 
 On applique le critère de d'Alembert pour savoir si $\sum a_n z^n$ converge : 
 
-$$\lim\limits_{n} \left|\frac{a_n z^n}{a_{n+1} z^{n+1}}\right| = \lim\limits_{n} \left|\frac{a_n}{a_{n+1}}\right|\left| \cdot \frac{1}{z}\right| = \frac{l}{|z|}$$
+$$\lim\limits_{n} \left|\frac{a_n z^n}{a_{n+1} z^{n+1}}\right| = \lim\limits_{n} \left|\frac{a_n}{a_{n+1}}\right| \cdot \left|\frac{1}{z}\right| = \frac{l}{|z|}$$
 
 D'après le critère de d'Alembert, $\sum a_n z^n$ converge si $\frac{l}{|z|} < 1$ (c'est à dire $l < |z|$) et diverge si $\frac{l}{|z|} > 1$ (c'est à dire $l > |z|$).
 
 On en déduit $R = |l|$
 
+\paragraph{Remarque :} on peut facilement adapter la preuve au cas où $l = +\infty$ pour avoir $R = +\infty$.
+
 \item Le développement en série entière de $f$ est $\displaystyle \sum \frac{f^{(n)}(0)}{n!}z^n$.
 
 On veut montrer que le rayon de convergence est infini, c'est à dire que pour tout $z$ cette série converge, autrement dit que $\left|f(z) - \sum_{k=0}^{n} \frac{f^{(k)}(0)}{k!}z^k \right|$ tends vers $0$ quand $n$ tend vers l'infini.
 
-Par chance, on sait majorer ce reste ! Grâce à l'inégalité de Taylor qui nous dit que celui-ci est inférieur ou égal à $\left|\frac{sup f^{(n)}}{n!}z^n\right|$.
+Par chance, on sait majorer ce reste ! Grâce à l'inégalité de Taylor qui nous dit que celui-ci est inférieur ou égal à $\left|\frac{\sup f^{(n)}}{n!}z^n\right|$.
 
-On a supposé que pour tout $n$, $|sup f^{(n)}| \leqslant M$, ainsi on a que le reste est majoré par $M\frac{z^n}{n!}$ qui tend vers $0$ :
+On a supposé que pour tout $n$, $|\sup f^{(n)}| \leqslant M$, ainsi on a que le reste est majoré par $M\frac{z^n}{n!}$ qui tend vers $0$ :
 
-$$\frac{(n+1)!}{z^{n+1}} \cdot \frac{z^n}{n!} = \frac{z}{n+1} \to 0$$
+$$\frac{z^{n+1}}{(n+1)!} \cdot \frac{n!}{z^n} = \frac{z}{n+1} \to 0$$
 
-On  peut donc majorer $M \frac{z^n}{n!}$ par une suite géométrique de raison strictement inférieure à $1$ en valeur absolue et donc tendant vers 1.
+On  peut donc majorer $M \frac{z^n}{n!}$ par une suite géométrique de raison strictement inférieure à $1$ en valeur absolue et donc tendant vers 0.
 
 Le reste tend alors vers 0, la série a un rayon de convergence infini.
 

@@ -53,7 +53,11 @@
 \right.
 }
 
-\newcommand{\fun}[3]{
+\newcommand{\funcinline}[5]{
+#1 ~ : ~ #2 \longrightarrow #3, ~ #4 \longmapsto #5
+}
+
+\newcommand{\funcshort}[3]{
 #1 ~ : ~ #2 \longrightarrow #3
 }
 
@@ -224,7 +228,7 @@ Supposons par l'absurde que $\left(\mathbb{Z}^G, \otimes\right)$ est un groupe :
 
 \subparagraph{Stabilité de l'opération :} \checkmark
 
-\subparagraph{Élément neutre :} On cherche $\fun{\epsilon}{G}{\mathbb{Z}}$ tel que
+\subparagraph{Élément neutre :} On cherche $\funcshort{\epsilon}{G}{\mathbb{Z}}$ tel que
 $$\forall f \in \mathbb{Z}^G, ~ \forall g \in G, ~ \sum_{h \in G}\epsilon(h)f(h^{-1}*g)=\sum_{h \in G}f(h)\epsilon(h^{-1}*g)=f(g)$$
 
 Pour $f$ valant $1$ sur $G$ on a
@@ -244,7 +248,7 @@ $$\sum_{h \in G}f(h)\underbrace{\epsilon(h^{-1}*g)}_{1 \text{ ssi } h = g}=f(g)$
 \checked
 
 \subparagraph{Existence d'un inverse :}
-Soit $\fun{f}{G}{\mathbb{Z}}$, il existe $\fun{\phi}{G}{\mathbb{Z}}$ telle que $f \otimes \phi = \phi \otimes f = \epsilon$
+Soit $\funcshort{f}{G}{\mathbb{Z}}$, il existe $\funcshort{\phi}{G}{\mathbb{Z}}$ telle que $f \otimes \phi = \phi \otimes f = \epsilon$
 
 $$\forall g \neq e, ~ \sum_{h \in G}\phi(h)f(h^{-1}*g)=\sum_{h \in G}f(h)\phi(h^{-1}*g)=0$$
 
