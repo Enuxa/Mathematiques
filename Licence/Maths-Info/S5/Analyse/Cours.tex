@@ -22,9 +22,11 @@
 \newtheorem{myproposition}{Proposition}
 \newtheorem{myproperty}{Propriété}
 \newtheorem{mylemma}{Lemme}
+\newtheorem{mycor}{Corollaire}
 
 % Environnement type texte
 \theoremstyle{remark}
+\newtheorem{mynot}{Notation}
 \newtheorem{myrem}{Remarque}
 \newtheorem{myexer}{Exercice}
 \newtheorem{myproof}{Preuve}
@@ -41,6 +43,11 @@
 	\hfill$\square$
 }
 
+% "Checkmark" de fin d'étape de preuve
+\newcommand{\checked}{
+	\hfill$\checkmark$
+}
+
 % Définition de fonction
 \newcommand{\func}[5]{
 #1 ~ : ~ \left\{ \begin{array}{lcl}
@@ -48,6 +55,20 @@
 	#4 & \longmapsto & #5
 \end{array}
 \right.
+}
+
+\newcommand{\funcinline}[5]{
+#1 ~ : ~ #2 \longrightarrow #3, ~ #4 \longmapsto #5
+}
+
+\newcommand{\funcshort}[3]{
+#1 ~ : ~ #2 \longrightarrow #3
+}
+
+\newenvironment{proofpart}[1]{
+	{\boldmath #1}
+}{
+	\checkmark
 }
 
 \begin{document}
@@ -254,7 +275,154 @@ En dimension finie, toutes les normes sont équivalentes ! Cela n'est en revanch
 \begin{mydef}
 	Une suite à valeurs dans $E$ est dite \textit{convergente vers $x \in E$} si pour tout $\epsilon > 0$ il existe un rang $N$ tel que pour tout $n \geqslant N$ on ait $\|x_n-x\| < \epsilon$.
 	
-	On note $\lim\limits_{n} x_n = x$
+	Celle-ci est unique et on la note $\lim\limits_{n} x_n = x$.
 \end{mydef}
+
+On remarquera qu'une suite convergente est bornée.
+
+\begin{myproof}
+	Montrons l'unicité de la limite : soient $x \neq y$ des limites de $(x_n)$, alors pour tout $\epsilon > 0$, il existe $N$ tel que $\forall n > N, ~ \|x_n-x\| < \epsilon$ et $\|x_n-y\| < \epsilon$
+	Or $0 < \|x-y\| \leqslant \|x_n - x\| + \|y - x_n\| < 2\epsilon$, ce qui est faux pour $\epsilon \leqslant \frac{\|x-y\|}{3}$.
+
+	\cqfd
+\end{myproof}
+
+\begin{myrem}
+	On rappelle que dans $\mathbb{R}$, toute suite majorée croissante est convergente.
+	
+	Soit $A=\{x_n ~ | ~ n \geqslant 0\}$, et on note $l = \sup A$.
+	
+	Soit $\epsilon > 0$, $l - \epsilon$ ne majore pas $A$ donc il existe un rang $N$ à partir duquel $x_n \geqslant l-\epsilon$, mais on a aussi $x_n \leqslant l$ pour tout $n$, on a ainsi à partir de $N$ l'encadrement $l - \epsilon \leqslant x_n \leqslant l + \epsilon$.
+	
+	On a de plus que $\lim\limits_{n} x_n = \sup \{x_n | n \geqslant 0\}$
+\end{myrem}
+
+\begin{myrem}
+	Si une suite est convergente pour une norme, alors elle l'est pour toute norme équivalente à celle-ci.
+	
+	Cela n'est pas vrai en général si les normes ne sont pas équivalentes.
+	
+	Sur l'ensemble des fonctions continue sur $[0, 1]$ on définit les normes
+	
+	$$\|f\|_{\infty} = \sup_{[0,1]} |f(x)| \text{ et } \|f\| = \int_{0}^{1} |f|$$
+	
+	On considère la suite de fonction $f_n ~ : ~ x \longmapsto x^n$, on a $\displaystyle \|f_n\|_{\infty} = \sup_{[0, 1]} |f_n(x)| = 1$ mais $\|f_n\|=\int_{0}^{1}x^ndx=\frac{1}{n+1} \longrightarrow 0$, les normes ne sont pas équivalentes.
+\end{myrem}
+
+\begin{mydef}
+	On appelle \textit{valeur d'adhérence} de $x_n$ toute limite d'une sous-suite (suite extraite) de $(x_n)$.
+	
+	Et on appelle \textit{point d'accumulation} d'une suite $(x_n)$ un point $x$ tel que $\forall \epsilon > 0, ~ \exists n ~ : ~ \|x_n-x\| < \epsilon$.
+\end{mydef}
+
+\begin{myproposition}
+	Tout point d'accumulation d'une suite convergente $(x_n)$ est une valeur d'adhérence, et réciproquement.
+\end{myproposition}
+
+\begin{myproof}
+	Soit $x$ une valeur d'adhérence de $(x_n)$, il existe une fonction entière strictement croissante $\phi$ telle que $\forall \epsilon > 0, ~ \exists N ~ : ~ \forall n > N, ~ \|x_{\phi(n)}-x\| < \epsilon$, donc $x$ est un point d'accumulation.
+	
+	Réciproquement, soit $x$ un point d'accumulation d'une suite $(x_n)$, on construit par récurrence $\phi$ telle que $x$ soit la limite de $(x_{\phi(n)})_n$ par $\phi(0)=0$ et $\phi(n+1) = \min\{n > \phi(n) ~ | ~ \|x_n-x\| < 2^{-n}\}$.
+	
+	L'application est bien strictement croissante.
+	
+	Montrons à présent que $y_n=x_{\phi(n)}$ converge vers $x$ : 
+	
+	soit $\epsilon \in ]0, 1[$, on cherche $N$ tel que pour tout $n > N, ~ \|x_n-x\| < \epsilon$.
+	
+	Soit $k$ tel que $\epsilon < 2^{-k}$, on pose $\displaystyle N = \left| ln \frac{\epsilon}{2} \right|$, on a ainsi pour tout $n > N$, $\|y_n - x\| < \epsilon$
+\end{myproof}
+
+\begin{myproposition}
+	Soit $E$ un espace vectoriel normé et $F \subseteq E$.
+	
+	F est fermé \textit{si et seulement si} $F$ contient la limite de toutes ses suites convergentes.
+\end{myproposition}
+
+\begin{myproof}
+	On suppose $F$ fermé et $(x_n)$ une suite convergente de $F$ de limite $x$. Montrons que $x \in F$.
+	
+	Supposons par l'absurde $x \not \in F$, alors $x \in (E \verb|\| F)$ qui est ouvert. Il existe donc $r > 0$ tel que $\mathcal{B}(x, r) \subseteq (E \verb|\|F)$, mais il existe un rang à partir duquel $\|x_n-x\| < \frac{r}{2}$, c'est à dire $x_n \in \mathcal{B}(x, r)$, ce qui contredit $\mathcal{B}(x, r) \subseteq (E \verb|\| F)$.
+	
+	On suppose à présent que $F$ contient la limite de toute ses suites convergentes, montrons que $F$ est fermée, donc que $E \verb|\|F$ est ouvert.
+	
+	Soit $x \in (E \verb|\|F)$, montrons qu'il existe $r > 0$ tel que $\mathcal{B}(x, r) \subseteq (E \verb|\|F)$.
+	
+	Supposons que pour tout $n$ $\mathcal{B}\left(x, \frac{1}{n}\right) \not \subseteq (E \verb|\| F)$, c'est à dire quil existe $x_n \in F$ tel que $x_n \in \mathbb{B}\left(x, \frac{1}{n}\right)$
+	
+	On a ainsi construit une suite de $F$ convergente vers $x \in F$, donc par hypothèse $x \in F$, ce qui contredit le fait que $x$ appartienne au complémentaire de $F$.
+\end{myproof}
+
+\begin{mydef}
+	Soit $X$ une partie d'un espace vectoriel normé $E$. Il existe un plus grand ouvert inclus dans $X$ appelé \textit{intérieur de $X$} noté $\mathring{A}$.
+	
+	Il existe un unique plus petit fermé contenant $X$ appelé \textit{adhérence} de $X$ et noté $\overline{X}$.
+	
+	On appelle frontière de $X$ l'ensemble $Fr(X)=\overline{X} \verb|\| \mathring{X}$
+\end{mydef}
+
+\begin{myexmpl}
+	Si $X = ]0, 1]$ sur $\mathbb{R}$ alors $\mathring{X} = ]0, 1[$, $\overline{X}=[0, 1]$ et $Fr(X)=\{0, 1\}$.
+\end{myexmpl}
+
+\begin{myrem}
+	X est ouvert si est seulement si $\mathring{X} = X$ et $X$ est fermé si et seulement si $\overline{X}=X$.
+\end{myrem}
+
+\begin{myexer}
+	Le montrer.
+\end{myexer}
+
+\begin{myproof}Intérieur
+	
+	Soit $\mathring{X}$ l'ensemble des $x \in X$ tels qu'il existe $r > 0$ tel que $\mathcal{B}(x, r) \subseteq X$, alors $\mathring{X}$ est la réunion de tous les ouverts contenus dans $X$.
+	
+	En effet, $\mathring{X}$ est ouvert dans $X$ par définiton, donc $\mathring{X} \subseteq \text{"réunion des ouverts de X"}$.
+	
+	Soit $U$ un ouvert de $X$, montrer que $U \subseteq X$.
+	
+	Soit $x \in U$, il existe $r>0$ tel que $\mathcal{B}(x, r) \subseteq U$ ar $U$ est ouvert. Donc $x \in \mathring{X}$.
+	
+	$\mathring{X}$ est donc ouvert, contenu dans $X$. Il contient tous les ouverts de $X$, donc c'est le plus grand de $X$, d'où le résultat.
+\end{myproof}
+
+\begin{myproof}Adhérence
+	On définit $\overline{X}$ comme l'ensemble des valeurs d'adhérence de suites de X.
+\end{myproof}
+
+TODO faire la démonstration.
+
+\section{Applications continues}
+
+\begin{mydef}
+	Soient $E$ et $F$ deux espaces vectoriels normés, soient $X \subseteq E$, $Y \subseteq F$ et $f$ une application de $X$ dans $Y$.
+	
+	On dit que $f$ est continue en un point $x \in X$ si $$\forall \epsilon > 0, \exists \delta > 0 ~ : ~ (\forall u, ~ \|x-u\| < \delta \Longrightarrow \|f(x)-f(u)\| < \epsilon)$$
+\end{mydef}
+
+\begin{mythm}
+	Une application $f~:~X \longrightarrow Y$ est continue en $x_0 \in X$ si et seulement si pour toute suite $(y_n)$ convergeant vers $x_0$, la suite $\left(f(y_n)\right)_n$ converge vers $f(x_0)$.
+\end{mythm}
+
+\begin{myexer}
+	Le démontrer
+\end{myexer}
+
+\begin{mythm}
+	Un application $f~:~X \longrightarrow Y$ est continue sur $X$ si et seulement si l'image réciproque de tout ouvert de $Y$ est un ouvert de $X$ si et seulement si l'image réciproque de tout fermé de $X$ est une fermé de $X$.
+\end{mythm}
+
+\begin{myproof}
+	Soit $f$ continue sur $X$ et $U$ un ouvert de $Y$. Montrer que $f^{-1}(U)=V$ est un ouvert de $X$.
+	
+	Soit $x \in f^{-1}(U)$, alors $f(x) \in U$, il existe donc $r>0$ tel que $\mathcal{B}(f(x), r) \subseteq U$.
+	
+	Or il existe $\delta > 0$ tel que pour $\|x-u\| < \delta$, on a $\|f(x)-f(y)\| < \frac{r}{2}$.
+	
+	Ainsi si $y \in \mathcal{B}\left(x, \frac{\delta}{2}\right)$ alors $f(y) \in \mathcal{B}(f(x), r) \subseteq U$, donc $y \in f^{-1}(U)$.
+	
+	$f^{-1}(U)$ est donc un ouvert.
+	
+\end{myproof}
 
 \end{document}

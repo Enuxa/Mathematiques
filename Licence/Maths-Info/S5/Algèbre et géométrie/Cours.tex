@@ -19,6 +19,7 @@
 \newtheorem{myproposition}{Proposition}
 \newtheorem{myproperty}{Propriété}
 \newtheorem{mylemma}{Lemme}
+\newtheorem{mycor}{Corollaire}
 
 % Environnement type texte
 \theoremstyle{remark}
@@ -61,9 +62,10 @@
 #1 ~ : ~ #2 \longrightarrow #3
 }
 
-\newenvironment{proofpart}{
-	
+\newenvironment{proofpart}[1]{
+	{\boldmath #1}
 }{
+	\checkmark
 }
 
 \begin{document}
@@ -112,7 +114,7 @@ Montrer que pour tout $m, n \in \mathbb{Z}$ on a $g^{m+n}=g^m*g^n$ et $g^{-n}=\l
 		\item Soit $(G, \cdot)$ un groupe fini, on définit $\func{\otimes}{\mathbb{Z}^G \times \mathbb{Z}^G}{\mathbb{Z}^G}{(f_1,f_2)}{\left(g \longmapsto \displaystyle \sum_{h \in G} f_1(h)f_2(h^{-1}*g)\right)}$
 		
 		\begin{myexer}
-			Montrer que $\mathbb{Z}^G$ muni de cette opération est un groupe.
+			Montrer que $\mathbb{Z}^G$ muni de cette opération n'est pas un groupe mais que $\otimes$ est une loi associative.
 		\end{myexer}
 		\item $GL_n(\mathbb{R})$ muni de la multiplication de matrices.
 	\end{enumerate}
@@ -155,9 +157,10 @@ Montrer que pour tout $m, n \in \mathbb{Z}$ on a $g^{m+n}=g^m*g^n$ et $g^{-n}=\l
 		
 		Soit $n = min\{h \in H ~|~ h > 0\}$ (il existe par la propriété de la borne supérieure), montrons $H = n\mathbb{Z}$
 
-		{\boldmath $nZ \subseteq H$} \checkmark
+		\begin{proofpart}{$nZ \subseteq H$}
+		\end{proofpart}
 
-		\begin{proofpart}{$nZ \subset H$}
+		\begin{proofpart}{$nZ \subset H$}\\			
 			Soit $h \in H$, on considère sa division euclidienne par n : $h = nq + r$ avec $0 \leqslant r < n$.
 			$h - nq = r\in H$, et $n$ est le plus petit élément non-nul, donc $r = 0$.
 		\end{proofpart}
@@ -193,6 +196,129 @@ Montrer que pour tout $m, n \in \mathbb{Z}$ on a $g^{m+n}=g^m*g^n$ et $g^{-n}=\l
 \begin{myexer}
 	Le démontrer.
 \end{myexer}
+
+\begin{myproperty}
+	Soit $A$ une partie de $G$, $\langle A \rangle$ est l'ensemble des éléments de la forme $a_1^{n_1}*a_2^{n_2}*...*a_p^{n_p}$ où $a_i \in A$ et $n_i \in \mathbb{Z}$.
+\end{myproperty}
+
+\begin{myproof}
+	On pose $K$ l'ensemble des éléments de cette forme.
+	Montrons
+	\begin{enumerate}
+		\item $A \subseteq K$ et $K \leqslant G$
+		\item Pour tout $H \leqslant G$ tel que $A \subseteq H$ on a $K \subseteq H$
+	\end{enumerate}
+\end{myproof}
+
+\begin{myexmpl}
+	\begin{enumerate}
+	\item Soient $k$ et $n$ deux entiers relatifs, $\langle k, n \rangle = k\mathbb{Z} + n\mathbb{Z} = (k \land n) \mathbb{Z}$ d'après l'identité de Bézout.
+	\item Soit $n > 0$, si $M \in \mathcal{O}_n(\mathbb{R})$, alors il existe $P \in \mathcal{O}_n(\mathbb{R})$ et $r, s \in \mathbb{N}$, $\theta_1, ...\theta_p \in \mathbb{R}$ tels que $P^{-1}MP$ soit diagonale par blocs :
+	
+	$$
+		\left(
+		\begin{array}{ccccc}
+			I_r &  &  &  & \\
+			 & -I_s & & &\\
+			 & & R(\theta_1) & &\\
+			 & & & \ddots & \\
+			 & & & & R(\theta_p)\\
+		\end{array}
+		\right)
+	$$
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{myexer}
+	Montrer que $\mathcal{O}_n(\mathcal{R})$ est engendré par les réflexions, c'est à dire les matrices de orthogonales semblables à $\left(\begin{array}{cccc}
+		-1 &&&\\
+		&1&&\\
+		&&\ddots&\\
+		&&&1\\
+	\end{array}\right)$ en base orthonormée.
+\end{myexer}
+
+\section{Ordre d'un élément dans un groupe}
+
+Soit $g \in G$, on suppose qu'il existe $n > 0$ tel que $g^n=e$.
+On a alors $\langle g \rangle = \{e, g, g^2, g^3, ..., g^{n-1}\}$, en effet pour tout $k > 0$, de division euclidienne $k=nq+r$ avec $0 \leqslant r < n$, on a $g^k=g^{nq+r}=e^q g^r=g^r$ d'où $g^r \in \{e, g, g^2, ..., g^{n-1}\}$.
+
+\begin{mydef}
+	Soit $g \in G$, on définit \textit{l'ordre} de $g$ par $d=\min \{k > 0 ~ | ~ g^k = e\}$, on a ainsi que $e, g, g^2, ..., g^d$ sont deux à deux distincts. On en conclut que $\langle g \rangle = \{g^k ~ | ~ 0 \leqslant k < d\}$ est de cardinal $d$.
+\end{mydef}
+
+En effet $0 \leqslant k \leqslant l < d$, on a $g^l=g^k \Longrightarrow g^{l-k}=e$.
+
+Or $0 \leqslant l - k < d$ et par minimalité de $d$, $l=k$.
+
+\begin{myexmpl}
+	\leavevmode
+	\begin{enumerate}
+		\item Dans $(\mathfrak{U}, \times)$, pour $n > 0$ on a $g=\exp\left(\frac{2i \pi}{n}\right)$
+		
+		g est d'ordre fini égal à $n$.
+		
+		\item Dans $GL_n(\mathbb{R})$ $\left(\begin{array}{cc}
+			1 & 0 \\
+			0 & -1 \\
+		\end{array}\right)$ est d'ordre 2 et $\left(\begin{array}{cc}
+					0 & -1 \\
+					1 & 0 \\
+				\end{array}\right)$ d'ordre 4.
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{mythm}
+	Soit $G$ un groupe fini et $H \leqslant G$, alors $|H|$ divise  $|G|$. 
+\end{mythm}
+
+\begin{mycor}
+	Soit $g$ un élément d'un groupe fini, $g$ est d'ordre fini divisant $|G|$.
+\end{mycor}
+
+\begin{myexmpl}
+	Dans $\mathfrak{U}_6$, d'ordre 6, les éléments peuvent avoir pour ordre 1, 2, 3 et 6.
+\end{myexmpl}
+
+\begin{myproperty}
+	$d > 0$ est l'ordre de $g$ si et seulement si $g^d=e$ et pour tout diviseur de $d$ $0 < t < d$ on a $g^t \neq e$.
+\end{myproperty}
+
+\begin{myexer}
+	Le démontrer.
+\end{myexer}
+
+\begin{myrem}
+	Si $g \in G$ et $p$ est un nombre premier tel que $g^p=e$, alors $g=e$ ou l'ordre de $g$ est $p$.
+\end{myrem}
+
+\section{Homomorphisme de groupe}
+
+\begin{mydef}
+	Soient $G$ et $G'$ deux groupes, un homomorphisme de $G$ dans $G'$ est une application de $G$ dans $G'$ tel que .
+\end{mydef}
+
+\begin{myexmpl}
+	\leavevmode
+	\begin{enumerate}
+		\item On considère $\funcinline{\phi}{(\mathbb{R}, +)}{(\mathbb{R}^*_+, \times)}{x}{\exp(x)}$
+		
+		On a $\forall x, y \in \mathbb{R}, ~ \exp(x+y)=\exp(x)\exp(y)$
+		
+		$\ln$ est l'application réciproque.
+		
+		\item Le déterminant est un homomorphisme de $(GL_n(\mathbb{R}), \times)$ dans $(\mathbb{R}^*, \times)$
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{myrem}
+	Un homorphisme $f$ vérifie 
+	\begin{itemize}
+		\item $f(e)=f(e')$, car $f(e)=f(e \cdot e)=f(e)f(e)$ puis en simplifiant : $e' = f(e)$
+		\item Pour tout $g \in G$, $f(g^{-1})=f(g)^{-1}$
+	\end{itemize}
+	Pour tout $x$, 
+\end{myrem}
 
 \part{Opérations de groupes}
 \part{Groupes symétriques}
