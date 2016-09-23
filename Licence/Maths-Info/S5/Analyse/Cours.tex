@@ -66,7 +66,11 @@
 }
 
 \newenvironment{proofpart}[1]{
-	{\boldmath #1}
+	\leavevmode
+	
+	\noindent
+	{\textit{\textbf{\boldmath #1}}}
+	
 }{
 	\checkmark
 }
@@ -151,6 +155,7 @@
 		
 		\item $d(x, y) = \|x-y\| = \|x-z + z - y\| \leqslant \|x-z\| +\|z-x\| \leqslant d(x, y) + d(z, y)$
  	\end{enumerate}
+ 	\cqfd
 \end{myproof}
 
 \begin{myexmpl}
@@ -164,7 +169,7 @@
 \end{myexmpl}
 
 \begin{mydef}
-	Deux normes $N_1$ et $N_2$ sont dites \textit{équivalentes} s'il existe des constantes positives $C_1$ et $C_2$ telles que $\forall x \in E, ~ C_1 N_2(x) \leqslant N_1(x) \leqslant C_2 N_2(x)$
+	Deux normes $N_1$ et $N_2$ sont dites \textit{équivalentes} s'il existe des constantes strictement positives $C_1$ et $C_2$ telles que $\forall x \in E, ~ C_1 N_2(x) \leqslant N_1(x) \leqslant C_2 N_2(x)$
 \end{mydef}
 
 \begin{myexmpl}
@@ -269,7 +274,8 @@ En dimension finie, toutes les normes sont équivalentes ! Cela n'est en revanch
 	
 	Inversement soit $U$ ouvert de $X$, alors $\forall x \in U, ~ \exists r(x) > 0$ tel que $\mathcal{B}(x, r(x)) \cap X \subseteq U$
 	
-	Soit alors $\displaystyle \widetilde{U} = \bigcup_{x \in U} \mathcal{B}(x, r(x))$, alors $\widetilde{U}$ est un ouvert et $U = X \cap U$ 
+	Soit alors $\displaystyle \widetilde{U} = \bigcup_{x \in U} \mathcal{B}(x, r(x))$, alors $\widetilde{U}$ est un ouvert et $U = X \cap U$
+	\cqfd
 \end{myproof}
 
 \begin{mydef}
@@ -281,9 +287,14 @@ En dimension finie, toutes les normes sont équivalentes ! Cela n'est en revanch
 On remarquera qu'une suite convergente est bornée.
 
 \begin{myproof}
-	Montrons l'unicité de la limite : soient $x \neq y$ des limites de $(x_n)$, alors pour tout $\epsilon > 0$, il existe $N$ tel que $\forall n > N, ~ \|x_n-x\| < \epsilon$ et $\|x_n-y\| < \epsilon$
-	Or $0 < \|x-y\| \leqslant \|x_n - x\| + \|y - x_n\| < 2\epsilon$, ce qui est faux pour $\epsilon \leqslant \frac{\|x-y\|}{3}$.
-
+	Soient $x$ et $y$ deux limites de la suite convergente $(x_n)_n$.
+	
+	Pour tout $\epsilon > 0$ on peut trouver un rang $N$ à partir duquel $\|x_n-x\|<\epsilon$ et $\|y_n-x\|<\epsilon$, d'où
+	
+	$$\|x-y\| \leqslant \|x-x_n\| + \|x_n-y\| < 2\epsilon$$
+	
+	Cette inégalité est vraie pour tout $\epsilon>0$ donc $x=y$.
+	
 	\cqfd
 \end{myproof}
 
@@ -306,13 +317,13 @@ On remarquera qu'une suite convergente est bornée.
 	
 	$$\|f\|_{\infty} = \sup_{[0,1]} |f(x)| \text{ et } \|f\| = \int_{0}^{1} |f|$$
 	
-	On considère la suite de fonction $f_n ~ : ~ x \longmapsto x^n$, on a $\displaystyle \|f_n\|_{\infty} = \sup_{[0, 1]} |f_n(x)| = 1$ mais $\|f_n\|=\int_{0}^{1}x^ndx=\frac{1}{n+1} \longrightarrow 0$, les normes ne sont pas équivalentes.
+	On considère la suite de fonction $f_n ~ : ~ x \longmapsto x^n$, on a $$\displaystyle \|f_n\|_{\infty} = \sup_{[0, 1]} |f_n(x)| = 1$$ mais $\|f_n\|=\int_{0}^{1}x^ndx=\frac{1}{n+1} \longrightarrow 0$, les normes ne sont pas équivalentes.
 \end{myrem}
 
 \begin{mydef}
 	On appelle \textit{valeur d'adhérence} de $x_n$ toute limite d'une sous-suite (suite extraite) de $(x_n)$.
 	
-	Et on appelle \textit{point d'accumulation} d'une suite $(x_n)$ un point $x$ tel que $\forall \epsilon > 0, ~ \exists n ~ : ~ \|x_n-x\| < \epsilon$.
+	Et on appelle \textit{point d'accumulation} d'une suite $(x_n)$ un point $x$ tel que $\forall \epsilon > 0, ~ \forall N, ~ \exists n > N ~ : ~ \|x_n-x\| < \epsilon$.
 \end{mydef}
 
 \begin{myproposition}
@@ -320,17 +331,35 @@ On remarquera qu'une suite convergente est bornée.
 \end{myproposition}
 
 \begin{myproof}
-	Soit $x$ une valeur d'adhérence de $(x_n)$, il existe une fonction entière strictement croissante $\phi$ telle que $\forall \epsilon > 0, ~ \exists N ~ : ~ \forall n > N, ~ \|x_{\phi(n)}-x\| < \epsilon$, donc $x$ est un point d'accumulation.
+	\begin{proofpart}{Valeur d'adhérence $\Longrightarrow$ point d'accumulation :}
 	
-	Réciproquement, soit $x$ un point d'accumulation d'une suite $(x_n)$, on construit par récurrence $\phi$ telle que $x$ soit la limite de $(x_{\phi(n)})_n$ par $\phi(0)=0$ et $\phi(n+1) = \min\{n > \phi(n) ~ | ~ \|x_n-x\| < 2^{-n}\}$.
+		Soit $x$ une valeur d'adhérence de $(x_n)$, il existe une fonction entière strictement croissante $\phi$ telle que $$\forall \epsilon > 0, ~ \exists N ~ : ~ \forall n > N, ~ \|x_{\phi(n)}-x\| < \epsilon$$
+		donc $x$ est un point d'accumulation.
+	\end{proofpart}
 	
-	L'application est bien strictement croissante.
+	\begin{proofpart}{Point d'accumulation $\Longrightarrow$ valeur d'adhérence :}
+		Réciproquement, soit $x$ un point d'accumulation d'une suite $(x_n)$, on construit par récurrence $\phi$ telle que $x$ soit la limite de $(x_{\phi(n)})_n$ par 
+		
+		$$
+		\phi(n) = \left\{
+			\begin{array}{ll}
+				0, ~ n = 0 \\
+				\min\{k > \phi(n-1) ~ | ~ \|x_k-x\| < 2^{-n}\}, ~ n > 0
+			\end{array}
+		\right.
+		$$
+		
+		L'application est bien strictement croissante.
+		
+		Montrons à présent que $y_n=x_{\phi(n)}$ converge vers $x$ : 
+		
+		soit $\epsilon \in ]0, 1[$, on cherche $N$ tel que pour tout $n > N, ~ \|x_n-x\| < \epsilon$.
+		
+		Pour $N > \frac{\ln \epsilon}{\ln 2}$ on a $$\forall n > N, ~ \|y_n-x\| < 2^{-n} < \epsilon$$
+		
+		$(y_n)_n$ est bien une suite convergeant vers $x$.
+	\end{proofpart}
 	
-	Montrons à présent que $y_n=x_{\phi(n)}$ converge vers $x$ : 
-	
-	soit $\epsilon \in ]0, 1[$, on cherche $N$ tel que pour tout $n > N, ~ \|x_n-x\| < \epsilon$.
-	
-	Soit $k$ tel que $\epsilon < 2^{-k}$, on pose $\displaystyle N = \left| ln \frac{\epsilon}{2} \right|$, on a ainsi pour tout $n > N$, $\|y_n - x\| < \epsilon$
 \end{myproof}
 
 \begin{myproposition}
@@ -340,25 +369,38 @@ On remarquera qu'une suite convergente est bornée.
 \end{myproposition}
 
 \begin{myproof}
-	On suppose $F$ fermé et $(x_n)$ une suite convergente de $F$ de limite $x$. Montrons que $x \in F$.
+	\begin{proofpart}{$F$ fermé $\Longrightarrow$ $F$ contient les limites de ses suites}
+
+		Soit $(x_n)$ une suite convergente de $F$ de limite $x$. Montrons que $x \in F$.
+		
+		Supposons par l'absurde $x \not \in F$, alors $x \in (E \verb|\| F)$ qui est ouvert. Il existe donc $r > 0$ tel que $\mathcal{B}(x, r) \subseteq (E \verb|\|F)$, mais il existe un rang à partir duquel $\|x_n-x\| < \frac{r}{2}$, c'est à dire $x_n \in \mathcal{B}(x, r)$, ce qui contredit $\mathcal{B}(x, r) \subseteq (E \verb|\| F)$.
+	\end{proofpart}
 	
-	Supposons par l'absurde $x \not \in F$, alors $x \in (E \verb|\| F)$ qui est ouvert. Il existe donc $r > 0$ tel que $\mathcal{B}(x, r) \subseteq (E \verb|\|F)$, mais il existe un rang à partir duquel $\|x_n-x\| < \frac{r}{2}$, c'est à dire $x_n \in \mathcal{B}(x, r)$, ce qui contredit $\mathcal{B}(x, r) \subseteq (E \verb|\| F)$.
 	
-	On suppose à présent que $F$ contient la limite de toute ses suites convergentes, montrons que $F$ est fermée, donc que $E \verb|\|F$ est ouvert.
+	\begin{proofpart}{$F$ contient les limites de ses suites $\Longrightarrow$ $F$ est fermé}
 	
-	Soit $x \in (E \verb|\|F)$, montrons qu'il existe $r > 0$ tel que $\mathcal{B}(x, r) \subseteq (E \verb|\|F)$.
+		On suppose à présent que $F$ contient la limite de toute ses suites convergentes, montrons que $F$ est fermée, donc que $E \verb|\|F$ est ouvert.
+		
+		Soit $x \in (E \verb|\|F)$, montrons qu'il existe $r > 0$ tel que $\mathcal{B}(x, r) \subseteq (E \verb|\|F)$.
+		
+		Supposons que pour tout $n$, $\mathcal{B}\left(x, \frac{1}{n}\right) \not \subseteq (E \verb|\| F)$, c'est à dire quil existe $x_n \in F$ tel que $x_n \in \mathbb{B}\left(x, \frac{1}{n}\right)$
+		
+		On a ainsi construit une suite de $F$ convergente vers $x \in F$, donc par hypothèse $x \in F$, ce qui contredit le fait que $x$ appartienne au complémentaire de $F$.
+	\end{proofpart}
 	
-	Supposons que pour tout $n$ $\mathcal{B}\left(x, \frac{1}{n}\right) \not \subseteq (E \verb|\| F)$, c'est à dire quil existe $x_n \in F$ tel que $x_n \in \mathbb{B}\left(x, \frac{1}{n}\right)$
-	
-	On a ainsi construit une suite de $F$ convergente vers $x \in F$, donc par hypothèse $x \in F$, ce qui contredit le fait que $x$ appartienne au complémentaire de $F$.
+	\cqfd
 \end{myproof}
 
 \begin{mydef}
-	Soit $X$ une partie d'un espace vectoriel normé $E$. Il existe un plus grand ouvert inclus dans $X$ appelé \textit{intérieur de $X$} noté $\mathring{A}$.
+	Soit $X$ une partie d'un espace vectoriel normé $E$.
 	
-	Il existe un unique plus petit fermé contenant $X$ appelé \textit{adhérence} de $X$ et noté $\overline{X}$.
+	\begin{itemize}
+	\item \textit{L'intérieur de $X$} est le plus grand ouvert inclus dans $X$ noté $\mathring{A}$.
 	
-	On appelle frontière de $X$ l'ensemble $Fr(X)=\overline{X} \verb|\| \mathring{X}$
+	\item \textit{L'adhérence de $X$} est le plus petit fermé contenant $X$ noté $\overline{X}$.
+	
+	\item \textit{La frontière de $X$} est l'ensemble $\partial X=Fr(X)=\overline{X} \verb|\| \mathring{X}$
+	\end{itemize}
 \end{mydef}
 
 \begin{myexmpl}
@@ -384,10 +426,40 @@ On remarquera qu'une suite convergente est bornée.
 	Soit $x \in U$, il existe $r>0$ tel que $\mathcal{B}(x, r) \subseteq U$ ar $U$ est ouvert. Donc $x \in \mathring{X}$.
 	
 	$\mathring{X}$ est donc ouvert, contenu dans $X$. Il contient tous les ouverts de $X$, donc c'est le plus grand de $X$, d'où le résultat.
+	\cqfd
 \end{myproof}
 
-\begin{myproof}Adhérence
-	On définit $\overline{X}$ comme l'ensemble des valeurs d'adhérence de suites de X.
+\begin{myproposition}
+	On caractérise l'adhérence d'une partie $X$ comme étant l'ensemble des limites de sous-suites de $X$.
+\end{myproposition}
+
+\begin{myproof}
+	Soit $A$ l'ensemble des limites de suites convergentes à valeurs dans $X$.
+	
+	
+	\begin{proofpart}{$A$ est un fermé contenant $X$}
+		Pour tout $x \in X$, $x$ peut être la limite d'une suite à valeur dans $X$, c'est à dire $x \in A$ et donc $X \subseteq A$.
+		
+		Cela signifie en particulier que $A$ contient les limites de ses suites : c'est un fermé.
+	\end{proofpart}
+	
+	\begin{proofpart}{$A$ est le plus petit fermé contenant X}
+		Supposons que $A$ ne soit pas minimal, soit $B$ un fermé vérifiant
+		$$
+			\left\{
+			\begin{array}{l}
+				X \subseteq B\\
+				B \subsetneq A
+			\end{array}\right.$$
+		
+		Il existe donc $a \in A$ tel que $a \not\in B$, c'est à dire la limite d'une suite $(a_n)_n$ à valeurs dans $X$.
+		
+		Or $B$ est un fermé, donc il contient la limite de ses suites, dont $(a_n)$, donc $a \in B$ : \textbf{contradiction}.
+		
+		$A$ est donc minimal.
+	\end{proofpart}
+	
+	$A$ est donc le plus petit fermé contenant $X$, c'est à dire $A = \overline{X}$	
 \end{myproof}
 
 TODO faire la démonstration.
@@ -423,6 +495,7 @@ TODO faire la démonstration.
 	
 	$f^{-1}(U)$ est donc un ouvert.
 	
+	\cqfd
 \end{myproof}
 
 \end{document}

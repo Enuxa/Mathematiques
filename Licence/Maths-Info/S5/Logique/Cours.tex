@@ -213,7 +213,7 @@ TODO : vérifier dernier point
 On s'intéresse à des propositions dont la valeur de vérité est soit vrai soit faux. On a besoin d'une \textbf{interprétation} (en terme de vrai ou faux) de ces constantes propositionnelles.
 
 \begin{mydef}
-	Une \textit{valuation} est une fonction $v ~ : ~ \mathcal{P} \longrightarrow \{0, 1\}$ (on l'appelle aussi interprétation).
+	Une \textit{valuation} est une fonction $v ~ : ~ \mathcal{P} \longrightarrow \{0, 1\}$.
 	Étant donné une valuation $v$, on définit l'\textit{interprétation} $\fun{\overline{v}}{\mathcal{F}}{\{0, 1\}}$ comme ceci
 	\begin{itemize}
 		\item si $F = p \in \mathcal{P}$ alors $\overline{v}=v(p)$
@@ -277,5 +277,103 @@ On exprime deux propositions :
 	
 	\item On respecte les incompatibilités : $G = \underbrace{\bigwedge\limits_{I \subseteq \mathcal{L}} \left( \bigwedge\limits_{j \leqslant k}\neg \left( \bigwedge\limits_{i \in I}p(i, j)\right)\right)}_{\substack{\text{Pour chaque ensemble } I \text{ de produits } \\ \text{ne pouvant pas être stockés ensemble} \\ \text{et pour chaque camion } j , \\ \text{aucun produit de } I \text{ n'est présent dans le camion}}}$
 \end{itemize}
+
+\part{Compléments}
+
+\section{Calcul propositionnel}
+
+\subsection{Théorème de lecture unique}
+
+\begin{mydef}
+	Soient $w_0, w_1=a_1...a_n \in \mathcal{M}$, on dit que $w_0$ est un segment initial de $w_1$, noté $w_0 \subseteq w_1$ si $w_0=a_1...a_i$ avec $1 \leqslant i \leqslant n$, et $w_0$ est un segment propre, noté $w_0 \subsetneq w_1$ si $i < n$.
+\end{mydef}
+
+\begin{mylemma}
+	Soit $F \in \mathcal{F}$ et $G \subsetneq F$, alors $M \notin \mathcal{F}$
+\end{mylemma}
+
+\begin{myproposition}
+	On note $o[F]$ le nombre de parenthèses ouvrantes d'une formule et $f[F]$ pour les parenthèses fermées.
+	\begin{enumerate}
+			\item $\forall F \in \mathcal{F}, ~ o[F]=o[G]$
+			\item $\forall F, M \in \mathcal{F}, ~ M \subsetneq F \Longrightarrow
+			\left\{
+			\begin{array}{ll}
+				(a) & o[M] > f[M], \text{ et donc } M \notin \mathcal{F} \\
+				(b) & \text{ou } M = \neg ... \neg \notin \mathcal{F} \\
+				(c) & \text{ou } M = \epsilon \notin \mathcal{F}
+			\end{array}
+			\right.$
+	\end{enumerate}
+\end{myproposition}
+
+\begin{myproof}
+	Soient $F \in \mathcal{F}$ et $M \subsetneq F$
+	
+	\begin{itemize}
+		\item Si $F=\neg G = \neg g_1 ... g_n$
+		
+		\begin{itemize}
+			\item cas (c) : $M=\epsilon$
+			\item cas (b) : $M=\neg$
+			\item cas (a) : $M=\neg g_1 ... g_i \subsetneq G, ~ i < n$
+			
+			alors soit $o[M] = o(g_1...g_i) > f(g_1 ... g_i) = f[M]$, ce qui rentre dans le cas (a)
+			
+			soit $g_1...g_i = \underbrace{\neg ... \neg}_{i \text{ fois}}$, alors $M=\underbrace{\neg ... \neg}_{i + 1 \text{ fois}}$ : on est encore dans le cas (b).
+		\end{itemize}
+		
+		\item Si $F=(G \circ H) = (g_1 ... g_m \circ h_1 ... h_n)$ et $M \subsetneq F$, soit $M=\epsilon$, soit $M \neq \epsilon$ avec
+		
+		\begin{itemize}
+			\item $M=($ alors $o[M]=1 > f[M] = 0$
+			\item $M=(g_1...g_i, ~ 1 \leqslant i \leqslant m$, donc $o[M]=o(g_1...g_i) + 1 > f[M] = f(g_1...g_i)$
+			\item $M=(G \circ$ et $o[M]=1+o[G] > f[M]=f[G]$
+			\item $M=(G \circ h_1 ... h_i, ~ 1 \leqslant i \leqslant n$, alors $o[M] = 1 + o[G] + o(h_1...h_i)$
+			
+			$o[M] = 1 + f[G] + o[h_1...h_i] \geqslant 1 + f[G] + f[h_1...h_i] = 1 + f[(G \circ h_1...h_i] > f[(G \circ h_1...h_i]$
+		\end{itemize}
+		
+		\item Si $F \in \mathcal{P}, ~ M=\epsilon$, c'est le cas (c).
+	\end{itemize}
+\end{myproof}
+
+\begin{myproof}
+	Démontrons le théorème de lecture unique par induction sur la longueur d'une formule.
+	
+	Soit $F \in \mathcal{F}$
+	
+	\begin{itemize}
+		\item Si $F \in \mathcal{P}$ pour tout $q \in \mathcal{P} \backslash \{F\}$, $q \neq F$.
+		
+		$\forall G \in \mathcal{F}, ~ F \neq \neg G$ car $|\neg G| \geqslant 2 > 1 = |F|$
+		
+		$\forall G, H \in \mathcal{F}, ~ \forall \star \in \{\land, \lor, \longrightarrow\}, ~ (G \star H) \neq F$ car $|F| = 1 < 5 \leqslant |(G \star H)|$
+		
+		\item Si $F=\neg G$ avec $G \in \mathcal{F}$, pour tout $q \in \mathcal{F}$ on a $q \neq F$.
+		
+		$\forall G \in \mathcal{F}$ on a $\neg G \neq F$ par hypothèse de récurrence.
+		
+		$\neg G \neq (H \star K)$ pour toute formules $H$ et $G$ et tout opérateur $\star$.
+		
+		\item Si $F=(G_1 \star G_2)$, supposons $F=(H_1 \circ H_2)$ que l'on réécrit
+		
+		$$a_1...a_k \star b_1...b_l = c_1...c_m \circ d_1...d_n$$
+		
+		Montrons $G_1 = H_1$, ce qui impliquera $\star = \circ$ et $G_2 = H_2$.
+		
+		On est face à l'un des deux cas :
+		
+		$$(*) ~ \underbrace{a_1 a_2 a_3 ...a_k}_{G_1 \in \mathcal{F}} \subseteq \underbrace{c_1 c_2 c_3 ...a_m}_{H_1 \in \mathcal{F}}$$
+		
+		$$(**) ~ c_1 c_2 c_3 ...c_m\subseteq d_1 d_2 d_3 ...d_n$$
+		
+		les deux cas sont symétriques, on suppose $(*)$ et par l'absurde que $G_1 \neq H_1$, c'est à dire $G_1 \subsetneq H_1$, ce qui implique d'après le lemme $G_1 \notin \mathcal{F}$.
+		
+		On a également $\forall F \in \mathcal{F}, ~ \neg G \neq (G_1 \star G_2)$ et $\forall p \in \mathcal{P}, ~ G_2$.
+		
+		\cqfd
+	\end{itemize}
+\end{myproof}
 
 \end{document}
