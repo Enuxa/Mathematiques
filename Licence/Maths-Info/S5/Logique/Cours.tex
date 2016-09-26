@@ -290,25 +290,27 @@ On exprime deux propositions :
 
 \begin{mylemma}
 	Soit $F \in \mathcal{F}$ et $G \subsetneq F$, alors $M \notin \mathcal{F}$
+	
+	Autrement dit, aucune formule n'est le préfixe d'une autre.
 \end{mylemma}
 
 \begin{myproposition}
-	On note $o[F]$ le nombre de parenthèses ouvrantes d'une formule et $f[F]$ pour les parenthèses fermées.
+	On note $o[F]$ le nombre de parenthèses ouvrantes d'une formule $F$ et $f[F]$ pour ses parenthèses fermées.
 	\begin{enumerate}
 			\item $\forall F \in \mathcal{F}, ~ o[F]=o[G]$
-			\item $\forall F, M \in \mathcal{F}, ~ M \subsetneq F \Longrightarrow
+			\item $\forall F \in \mathcal{F}, \forall M \in \Sigma^*, ~ M \subsetneq F \Longrightarrow
 			\left\{
 			\begin{array}{ll}
-				(a) & o[M] > f[M], \text{ et donc } M \notin \mathcal{F} \\
-				(b) & \text{ou } M = \neg ... \neg \notin \mathcal{F} \\
-				(c) & \text{ou } M = \epsilon \notin \mathcal{F}
+				o[M] > f[M], \text{ et donc } M \notin \mathcal{F} & (a) \\
+				\textbf{x-ou } M = \neg ... \neg \notin \mathcal{F} & (b)\\
+				\textbf{x-ou } M = \epsilon \notin \mathcal{F} & (c)
 			\end{array}
 			\right.$
 	\end{enumerate}
 \end{myproposition}
 
 \begin{myproof}
-	Soient $F \in \mathcal{F}$ et $M \subsetneq F$
+	Soient $F \in \mathcal{F}$ et $M \subsetneq F$, montrons le second point.
 	
 	\begin{itemize}
 		\item Si $F=\neg G = \neg g_1 ... g_n$
@@ -323,12 +325,12 @@ On exprime deux propositions :
 			soit $g_1...g_i = \underbrace{\neg ... \neg}_{i \text{ fois}}$, alors $M=\underbrace{\neg ... \neg}_{i + 1 \text{ fois}}$ : on est encore dans le cas (b).
 		\end{itemize}
 		
-		\item Si $F=(G \circ H) = (g_1 ... g_m \circ h_1 ... h_n)$ et $M \subsetneq F$, soit $M=\epsilon$, soit $M \neq \epsilon$ avec
+		\item Si $F=(G \circ H) = (g_1 ... g_m \circ h_1 ... h_n)$ et $M \subsetneq F$, soit $M=\epsilon$ (cas (c)), soit $M \neq \epsilon$ avec
 		
 		\begin{itemize}
 			\item $M=($ alors $o[M]=1 > f[M] = 0$
 			\item $M=(g_1...g_i, ~ 1 \leqslant i \leqslant m$, donc $o[M]=o(g_1...g_i) + 1 > f[M] = f(g_1...g_i)$
-			\item $M=(G \circ$ et $o[M]=1+o[G] > f[M]=f[G]$
+			\item $M=(G \circ$ donc $o[M]=1+o[G] > f[M]=f[G]$
 			\item $M=(G \circ h_1 ... h_i, ~ 1 \leqslant i \leqslant n$, alors $o[M] = 1 + o[G] + o(h_1...h_i)$
 			
 			$o[M] = 1 + f[G] + o[h_1...h_i] \geqslant 1 + f[G] + f[h_1...h_i] = 1 + f[(G \circ h_1...h_i] > f[(G \circ h_1...h_i]$
@@ -336,6 +338,8 @@ On exprime deux propositions :
 		
 		\item Si $F \in \mathcal{P}, ~ M=\epsilon$, c'est le cas (c).
 	\end{itemize}
+	
+	\cqfd
 \end{myproof}
 
 \begin{myproof}
@@ -370,7 +374,7 @@ On exprime deux propositions :
 		
 		les deux cas sont symétriques, on suppose $(*)$ et par l'absurde que $G_1 \neq H_1$, c'est à dire $G_1 \subsetneq H_1$, ce qui implique d'après le lemme $G_1 \notin \mathcal{F}$.
 		
-		On a également $\forall F \in \mathcal{F}, ~ \neg G \neq (G_1 \star G_2)$ et $\forall p \in \mathcal{P}, ~ G_2$.
+		On a également $\forall F \in \mathcal{F}, ~ \neg G \neq (G_1 \star G_2)$ et $\forall p \in \mathcal{P}, ~ p \neq (G_1 \star G_2)$.
 		
 		\cqfd
 	\end{itemize}

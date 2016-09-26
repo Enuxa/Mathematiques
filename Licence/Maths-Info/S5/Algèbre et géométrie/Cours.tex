@@ -410,4 +410,18 @@ On pose $A = \{g^n ~ | ~ n \geqslant 0\}$.
 
 $g \in A$ donc $\langle g \rangle \subseteq A$, de plus $g \in \langle g \rangle$ alors par récurrence $\forall n \geqslant 0, ~ g^n \in \langle g \rangle$, d'où $A \subset \langle g \rangle$.
 
+\paragraph{Solution de l'exercice 6}
+
+Soit $d > 0$ tel que
+\begin{enumerate}
+	\item $g^d=e$
+	\item $\forall k < d, ~ (k | d \Longrightarrow g^k \neq e)$
+\end{enumerate}
+
+On a que $d \geqslant ord(g)$, par minimalité de $org(g)$.
+
+Supposons maintenant que $d \neq org(g)$, c'est à dire que $d > ord(g)$, l'ordre de $g$ divise nécessairement $d$, d'où l'existence d'un entier $n > 1$ tel que $d= n \cdot ord(g)$.
+
+$ord(g)$ est donc un diviseur strict de $g$ ! $d$ est ainsi égal à l'ordre de $g$, sinon on aurait d'après (2) $g^{ord(g)} \neq e$
+
 \end{document}
