@@ -63,6 +63,7 @@
 }
 
 \newenvironment{proofpart}[1]{
+	\noindent
 	{\boldmath #1}
 }{
 	\checkmark
@@ -412,16 +413,34 @@ $g \in A$ donc $\langle g \rangle \subseteq A$, de plus $g \in \langle g \rangle
 
 \paragraph{Solution de l'exercice 6}
 
-Soit $d > 0$ tel que
-\begin{enumerate}
-	\item $g^d=e$
-	\item $\forall k < d, ~ (k | d \Longrightarrow g^k \neq e)$
-\end{enumerate}
+Soit $d > 0$ et $g \in G$, montrons l'équivalence entre les deux propositions suivantes
 
-On a que $d \geqslant ord(g)$, par minimalité de $org(g)$.
+$$
+\begin{array}{ll}
+	(i) & d \text{ est l'odre de } g \\
+	(ii) & g^d=e \text{ et } \forall k | d, ~ (k < d \Longrightarrow g^k \neq e)
+\end{array}
+$$
 
-Supposons maintenant que $d \neq org(g)$, c'est à dire que $d > ord(g)$, l'ordre de $g$ divise nécessairement $d$, d'où l'existence d'un entier $n > 1$ tel que $d= n \cdot ord(g)$.
+\noindent
+\begin{proofpart}{$(i) \Longrightarrow (ii)$}
 
-$ord(g)$ est donc un diviseur strict de $g$ ! $d$ est ainsi égal à l'ordre de $g$, sinon on aurait d'après (2) $g^{ord(g)} \neq e$
+	$d$ étant l'ordre de $g$, on a $g^d=e$, et par minimalité de $d$ on a pour tout $k < d$, $g^k \neq e$ (en particulier pour tout diviseur strict de $d$).
+\end{proofpart}
+
+\begin{proofpart}{$(ii) \Longrightarrow (i)$}
+
+	$d$ vérifie :
+	\begin{enumerate}
+		\item $g^d=e$
+		\item $\forall k < d, ~ (k | d \Longrightarrow g^k \neq e)$
+	\end{enumerate}
+	
+	On a que $d \geqslant ord(g)$, par minimalité de $ord(g)$.
+	
+	Supposons maintenant que $d \neq ord(g)$, c'est à dire que $d > ord(g)$, l'ordre de $g$ divise nécessairement $d$, d'où l'existence d'un entier $n > 1$ tel que $d= n \cdot ord(g)$.
+	
+	$ord(g)$ est donc un diviseur strict de $d$ ! $d$ est ainsi égal à l'ordre de $g$, sinon on aurait d'après (2) $g^{ord(g)} \neq e$
+\end{proofpart}
 
 \end{document}
