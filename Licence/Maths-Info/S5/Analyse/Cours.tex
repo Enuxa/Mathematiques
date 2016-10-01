@@ -279,7 +279,7 @@ En dimension finie, toutes les normes sont équivalentes ! Cela n'est en revanch
 \end{myproof}
 
 \begin{mydef}
-	Une suite à valeurs dans $E$ est dite \textit{convergente vers $x \in E$} si pour tout $\epsilon > 0$ il existe un rang $N$ tel que pour tout $n \geqslant N$ on ait $\|x_n-x\| < \epsilon$.
+	Une suite à valeurs dans $E$ est dite \textit{convergente vers $x \in E$} si pour tout $\varepsilon > 0$ il existe un rang $N$ tel que pour tout $n \geqslant N$ on ait $\|x_n-x\| < \varepsilon$.
 	
 	Celle-ci est unique et on la note $\lim\limits_{n} x_n = x$.
 \end{mydef}
@@ -289,11 +289,11 @@ On remarquera qu'une suite convergente est bornée.
 \begin{myproof}
 	Soient $x$ et $y$ deux limites de la suite convergente $(x_n)_n$.
 	
-	Pour tout $\epsilon > 0$ on peut trouver un rang $N$ à partir duquel $\|x_n-x\|<\epsilon$ et $\|y_n-x\|<\epsilon$, d'où
+	Pour tout $\varepsilon > 0$ on peut trouver un rang $N$ à partir duquel $\|x_n-x\|<\varepsilon$ et $\|y_n-x\|<\varepsilon$, d'où
 	
-	$$\|x-y\| \leqslant \|x-x_n\| + \|x_n-y\| < 2\epsilon$$
+	$$\|x-y\| \leqslant \|x-x_n\| + \|x_n-y\| < 2\varepsilon$$
 	
-	Cette inégalité est vraie pour tout $\epsilon>0$ donc $x=y$.
+	Cette inégalité est vraie pour tout $\varepsilon>0$ donc $x=y$.
 	
 	\cqfd
 \end{myproof}
@@ -303,7 +303,7 @@ On remarquera qu'une suite convergente est bornée.
 	
 	Soit $A=\{x_n ~ | ~ n \geqslant 0\}$, et on note $l = \sup A$.
 	
-	Soit $\epsilon > 0$, $l - \epsilon$ ne majore pas $A$ donc il existe un rang $N$ à partir duquel $x_n \geqslant l-\epsilon$, mais on a aussi $x_n \leqslant l$ pour tout $n$, on a ainsi à partir de $N$ l'encadrement $l - \epsilon \leqslant x_n \leqslant l + \epsilon$.
+	Soit $\varepsilon > 0$, $l - \varepsilon$ ne majore pas $A$ donc il existe un rang $N$ à partir duquel $x_n \geqslant l-\varepsilon$, mais on a aussi $x_n \leqslant l$ pour tout $n$, on a ainsi à partir de $N$ l'encadrement $l - \varepsilon \leqslant x_n \leqslant l + \varepsilon$.
 	
 	On a de plus que $\lim\limits_{n} x_n = \sup \{x_n | n \geqslant 0\}$
 \end{myrem}
@@ -323,7 +323,7 @@ On remarquera qu'une suite convergente est bornée.
 \begin{mydef}
 	On appelle \textit{valeur d'adhérence} de $x_n$ toute limite d'une sous-suite (suite extraite) de $(x_n)$.
 	
-	Et on appelle \textit{point d'accumulation} d'une suite $(x_n)$ un point $x$ tel que $\forall \epsilon > 0, ~ \forall N, ~ \exists n > N ~ : ~ \|x_n-x\| < \epsilon$.
+	Et on appelle \textit{point d'accumulation} d'une suite $(x_n)$ un point $x$ tel que $\forall \varepsilon > 0, ~ \forall N, ~ \exists n > N ~ : ~ \|x_n-x\| < \varepsilon$.
 \end{mydef}
 
 \begin{myproposition}
@@ -333,29 +333,29 @@ On remarquera qu'une suite convergente est bornée.
 \begin{myproof}
 	\begin{proofpart}{Valeur d'adhérence $\Longrightarrow$ point d'accumulation :}
 	
-		Soit $x$ une valeur d'adhérence de $(x_n)$, il existe une fonction entière strictement croissante $\phi$ telle que $$\forall \epsilon > 0, ~ \exists N ~ : ~ \forall n > N, ~ \|x_{\phi(n)}-x\| < \epsilon$$
+		Soit $x$ une valeur d'adhérence de $(x_n)$, il existe une fonction entière strictement croissante $\varphi$ telle que $$\forall \varepsilon > 0, ~ \exists N ~ : ~ \forall n > N, ~ \|x_{\varphi(n)}-x\| < \varepsilon$$
 		donc $x$ est un point d'accumulation.
 	\end{proofpart}
 	
 	\begin{proofpart}{Point d'accumulation $\Longrightarrow$ valeur d'adhérence :}
-		Réciproquement, soit $x$ un point d'accumulation d'une suite $(x_n)$, on construit par récurrence $\phi$ telle que $x$ soit la limite de $(x_{\phi(n)})_n$ par 
+		Réciproquement, soit $x$ un point d'accumulation d'une suite $(x_n)$, on construit par récurrence $\varphi$ telle que $x$ soit la limite de $(x_{\varphi(n)})_n$ par 
 		
 		$$
-		\phi(n) = \left\{
+		\varphi(n) = \left\{
 			\begin{array}{ll}
 				0, ~ n = 0 \\
-				\min\{k > \phi(n-1) ~ | ~ \|x_k-x\| < 2^{-n}\}, ~ n > 0
+				\min\{k > \varphi(n-1) ~ | ~ \|x_k-x\| < 2^{-n}\}, ~ n > 0
 			\end{array}
 		\right.
 		$$
 		
 		L'application est bien strictement croissante.
 		
-		Montrons à présent que $y_n=x_{\phi(n)}$ converge vers $x$ : 
+		Montrons à présent que $y_n=x_{\varphi(n)}$ converge vers $x$ : 
 		
-		soit $\epsilon \in ]0, 1[$, on cherche $N$ tel que pour tout $n > N, ~ \|x_n-x\| < \epsilon$.
+		soit $\varepsilon \in ]0, 1[$, on cherche $N$ tel que pour tout $n > N, ~ \|x_n-x\| < \varepsilon$.
 		
-		Pour $N > \frac{\ln \epsilon}{\ln 2}$ on a $$\forall n > N, ~ \|y_n-x\| < 2^{-n} < \epsilon$$
+		Pour $N > \frac{\ln \varepsilon}{\ln 2}$ on a $$\forall n > N, ~ \|y_n-x\| < 2^{-n} < \varepsilon$$
 		
 		$(y_n)_n$ est bien une suite convergeant vers $x$.
 	\end{proofpart}
@@ -467,7 +467,7 @@ On remarquera qu'une suite convergente est bornée.
 \begin{mydef}
 	Soient $E$ et $F$ deux espaces vectoriels normés, soient $X \subseteq E$, $Y \subseteq F$ et $f$ une application de $X$ dans $Y$.
 	
-	On dit que $f$ est continue en un point $x \in X$ si $$\forall \epsilon > 0, \exists \delta > 0 ~ : ~ (\forall u, ~ \|x-u\| < \delta \Longrightarrow \|f(x)-f(u)\| < \epsilon)$$
+	On dit que $f$ est continue en un point $x \in X$ si $$\forall \varepsilon > 0, \exists \delta > 0 ~ : ~ (\forall u, ~ \|x-u\| < \delta \Longrightarrow \|f(x)-f(u)\| < \varepsilon)$$
 \end{mydef}
 
 \begin{mythm}
@@ -501,11 +501,11 @@ On remarquera qu'une suite convergente est bornée.
 	\end{proofpart}
 	
 	\begin{proofpart}{2. $\Longrightarrow$ 1.}
-		Soit $\epsilon$, on veut trouver $\delta > 0$ tel que si $\|x-y\| < \delta$, alors $\|f(x)-f(y)\| < \epsilon$.
+		Soit $\varepsilon$, on veut trouver $\delta > 0$ tel que si $\|x-y\| < \delta$, alors $\|f(x)-f(y)\| < \varepsilon$.
 	
-		Soit $x \in X$, alors $\mathcal{B}_\epsilon(f(x))$ est un ouvert de de $Y$, on sait que $f^{-1}(\mathcal{B}_\epsilon(f(x)))$ est un ouvert de $X$ contenant $x$, il existe donc $\delta > 0$ tel que $\mathcal{B}_\delta(x) \subseteq f^{-1}(\mathcal{B}_\epsilon(f(x)))$.
+		Soit $x \in X$, alors $\mathcal{B}_\varepsilon(f(x))$ est un ouvert de de $Y$, on sait que $f^{-1}(\mathcal{B}_\varepsilon(f(x)))$ est un ouvert de $X$ contenant $x$, il existe donc $\delta > 0$ tel que $\mathcal{B}_\delta(x) \subseteq f^{-1}(\mathcal{B}_\varepsilon(f(x)))$.
 		
-		Autrement dit, si $\|x-y\| < \delta$ alors $y \in f^{-1}(\mathcal{B}_\epsilon(f(x)))$, c'est-à-dire $\|f(x)-f(y)\| < \epsilon$.
+		Autrement dit, si $\|x-y\| < \delta$ alors $y \in f^{-1}(\mathcal{B}_\varepsilon(f(x)))$, c'est-à-dire $\|f(x)-f(y)\| < \varepsilon$.
 	\end{proofpart}
 	
 	\begin{proofpart}{1. $\Longleftrightarrow$ 2.}
@@ -527,9 +527,20 @@ On remarquera qu'une suite convergente est bornée.
 \end{mycor}
 
 \begin{myrem}
-	L'hypothèse que $X'$ soit ouvert est nécessaire pour le point 2., par exemple si $X=\mathbb{R}^2$ et $$\func{f}{\mathbb{R}^2}{\mathbb{R}}{(x, y)}{0 \text{ si } y \neq 0 \text{, } 1 \text{ sinon.} }$$
-	
-	$f$ n'est pas continue sur $\mathbb{R}^2$, mais $f_{|X'}$ est continue pour $X' = \mathbb{R} \times \{0\}$, qui n'est pas un ouvert de $\mathbb{R}^2$.
+	L'hypothèse que $X'$ soit ouvert est nécessaire pour le point 2.
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=550pt]{Application_continue}
+		\caption{Restriction continue sur une partie non-ouverte ou ouverte}
+		
+		$\func{f}{\mathbb{R}^2}{\mathbb{R}}{u}{\text{rouge si } u \in X', ~ \text{ bleu sinon}}$
+		
+		\begin{itemize}
+		\item A gauche, $f_{|X'}$ est continue mais $f$ n'est pas continue sur $X'$ car on ne peut pas trouver une boule ouverte de $X'$ autour du point $u$.
+		
+		\item A droite, on peut trouver une boule ouverte autour de $u$ car $X'$ est ouvert.
+		\end{itemize}
+	\end{figure}
 \end{myrem}
 
 \begin{myproof}
@@ -546,12 +557,12 @@ On remarquera qu'une suite convergente est bornée.
 	\begin{proofpart}{Point 2.}
 		$f_{|X'}$ est continue, soit $x \in X'$, montrons que $f$ est continue en $x$.
 		
-		Soit $\epsilon > 0$, il existe $\delta
-		 > 0$ tel que si $y \in X'$ et $\|x-y\| < \delta$ alors $\|f(x)-f(y)\| < \epsilon$
+		Soit $\varepsilon > 0$, il existe $\delta
+		 > 0$ tel que si $y \in X'$ et $\|x-y\| < \delta$ alors $\|f(x)-f(y)\| < \varepsilon$
 		 
 		 Comme $X'$ est ouvert, il existe $r > 0$ tel que $\mathcal{B}_r(x) \subseteq X'$.
 		 
-		 On choisit $\delta' \leqslant \min\{r, \delta\}$, alors $\forall y \in \mathcal{B}_{\delta'}, ~ \|f(x)-f(y)\| < \epsilon$, donc $f$ est continue en $x$.
+		 On choisit $\delta' \leqslant \min\{r, \delta\}$, alors $\forall y \in \mathcal{B}_{\delta'}, ~ \|f(x)-f(y)\| < \varepsilon$, donc $f$ est continue en $x$.
 	\end{proofpart}
 	
 	\begin{proofpart}{Point 3.}
@@ -562,7 +573,7 @@ On remarquera qu'une suite convergente est bornée.
 \section{Applications uniformément continues, applications linéaires continues}
 
 \begin{mydef}
-	Une application $\funcshort{f}{E}{F}$ est \textit{uniformément continue} si $$\forall \epsilon, ~ \exists \delta > 0 ~ : ~ \forall x, y \in E, ~ (\|x-y\| < \delta \Longrightarrow \|f(x)-f(y\| < \epsilon)$$
+	Une application $\funcshort{f}{E}{F}$ est \textit{uniformément continue} si $$\forall \varepsilon, ~ \exists \delta > 0 ~ : ~ \forall x, y \in E, ~ (\|x-y\| < \delta \Longrightarrow \|f(x)-f(y\| < \varepsilon)$$
 \end{mydef}
 
 \begin{myrem}
@@ -576,14 +587,14 @@ On remarquera qu'une suite convergente est bornée.
 \end{mydef}
 
 \begin{mythm}
-	Soit $\funcshort{\phi}{E}{F}$ une application linéaire, alors les propriétés suivantes ont équivalentes :
+	Soit $\funcshort{\varphi}{E}{F}$ une application linéaire, alors les propriétés suivantes ont équivalentes :
 	
 	\begin{enumerate}
-		\item $\phi$ est continue
-		\item $\phi$ est continue en 0
-		\item $\phi$ est uniformément continue
-		\item $\phi$ est bornée sur $\mathcal{B}_1(0)$
-		\item $\phi$ est $k$-lipschitzienne.
+		\item $\varphi$ est continue
+		\item $\varphi$ est continue en 0
+		\item $\varphi$ est uniformément continue
+		\item $\varphi$ est bornée sur $\mathcal{B}_1(0)$
+		\item $\varphi$ est $k$-lipschitzienne.
 	\end{enumerate}
 \end{mythm}
 
@@ -595,7 +606,7 @@ On remarquera qu'une suite convergente est bornée.
 	\end{proofpart}
 	
 	\begin{proofpart}{$2. \Longrightarrow 4.$}
-		$f$ est continue en 0, donc pour tout $\epsilon > 0$ il existe $\delta > 0$ tel que $\|x\| < \delta \Longrightarrow \|f(x)\| < \epsilon$
+		$f$ est continue en 0, donc pour tout $\varepsilon > 0$ il existe $\delta > 0$ tel que $\|x\| < \delta \Longrightarrow \|f(x)\| < \varepsilon$
 		
 		Soit $x \in \mathcal{B}_1(0)$ avec $x \neq 0$, on a :
 		
@@ -603,9 +614,9 @@ On remarquera qu'une suite convergente est bornée.
 
 		$$\|\delta x\| < \delta$$
 		
-		$$\|f(\delta \cdot x)\| < \epsilon$$
+		$$\|f(\delta \cdot x)\| < \varepsilon$$
 		
-		$$\|f(x)\| < \frac{\epsilon}{\delta}$$
+		$$\|f(x)\| < \frac{\varepsilon}{\delta}$$
 	\end{proofpart}
 	
 	\begin{proofpart}{$4. \Longrightarrow 5.$}
@@ -634,7 +645,7 @@ La norme d'opérateur est comme son nom l'indique une norme, en particulier $$\f
 \begin{myproposition}
 	Soient $E$ et $F$ deux espaces vectoriels normés, o note $\mathcal{L}_C(E)$ l'ensemble des applications linéaires continues de $E$ dans $F$. C'est un espace vectoriel normé si on le munit de la norme d'opérateur.
 	
-	$$\forall \phi, \psi \in \mathcal{L}_C(E, E), ~ \|\phi \circ \psi\| \leqslant \|\phi\| \|\psi\|$$
+	$$\forall \varphi, \psi \in \mathcal{L}_C(E, E), ~ \|\varphi \circ \psi\| \leqslant \|\varphi\| \|\psi\|$$
 \end{myproposition}
 
 \begin{myrem}
@@ -680,7 +691,7 @@ On a les relations $$\|(x, y)\|_\infty \leqslant \|(x, y)\|_2 \leqslant \|(x, y)
 		et $\func{\pi_2}{E_1 \times E_2}{E_1}{(x,y)}{y}$
 		sont lipschitziennes.
 		
-		\item Une application $\funcshort{f}{Y}{E_1 \times E_2}$ s'écrit sous la forme $f=(f_1, f_2)$ avec $\funcshort{f_1}{Y}{E_1}$ et $\funcshort{f_2}{Y}{E_2}$ est continue si et seulement si $f_1$ et $f_2$ sont continues.
+		\item Une application $\funcshort{f}{Y}{E_1 \times E_2}$ notée $f=(f_1, f_2)$ avec $\funcshort{f_1}{Y}{E_1}$ et $\funcshort{f_2}{Y}{E_2}$ est continue si et seulement si $f_1$ et $f_2$ sont continues.
 		
 		\item Si $\funcshort{f}{E_1 \times E_2}{F}$ est continue alors pour tout $x \in E_1$, l'application $\func{f_x}{E_2}{F}{y}{f(x, y)}$ est continue et de même $\func{f_y}{E_1}{F}{x}{f(x, y)}$ est continue pour tout $y \in E_2$.
 	\end{enumerate}
@@ -720,8 +731,14 @@ On a les relations $$\|(x, y)\|_\infty \leqslant \|(x, y)\|_2 \leqslant \|(x, y)
 	\end{array}
 	\right.$$
 	
-	$f$ est continue pour $x$ et $y$ fixé, mais $\forall \epsilon > 0, ~ f(\epsilon, \epsilon) = \frac{1}{2}$
+	$f$ est continue pour $x$ et $y$ fixé, mais $\forall \varepsilon > 0, ~ f(\varepsilon, \varepsilon) = \frac{1}{2}$
 	$f$ n'est donc pas continue car $f(0, 0)=0$.
+	
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=550pt]{Continue_sur_chaque_variable}
+			\caption{$\left(x, y, \frac{xy}{x^2+y^2}\right)$ et $(t, t, f(t, t))$}
+		\end{figure}
 \end{myrem}
 
 \end{document}
