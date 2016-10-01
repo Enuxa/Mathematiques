@@ -231,7 +231,7 @@ Montrer que pour tout $m, n \in \mathbb{Z}$ on a $g^{m+n}=g^m*g^n$ et $g^{-n}=\l
 \end{myexmpl}
 
 \begin{myexer}
-	Montrer que $\mathcal{O}_n(\mathcal{R})$ est engendré par les réflexions, c'est à dire les matrices de orthogonales semblables à $\left(\begin{array}{cccc}
+	Montrer que $\mathcal{O}_n(\mathbb{R})$ est engendré par les réflexions, c'est à dire les matrices orthogonales semblables à $\left(\begin{array}{cccc}
 		-1 &&&\\
 		&1&&\\
 		&&\ddots&\\
@@ -282,7 +282,7 @@ Or $0 \leqslant l - k < d$ et par minimalité de $d$, $l=k$.
 \end{myexmpl}
 
 \begin{myproperty}
-	$d > 0$ est l'ordre de $g$ si et seulement si $g^d=e$ et pour tout diviseur de $d$ $0 < t < d$ on a $g^t \neq e$.
+	$d > 0$ est l'ordre de $g$ si et seulement si $g^d=e$ et pour tout diviseur strict $k$ de $d$ on a $g^k \neq e$.
 \end{myproperty}
 
 \begin{myexer}
@@ -294,6 +294,8 @@ Or $0 \leqslant l - k < d$ et par minimalité de $d$, $l=k$.
 \end{myrem}
 
 \section{Homomorphisme de groupe}
+
+\subsection{Définition}
 
 \begin{mydef}
 	Soient $G$ et $G'$ deux groupes, un homomorphisme de $G$ dans $G'$ est une application de $G$ dans $G'$ tel que .
@@ -313,13 +315,127 @@ Or $0 \leqslant l - k < d$ et par minimalité de $d$, $l=k$.
 \end{myexmpl}
 
 \begin{myrem}
-	Un homorphisme $f$ vérifie 
+	Un homomorphisme $f$ vérifie 
 	\begin{itemize}
-		\item $f(e)=f(e')$, car $f(e)=f(e \cdot e)=f(e)f(e)$ puis en simplifiant : $e' = f(e)$
+		\item $f(e)=e'$, car $f(e)=f(e \cdot e)=f(e)f(e)$ puis en simplifiant : $e' = f(e)$
 		\item Pour tout $g \in G$, $f(g^{-1})=f(g)^{-1}$
 	\end{itemize}
-	Pour tout $x$, 
 \end{myrem}
+
+\subsection{Étude des homomorphismes de $\mathbb{Z}$}
+
+Soit $(G, \star)$ un groupe et un homomorphisme  $\funcshort{f}{(\mathbb{Z}, +)}{(G, \star)}$, on a :
+\begin{itemize}
+	\item $f(1) \in G$
+	\item $\displaystyle \forall n > 0, ~ f(n) = f\left(\sum_{i=1}^{n} 1\right) = \prod_{i=1}^{n} f(1) = f(1)^n$
+	
+	et $\displaystyle \forall n > 0, ~ f(-n) = f(n)^{-1} = \left(f(1)^n\right)^{-1} = f(1)^{-n}$
+\end{itemize}
+
+On en déduit immédiatement que pour tout homomorphismes $\funcshort{f_1, f_2}{(\mathbb{Z}, +)}{(G, \star)}$
+
+$$f_1=f_2 \Longleftrightarrow f_1(1)=f_2(1)$$
+
+\begin{mythm}
+	Soit $(G, \star)$ un groupe, l'application
+	$$
+	\func{\phi}{\mathcal{H}(\mathbb{Z}, G)}{G}{f}{f(1)}
+	$$
+	est bijective et d'application réciproque
+	
+	$$
+	\func{\phi^{-1}}{G}{\mathcal{H}(\mathbb{Z}, G)}{g}{n \longmapsto g^n}
+	$$
+\end{mythm}
+
+\subsection{Compositions et isomorphismes}
+
+\begin{mydef}
+	\leavevmode
+	\begin{itemize}
+		\item Un homomorphisme bijectif est appelé \textit{isomorphisme}.
+		\item Deux groupes sont dits \textit{isomorphes} si et seulement s'il existe un isomorphisme entre eux.
+		\item Un endomorphisme bijectif est un \textit{automorphisme}.
+	\end{itemize}
+\end{mydef}
+
+\begin{myproperty}
+	\leavevmode
+	\begin{itemize}
+		\item La composée de deux homomorphismes est un homomorphismes.
+		\item Si un homomorphisme est bijectif, alors son application réciproque est un homomorphisme.
+		\item Soit $G$ un groupe, $Aut(G) \leqslant \mathfrak{S}_G$.
+	\end{itemize}
+\end{myproperty}
+
+\begin{myexmpl}
+	\leavevmode
+	\begin{enumerate}
+		\item
+		$\left\{\begin{array}{rcl}
+			\{\pm 1\} & \longrightarrow & Aut(\mathbb{Z}) \\
+			1 & \longmapsto & id_{\mathbb{Z}} \\
+			-1 & \longmapsto & -id_{\mathbb{Z}}
+		\end{array}\right.$
+	
+	\item Soit $k > 0$, 
+		$\left\{\begin{array}{rcl}
+			\mathbb{Z} & \longrightarrow & \mathbb{Z} \\
+			n & \longmapsto & kn \\
+		\end{array}\right.$ est un endomorphisme mais pas un automorphisme.
+	\end{enumerate}
+\end{myexmpl}
+
+\subsection{Sous-groupes associés à un homomorphisme}
+
+\begin{myproposition}
+	Soit $\funcshort{f}{G}{H}$ un homomorphisme de groupes
+	\begin{itemize}
+		\item Pour tout groupe $H' \leqslant H$, on a $f^{-1}(H') \leqslant G$
+		
+		\item Pour tout groupe $G' \leqslant G$, on a $f(G') \leqslant H$
+	\end{itemize}
+\end{myproposition}
+
+\begin{mydef}
+	Pour tout homomorphisme $f$ d'un groupe $G$ dans un autre $G'$, on appelle \textit{noyau de $f$} l'ensemble $\ker(f)=\{g \in G ~ | ~ f(g) = e\} \leqslant G$ et l'\textit{image de $f$} l'ensemble $Im(f)=f(G)$
+\end{mydef}
+
+\begin{myexer}
+	Soient $d, n > 0$, déterminer l'image et le noyau de l'homomorphisme :
+	
+	$$\left\{
+		\begin{array}{ccc}
+			\mathfrak{U}_n & \longrightarrow & \mathfrak{U}_n \\
+			x & \longmapsto & x^d
+		\end{array}
+	\right.$$
+\end{myexer}
+
+\begin{mythm}
+	Soit $\funcshort{f}{G}{H}$ un homomorphisme de groupes, l'application
+	
+	$$\phi ~ : ~ \left\{\begin{array}{rcl}
+		\{\text{Sous-groupes de } Im(f)\} & \longrightarrow & \{\text{Sous-groupes de } G \text{ contenant }\ker(f)\} \\
+		H & \longmapsto & f^{-1}(H')
+	\end{array}\right.$$
+	
+	est une bijection.
+\end{mythm}
+
+\begin{myproof}
+	Pour tout $G' \leqslant G$ contenant $\ker f$, on définit $\theta$ par $\theta(G')=f(G') \leqslant Im(f)$.
+	
+	On démontre que $\theta$ et l'application réciproque de $\phi$.
+	
+	\begin{enumerate}
+		\item Soit $H' \leqslant Im(f)$, on vérifie $f(f^{-1}(H))=H'$ car $G \longrightarrow Im(f), ~ x \longmapsto f(x)$ est surjective.
+		
+		\item Soit $G' \leqslant G$ tel que $\ker f \subseteq G'$, on a bien $f^{-1}(f(G'))=G'$.
+	\end{enumerate}
+	
+	\cqfd
+\end{myproof}
 
 \part{Opérations de groupes}
 \part{Groupes symétriques}
@@ -442,5 +558,15 @@ $$
 	
 	$ord(g)$ est donc un diviseur strict de $d$ ! $d$ est ainsi égal à l'ordre de $g$, sinon on aurait d'après (2) $g^{ord(g)} \neq e$
 \end{proofpart}
+
+\paragraph{Solution de l'exercice 7}
+
+Soit $\func{f}{\mathfrak{U}_n}{\mathfrak{U}_n}{x}{x^d}$
+
+\subparagraph{Noyau}
+
+$\ker f = \{x \in \mathfrak{U}_n ~ | ~ x^d = e \} = \mathfrak{U}_d$
+
+$Im(f)=\{x^d ~|~ x \in \mathfrak{U}_n\}=\mathfrak{U}_{\frac{n}{n \land d}}$
 
 \end{document}

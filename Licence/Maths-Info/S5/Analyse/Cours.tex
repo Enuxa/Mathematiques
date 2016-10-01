@@ -383,7 +383,7 @@ On remarquera qu'une suite convergente est bornée.
 		
 		Soit $x \in (E \verb|\|F)$, montrons qu'il existe $r > 0$ tel que $\mathcal{B}(x, r) \subseteq (E \verb|\|F)$.
 		
-		Supposons que pour tout $n$, $\mathcal{B}\left(x, \frac{1}{n}\right) \not \subseteq (E \verb|\| F)$, c'est à dire quil existe $x_n \in F$ tel que $x_n \in \mathbb{B}\left(x, \frac{1}{n}\right)$
+		Supposons que pour tout $n$, $\mathcal{B}\left(x, \frac{1}{n}\right) \not \subseteq (E \verb|\| F)$, c'est à dire quil existe $x_n \in F$ tel que $x_n \in \mathcal{B}\left(x, \frac{1}{n}\right)$
 		
 		On a ainsi construit une suite de $F$ convergente vers $x \in F$, donc par hypothèse $x \in F$, ce qui contredit le fait que $x$ appartienne au complémentaire de $F$.
 	\end{proofpart}
@@ -462,8 +462,6 @@ On remarquera qu'une suite convergente est bornée.
 	$A$ est donc le plus petit fermé contenant $X$, c'est à dire $A = \overline{X}$	
 \end{myproof}
 
-TODO faire la démonstration.
-
 \section{Applications continues}
 
 \begin{mydef}
@@ -481,21 +479,249 @@ TODO faire la démonstration.
 \end{myexer}
 
 \begin{mythm}
-	Un application $f~:~X \longrightarrow Y$ est continue sur $X$ si et seulement si l'image réciproque de tout ouvert de $Y$ est un ouvert de $X$ si et seulement si l'image réciproque de tout fermé de $X$ est une fermé de $X$.
+	Soit une application $f~:~X \longrightarrow Y$, les assertions suivantes sont équivalentes :
+	\begin{enumerate}
+	 \item $f$ est continue sur $X$
+	 \item l'image réciproque de tout ouvert de $Y$ est un ouvert de $X$
+	 \item l'image réciproque de tout fermé de $X$ est une fermé de $X$.
+ 	\end{enumerate}
 \end{mythm}
 
 \begin{myproof}
-	Soit $f$ continue sur $X$ et $U$ un ouvert de $Y$. Montrer que $f^{-1}(U)=V$ est un ouvert de $X$.
+	\begin{proofpart}{1. $\Longrightarrow$ 2.}
+		Soit $f$ continue sur $X$ et $U$ un ouvert de $Y$. Montrer que $f^{-1}(U)=V$ est un ouvert de $X$.
+		
+		Soit $x \in f^{-1}(U)$, alors $f(x) \in U$, il existe donc $r>0$ tel que $\mathcal{B}(f(x), r) \subseteq U$.
+		
+		Or il existe $\delta > 0$ tel que pour $\|x-u\| < \delta$, on a $\|f(x)-f(y)\| < \frac{r}{2}$.
+		
+		Ainsi si $y \in \mathcal{B}\left(x, \frac{\delta}{2}\right)$ alors $f(y) \in \mathcal{B}(f(x), r) \subseteq U$, donc $y \in f^{-1}(U)$.
+		
+		$f^{-1}(U)$ est donc un ouvert.
+	\end{proofpart}
 	
-	Soit $x \in f^{-1}(U)$, alors $f(x) \in U$, il existe donc $r>0$ tel que $\mathcal{B}(f(x), r) \subseteq U$.
+	\begin{proofpart}{2. $\Longrightarrow$ 1.}
+		Soit $\epsilon$, on veut trouver $\delta > 0$ tel que si $\|x-y\| < \delta$, alors $\|f(x)-f(y)\| < \epsilon$.
 	
-	Or il existe $\delta > 0$ tel que pour $\|x-u\| < \delta$, on a $\|f(x)-f(y)\| < \frac{r}{2}$.
+		Soit $x \in X$, alors $\mathcal{B}_\epsilon(f(x))$ est un ouvert de de $Y$, on sait que $f^{-1}(\mathcal{B}_\epsilon(f(x)))$ est un ouvert de $X$ contenant $x$, il existe donc $\delta > 0$ tel que $\mathcal{B}_\delta(x) \subseteq f^{-1}(\mathcal{B}_\epsilon(f(x)))$.
+		
+		Autrement dit, si $\|x-y\| < \delta$ alors $y \in f^{-1}(\mathcal{B}_\epsilon(f(x)))$, c'est-à-dire $\|f(x)-f(y)\| < \epsilon$.
+	\end{proofpart}
 	
-	Ainsi si $y \in \mathcal{B}\left(x, \frac{\delta}{2}\right)$ alors $f(y) \in \mathcal{B}(f(x), r) \subseteq U$, donc $y \in f^{-1}(U)$.
-	
-	$f^{-1}(U)$ est donc un ouvert.
+	\begin{proofpart}{1. $\Longleftrightarrow$ 2.}
+		On le démontre en passant au complémentaire.
+	\end{proofpart}
 	
 	\cqfd
 \end{myproof}
+
+\begin{mycor}
+	Soient $X \subseteq E$, $Y \subseteq F$ et $f$ une application de $X$ dans $Y$.
+	\begin{enumerate}
+		\item On suppose que $f$ est continue, alors la restriction de $f$ à $X' \subseteq X$ notée $f_{|X'}$ est continue.
+		
+		\item Si $X'$ est un ouvert de $X$ et si $f_{|X'}$ est continue alors $f$ est continue en tout point de $X'$.
+		
+		\item Soient $f$ et $g$  avec $\funcshort{f}{E}{F}$ et $\funcshort{g}{F}{G}$ avec $E, F, G$ des espaces vectoriels normés. Si $f$ et $g$ sont continues alors $g \circ f$ est continue.
+	\end{enumerate}
+\end{mycor}
+
+\begin{myrem}
+	L'hypothèse que $X'$ soit ouvert est nécessaire pour le point 2., par exemple si $X=\mathbb{R}^2$ et $$\func{f}{\mathbb{R}^2}{\mathbb{R}}{(x, y)}{0 \text{ si } y \neq 0 \text{, } 1 \text{ sinon.} }$$
+	
+	$f$ n'est pas continue sur $\mathbb{R}^2$, mais $f_{|X'}$ est continue pour $X' = \mathbb{R} \times \{0\}$, qui n'est pas un ouvert de $\mathbb{R}^2$.
+\end{myrem}
+
+\begin{myproof}
+	\begin{proofpart}{Point 1.}
+		Soit $X' \subseteq X$ et $V$ un ouvert de $Y$, montrons que $\left(f_{|X'}\right)^{-1}(V)$ est un ouvert de $X'$.
+		
+		$f$ est continue sur donc il existe $U$ ouvert de $E$ tel que $f^{-1}(V)= X \cap U$.
+		
+		Mais alors $\left(f_{|X'}\right)^{-1}(V) = X' \cap X \cap U = X' \cap U$ qui est un ouvert de $X'$.
+		
+		Donc $f_{|X'}$ est continue.
+	\end{proofpart}
+	
+	\begin{proofpart}{Point 2.}
+		$f_{|X'}$ est continue, soit $x \in X'$, montrons que $f$ est continue en $x$.
+		
+		Soit $\epsilon > 0$, il existe $\delta
+		 > 0$ tel que si $y \in X'$ et $\|x-y\| < \delta$ alors $\|f(x)-f(y)\| < \epsilon$
+		 
+		 Comme $X'$ est ouvert, il existe $r > 0$ tel que $\mathcal{B}_r(x) \subseteq X'$.
+		 
+		 On choisit $\delta' \leqslant \min\{r, \delta\}$, alors $\forall y \in \mathcal{B}_{\delta'}, ~ \|f(x)-f(y)\| < \epsilon$, donc $f$ est continue en $x$.
+	\end{proofpart}
+	
+	\begin{proofpart}{Point 3.}
+	\end{proofpart}
+\end{myproof}
+
+
+\section{Applications uniformément continues, applications linéaires continues}
+
+\begin{mydef}
+	Une application $\funcshort{f}{E}{F}$ est \textit{uniformément continue} si $$\forall \epsilon, ~ \exists \delta > 0 ~ : ~ \forall x, y \in E, ~ (\|x-y\| < \delta \Longrightarrow \|f(x)-f(y\| < \epsilon)$$
+\end{mydef}
+
+\begin{myrem}
+	Si est uniformément continue alors elle est continue, la réciproque ets cependant fausse.
+\end{myrem}
+
+\begin{mydef}
+	Une fonction $f$ est $k$-\textit{lipschitzienne} si
+	
+	$$\forall x, y \in E, ~ \|f(x)-f(y)\| \leqslant k \|x-y\|$$
+\end{mydef}
+
+\begin{mythm}
+	Soit $\funcshort{\phi}{E}{F}$ une application linéaire, alors les propriétés suivantes ont équivalentes :
+	
+	\begin{enumerate}
+		\item $\phi$ est continue
+		\item $\phi$ est continue en 0
+		\item $\phi$ est uniformément continue
+		\item $\phi$ est bornée sur $\mathcal{B}_1(0)$
+		\item $\phi$ est $k$-lipschitzienne.
+	\end{enumerate}
+\end{mythm}
+
+
+\begin{myproof}
+	Montrons $2. \Longrightarrow 4. \Longrightarrow 5. \Longrightarrow 3.\Longrightarrow 1. \Longrightarrow 2.$
+	
+	\begin{proofpart}{$1. \Longrightarrow 2.$}
+	\end{proofpart}
+	
+	\begin{proofpart}{$2. \Longrightarrow 4.$}
+		$f$ est continue en 0, donc pour tout $\epsilon > 0$ il existe $\delta > 0$ tel que $\|x\| < \delta \Longrightarrow \|f(x)\| < \epsilon$
+		
+		Soit $x \in \mathcal{B}_1(0)$ avec $x \neq 0$, on a :
+		
+		$$\|x\| < 1$$
+
+		$$\|\delta x\| < \delta$$
+		
+		$$\|f(\delta \cdot x)\| < \epsilon$$
+		
+		$$\|f(x)\| < \frac{\epsilon}{\delta}$$
+	\end{proofpart}
+	
+	\begin{proofpart}{$4. \Longrightarrow 5.$}
+		Supposons que $f$ soit majoré par $M > 0$ sur la boule unité.
+		
+		Soient $x \neq y \in E$, on a
+		$$x-y = (x-y) \cdot \frac{\|x-y\|}{\|x-y\|}$$
+		
+		$$f(x-y) = \|x-y\| f\underbrace{\left(\frac{x-y}{\|x-y\|}\right)}_{\in \mathcal{B}_1(0)}$$
+		
+		$$f(x-y) = \|x-y\| \cdot M$$
+		
+		$f$ est $M$-lipschitzienne.
+	\end{proofpart}
+	
+	\begin{proofpart}{$5. \Longrightarrow 3. \Longleftarrow 1. \Longrightarrow 2.$}
+	\end{proofpart}
+\end{myproof}
+
+\begin{mydef}
+	Soit $f$ une application lipschitzienne, on appelle \textit{constante de Lipschitz de $f$} ou \textit{norme d'opérateur de $f$} la valeur $\|f\| = \inf \{k > 0 ~|~ f \text{ est }k \text{-liptschitzienne}\} = \sup\limits_{\|x\|=1} \|f(x)\| = \sup\limits_{\|x\| \leqslant1} \|f(x)\|$
+\end{mydef}
+
+La norme d'opérateur est comme son nom l'indique une norme, en particulier $$\forall x, y \in E, ~ \|f(x)\|\leqslant \|f\|\|x\|$$
+
+\begin{myproposition}
+	Soient $E$ et $F$ deux espaces vectoriels normés, o note $\mathcal{L}_C(E)$ l'ensemble des applications linéaires continues de $E$ dans $F$. C'est un espace vectoriel normé si on le munit de la norme d'opérateur.
+	
+	$$\forall \phi, \psi \in \mathcal{L}_C(E, E), ~ \|\phi \circ \psi\| \leqslant \|\phi\| \|\psi\|$$
+\end{myproposition}
+
+\begin{myrem}
+	On peut étendre ces résultats aux applications bilinéaires : soient $E$, $E'$ et $F$ trois espaces vectoriels normés, et $\funcshort{f}{E \times E'}{F}$ bilinéaire continue,sa norme d'opérateur est définie par
+	$$\|f\| = \sup\{\|f(x, y)\| ~ | ~ \|x\| \leqslant 1, ~ \|y\| \leqslant 1\}$$
+	
+	On a en particulier $\|f(x,y)\| \leqslant \|f\| \cdot \|x\| \cdot \|y\|$
+\end{myrem}
+
+\section{Espaces produits}
+
+\begin{mydef}
+	Soient $(E_1, N_1)$ et $(E_2, N_2)$ deux espaces vectoriels normés, on construit des normes sur $E_1 \times E_2$ en posant
+	$$\|(x, y)\|_1 = N_1(x) + N_2(y)$$
+	$$\|(x, y)\|_2 = \sqrt{N_1^2(x) + N_2^2(y)}$$
+	$$\|(x, y)\|_\infty = \max\{N_1(x), N_2(y)\}$$
+\end{mydef}
+
+On a les relations $$\|(x, y)\|_\infty \leqslant \|(x, y)\|_2 \leqslant \|(x, y)\|_1 \leqslant 2 \|(x, y)\|_\infty$$
+
+\begin{myexmpl}
+	Soit $E$ un espace vectoriel normé, on munit $E \times E$ de la norme définie par $N(x, y)=\|x\|+\|y\|$ et on définit une distance $d(u, v)=\|u-v\|$
+	
+	$d$ est lipschitzienne :
+	$$|d(x, y) - d(x', y')|=|\|x-y\|-\|x'-y'\||$$
+	
+	$$|d(x, y) - d(x', y')| \leqslant |\|(x-y)-(x'-y')\||$$
+	
+	$$|d(x, y) - d(x', y')| \leqslant |\|(x-x')+(y'-y)\||$$
+
+	$$|d(x, y) - d(x', y')| \leqslant \|(x-x')\|+\|(y'-y)\|$$
+	
+	$$|d(x, y) - d(x', y')| \leqslant N((x-x')+(y'-y))$$
+	
+	$d$ est donc 1-lipschitzienne.
+\end{myexmpl}
+
+\begin{myproposition}
+	Soient $E_1$ et $E_2$ deux espaces vectoriels normés, alors :
+	
+	\begin{enumerate}
+		\item Les projections $\func{\pi_1}{E_1 \times E_2}{E_1}{(x,y)}{x}$
+		et $\func{\pi_2}{E_1 \times E_2}{E_1}{(x,y)}{y}$
+		sont lipschitziennes.
+		
+		\item Une application $\funcshort{f}{Y}{E_1 \times E_2}$ s'écrit sous la forme $f=(f_1, f_2)$ avec $\funcshort{f_1}{Y}{E_1}$ et $\funcshort{f_2}{Y}{E_2}$ est continue si et seulement si $f_1$ et $f_2$ sont continues.
+		
+		\item Si $\funcshort{f}{E_1 \times E_2}{F}$ est continue alors pour tout $x \in E_1$, l'application $\func{f_x}{E_2}{F}{y}{f(x, y)}$ est continue et de même $\func{f_y}{E_1}{F}{x}{f(x, y)}$ est continue pour tout $y \in E_2$.
+	\end{enumerate}
+\end{myproposition}
+
+\begin{myproof}
+	\begin{enumerate}
+		\item Soit $(x, y) \in E_1 \times E_2$, alors $\pi_1(x, y) = x$, donc $\pi_1(x,y) - \pi_2(x',y')=x'-y'$ et donc $\|\pi_1(x,y) - \pi_2(x',y')\| = \|x-x'\| \leqslant \|x-x'\| + \|y-y'\| = N_1(x-x', y-y')$
+		
+		$\pi_1$ est 1-lipschitzienne.
+		
+		\item Si $f$ est continue, alors $\pi_1 \circ f=f_1$ est continue comme composée d'applications continues.
+		
+		De même $f_2=\pi_2 \circ f$ est continue.
+		
+		Inversement, supposons que $\funcshort{f_1}{Y}{E_1}$ et $\funcshort{f_2}{Y}{E_2}$ sont continues.
+		
+		Montrons que $\func{f=(f_1, f_2)}{Y}{E \times E_2}{x}{(f_1(x), f_2(y)}$
+		
+		Soit $(x_n)_n$ une suite de $Y$ convergeant vers $x \in Y$, montrons que $(f(x_n))_n$ converge vers $f(x)$.
+		
+		Comme $f_1$ est continue, $(f_1(x_n))_n$ converge $f_1(x)$ et de même pour $f_2$.
+		
+		Donc $f(x_n)_n$ converge vers $f(x)=(f_1(x), f_2(x))$
+		
+		\item Se démontre de même par caractérisation séquentielle de la continuité.
+	\end{enumerate}
+\end{myproof}
+
+\begin{myrem}
+	Une fonction peut être continue de chaque variable sans être continue du couple de variables, par exemple
+	$$f ~ : ~ \left\{
+	\begin{array}{ccl}
+		\mathbb{R}^2 & \longrightarrow & \mathbb{R} \\
+		(x, y) & \longmapsto & \frac{xy}{x^2+y^2}, \text{ si } (x, y) \neq (0, 0) \\
+		(0, 0) & \longmapsto & 0
+	\end{array}
+	\right.$$
+	
+	$f$ est continue pour $x$ et $y$ fixé, mais $\forall \epsilon > 0, ~ f(\epsilon, \epsilon) = \frac{1}{2}$
+	$f$ n'est donc pas continue car $f(0, 0)=0$.
+\end{myrem}
 
 \end{document}

@@ -278,6 +278,118 @@ On exprime deux propositions :
 	\item On respecte les incompatibilités : $G = \underbrace{\bigwedge\limits_{I \subseteq \mathcal{L}} \left( \bigwedge\limits_{j \leqslant k}\neg \left( \bigwedge\limits_{i \in I}p(i, j)\right)\right)}_{\substack{\text{Pour chaque ensemble } I \text{ de produits } \\ \text{ne pouvant pas être stockés ensemble} \\ \text{et pour chaque camion } j , \\ \text{aucun produit de } I \text{ n'est présent dans le camion}}}$
 \end{itemize}
 
+\section{Équivalence logique usuelles}
+
+\begin{myproposition}Substitution
+
+	Soient $H_1, ..., H_n \in \mathcal{F}$.
+	\begin{itemize}
+		\item Si $F$ est une tautologie, la formule $F'=F[H_1/p_1, ..., H_n/p_n]$ est une tautologie, où $F'$ est la formule dans laquelle on remplace chaque $p_i$ par $H_i$.
+	
+		\item Si $F \equiv G$ alors $F[H_1/p_1,...,H_n/p_n] \equiv G[H_1/p_1,...,H_n/p_n]$
+	\end{itemize}
+\end{myproposition}
+
+\begin{myexmpl}
+	Soient $F = (p_1 \longrightarrow p_1)$ et $H=((q_1 \land \neg q_3) \lor q_3)$
+	
+	Si $F$ est une tautologie, alors $(((q_1 \land \neg q_3) \lor q_3) \longrightarrow ((q_1 \land \neg q_3) \lor q_3))$ est une tautologie.
+\end{myexmpl}
+
+\begin{myrem}
+	La réciproque est fausse.
+\end{myrem}
+
+\begin{mylemma}
+	Soit $\mathcal{P}=\{p_1, ..., p_n\}$, $F \in \mathcal{F}$ et $H_1,..., H_n \in \mathcal{F}$.
+	
+	Soit $v$ une valuation de $\mathcal{P}$ avec $\forall i, ~ v(H_i)=\delta_i$. 
+	
+	Alors la valuation $v'$ définie par $v'(p_i)=\delta_i$ vérifie $\overline{v}(F[H_1/p_1,...,H_n/p_n])=\overline{v'}(F)$
+	
+	On note $v \models F \Longleftrightarrow \overline{v}(F)=1$, c'est à dire si et seulement si $v$ satisfait $F$.
+\end{mylemma}
+
+\begin{myproof}
+	Démontrons le lemme par induction structurelle sur $F$.
+	
+	On notera $F[H_1/p_1, ..., H_n/p_n]:=F[\overline{H}/\overline{p}]$
+	
+	\begin{itemize}
+		\item Si $F = \bot$, alors $v(\bot)=v'(\bot)=0$.
+		
+		\item Si $F=p_1 \in \mathcal{P}$, alors $F'=F[H_1/p_1]=H_1$ \underline{et} $v'(p_1)=\delta_1=v(H_1)$.
+		
+		\item Si $F=\neg G$, par hypothèse d'induction $v(G[\overline{H}/\overline{p}])=v'(G)$.
+		
+		$v(F[\overline{H}/\overline{p}])=1$
+		
+		$v(G[\overline{H}/\overline{p}])=1 - v'(G) = v'(F)$
+		
+		\item Si $F=G_1 \land G_2$, par hypothèse d'induction
+		$$
+			\left\{
+			\begin{array}{l}
+				v(G_1[\overline{H}/\overline{p}])=v'(G_1) \\
+				v(G_2[\overline{H}/\overline{p}])=v'(G_2) \\
+			\end{array}
+			\right.
+		$$
+		
+		or $v(F[\overline{H}/\overline{p}])=v(G_1[\overline{H}/\overline{p}]) \cdot v(G_2[\overline{H}/\overline{p}]) = v'(G_1) \cdot v'(G_2)=v'(F)$
+		
+		\item etc.
+	\end{itemize}
+	\cqfd
+\end{myproof}
+
+\begin{myproof}Preuve de la proposition
+	Comme $F \equiv G$ si et seulement si $(F \longleftrightarrow G)$ est une tautologie.
+	
+	On prouve seulement seulement la première partie de la proposition.
+	
+	Supposons $F$ ue tautologie, soit $v$ une valuation de $\mathcal{P}$, par le lemme précédent il existe $v'$ telle que $v(F[\overline{H}/\overline{p}])=v'(F)$ comme $F$ est une tautologie, $v'(F)=1$ et $v(F[\overline{H}/\overline{p}])$ est une tautologie.
+	
+	\cqfd
+\end{myproof}
+
+Par la suite, pour toutes formules propositionnelles $A$, $B$ et $C$, les équivalences suivantes se montreront en substituant des variables aux formules.
+
+\begin{myproperty}
+	\leavevmode
+	\begin{itemize}
+		\item Négation : $\neg\neg A \equiv A$
+		\item Lois de Morgan : $\neg(A \land B) \equiv \neg A \lor \neg B$, $\neg(A \lor B) \equiv \neg A \land \neg B$, $\neg (A \longrightarrow B) \equiv A \land \neg B$
+		\item Associativité : $(A \land (B \land C)) \equiv ((A \land B) \land C
+		)$ et $(A \lor (B \lor C)) \equiv ((A \lor B) \lor C
+				)$
+				
+		\item Expression des connecteurs : $\bot \equiv (A \land \neg A)$ et $\top \equiv (A \lor \neg A)$
+		
+		\item Distributivité : $(A\lor (B \land C)) = ((A \lor B) \land (A \lor C)$
+		\item Idempotence : $A \lor A \equiv  A \land A \equiv A$
+		\item Absorption : $(A \land \bot) \bot$ et $(A \lor \top) \equiv \top$
+		\item Neutre $(A \land \top) \equiv A$ et $(A \lor \bot) \equiv A$
+	\end{itemize}
+\end{myproperty}
+
+\section{Formules normales}
+
+Ici $\mathcal{P}=\{x_1, ..., x_n\}$
+
+\begin{mydef}
+	\leavevmode
+	\begin{itemize}
+		\item Un \textit{littéral} est une variable ou une négation de variable.
+		
+		\item Une \textit{clause} est une formule $C$ de la forme $\displaystyle C = \bigvee_{i \in A}x_i \lor \bigvee_{i \in B} \neg x_i$ où $A, B \subseteq \{1, ..., n\}$.
+		
+		\item La longueur d'une clause $C$ notée $|C|$ est son nombre de variables : $|C|=|A|+|B|$.
+		
+		\item Si $|C|=1$, $C$ est une \textit{clause unitaire} (ou \textit{disjonction élémentaire}).
+	\end{itemize}
+\end{mydef}
+
 \part{Compléments}
 
 \section{Calcul propositionnel}
@@ -297,13 +409,13 @@ On exprime deux propositions :
 \begin{myproposition}
 	On note $o[F]$ le nombre de parenthèses ouvrantes d'une formule $F$ et $f[F]$ pour ses parenthèses fermées.
 	\begin{enumerate}
-			\item $\forall F \in \mathcal{F}, ~ o[F]=o[G]$
+			\item $\forall F \in \mathcal{F}, ~ o[F]=f[F]$
 			\item $\forall F \in \mathcal{F}, \forall M \in \Sigma^*, ~ M \subsetneq F \Longrightarrow
 			\left\{
 			\begin{array}{ll}
 				o[M] > f[M], \text{ et donc } M \notin \mathcal{F} & (a) \\
 				\textbf{x-ou } M = \neg ... \neg \notin \mathcal{F} & (b)\\
-				\textbf{x-ou } M = \epsilon \notin \mathcal{F} & (c)
+				\textbf{x-ou } M = \varepsilon \notin \mathcal{F} & (c)
 			\end{array}
 			\right.$
 	\end{enumerate}
@@ -316,35 +428,33 @@ On exprime deux propositions :
 		\item Si $F=\neg G = \neg g_1 ... g_n$
 		
 		\begin{itemize}
-			\item cas (c) : $M=\epsilon$
+			\item cas (c) : $M=\varepsilon$
 			\item cas (b) : $M=\neg$
-			\item cas (a) : $M=\neg g_1 ... g_i \subsetneq G, ~ i < n$
+			\item $M=\neg g_1 ... g_i \subsetneq G, ~ i < n$
 			
-			alors soit $o[M] = o(g_1...g_i) > f(g_1 ... g_i) = f[M]$, ce qui rentre dans le cas (a)
+			alors soit $o[M] = o[g_1...g_i] > f[g_1 ... g_i] = f[M]$, ce qui rentre dans le cas (a)
 			
 			soit $g_1...g_i = \underbrace{\neg ... \neg}_{i \text{ fois}}$, alors $M=\underbrace{\neg ... \neg}_{i + 1 \text{ fois}}$ : on est encore dans le cas (b).
 		\end{itemize}
 		
-		\item Si $F=(G \circ H) = (g_1 ... g_m \circ h_1 ... h_n)$ et $M \subsetneq F$, soit $M=\epsilon$ (cas (c)), soit $M \neq \epsilon$ avec
+		\item Si $F=(G \circ H) = (g_1 ... g_m \circ h_1 ... h_n)$ et $M \subsetneq F$, soit $M=\varepsilon$ (cas (c)), soit $M \neq \varepsilon$ avec
 		
 		\begin{itemize}
 			\item $M=($ alors $o[M]=1 > f[M] = 0$
-			\item $M=(g_1...g_i, ~ 1 \leqslant i \leqslant m$, donc $o[M]=o(g_1...g_i) + 1 > f[M] = f(g_1...g_i)$
+			\item $M=(g_1...g_i, ~ 1 \leqslant i \leqslant m$, donc $o[M]=o[g_1...g_i] + 1 > f[M] = f[g_1...g_i]$
 			\item $M=(G \circ$ donc $o[M]=1+o[G] > f[M]=f[G]$
-			\item $M=(G \circ h_1 ... h_i, ~ 1 \leqslant i \leqslant n$, alors $o[M] = 1 + o[G] + o(h_1...h_i)$
+			\item $M=(G \circ h_1 ... h_i, ~ 1 \leqslant i \leqslant n$, alors $o[M] = 1 + o[G] + o[h_1...h_i]$
 			
-			$o[M] = 1 + f[G] + o[h_1...h_i] \geqslant 1 + f[G] + f[h_1...h_i] = 1 + f[(G \circ h_1...h_i] > f[(G \circ h_1...h_i]$
+			$o[M] = 1 + f[G] + o[h_1...h_i] > f[G] + f[h_1...h_i] = f[(G \circ h_1...h_i] = f[M]$
 		\end{itemize}
 		
-		\item Si $F \in \mathcal{P}, ~ M=\epsilon$, c'est le cas (c).
+		\item Si $F \in \mathcal{P}, ~ M=\varepsilon$, c'est le cas (c).
 	\end{itemize}
 	
 	\cqfd
 \end{myproof}
 
 \begin{myproof}
-	Démontrons le théorème de lecture unique par induction sur la longueur d'une formule.
-	
 	Soit $F \in \mathcal{F}$
 	
 	\begin{itemize}
@@ -356,7 +466,7 @@ On exprime deux propositions :
 		
 		\item Si $F=\neg G$ avec $G \in \mathcal{F}$, pour tout $q \in \mathcal{F}$ on a $q \neq F$.
 		
-		$\forall G \in \mathcal{F}$ on a $\neg G \neq F$ par hypothèse de récurrence.
+		$\forall H \neq G$ on a $\neg H \neq F$
 		
 		$\neg G \neq (H \star K)$ pour toute formules $H$ et $G$ et tout opérateur $\star$.
 		
@@ -368,9 +478,9 @@ On exprime deux propositions :
 		
 		On est face à l'un des deux cas :
 		
-		$$(*) ~ \underbrace{a_1 a_2 a_3 ...a_k}_{G_1 \in \mathcal{F}} \subseteq \underbrace{c_1 c_2 c_3 ...a_m}_{H_1 \in \mathcal{F}}$$
+		$$(*) ~ \underbrace{a_1 a_2 a_3 ...a_k}_{G_1 \in \mathcal{F}} \subseteq \underbrace{c_1 c_2 c_3 ...c_m}_{H_1 \in \mathcal{F}}$$
 		
-		$$(**) ~ c_1 c_2 c_3 ...c_m\subseteq d_1 d_2 d_3 ...d_n$$
+		$$(**) ~ c_1 c_2 c_3 ...c_m\subseteq a_1 a_2 a_3 ...a_n$$
 		
 		les deux cas sont symétriques, on suppose $(*)$ et par l'absurde que $G_1 \neq H_1$, c'est à dire $G_1 \subsetneq H_1$, ce qui implique d'après le lemme $G_1 \notin \mathcal{F}$.
 		
