@@ -304,7 +304,7 @@ Or $0 \leqslant l - k < d$ et par minimalité de $d$, $l=k$.
 \begin{myexmpl}
 	\leavevmode
 	\begin{enumerate}
-		\item On considère $\funcinline{\phi}{(\mathbb{R}, +)}{(\mathbb{R}^*_+, \times)}{x}{\exp(x)}$
+		\item On considère $\funcinline{\varphi}{(\mathbb{R}, +)}{(\mathbb{R}^*_+, \times)}{x}{\exp(x)}$
 		
 		On a $\forall x, y \in \mathbb{R}, ~ \exp(x+y)=\exp(x)\exp(y)$
 		
@@ -339,12 +339,12 @@ $$f_1=f_2 \Longleftrightarrow f_1(1)=f_2(1)$$
 \begin{mythm}
 	Soit $(G, \star)$ un groupe, l'application
 	$$
-	\func{\phi}{\mathcal{H}(\mathbb{Z}, G)}{G}{f}{f(1)}
+	\func{\varphi}{\mathcal{H}(\mathbb{Z}, G)}{G}{f}{f(1)}
 	$$
 	est bijective et d'application réciproque
 	
 	$$
-	\func{\phi^{-1}}{G}{\mathcal{H}(\mathbb{Z}, G)}{g}{n \longmapsto g^n}
+	\func{\varphi^{-1}}{G}{\mathcal{H}(\mathbb{Z}, G)}{g}{n \longmapsto g^n}
 	$$
 \end{mythm}
 
@@ -415,7 +415,7 @@ $$f_1=f_2 \Longleftrightarrow f_1(1)=f_2(1)$$
 \begin{mythm}
 	Soit $\funcshort{f}{G}{H}$ un homomorphisme de groupes, l'application
 	
-	$$\phi ~ : ~ \left\{\begin{array}{rcl}
+	$$\varphi ~ : ~ \left\{\begin{array}{rcl}
 		\{\text{Sous-groupes de } Im(f)\} & \longrightarrow & \{\text{Sous-groupes de } G \text{ contenant }\ker(f)\} \\
 		H & \longmapsto & f^{-1}(H')
 	\end{array}\right.$$
@@ -426,13 +426,24 @@ $$f_1=f_2 \Longleftrightarrow f_1(1)=f_2(1)$$
 \begin{myproof}
 	Pour tout $G' \leqslant G$ contenant $\ker f$, on définit $\theta$ par $\theta(G')=f(G') \leqslant Im(f)$.
 	
-	On démontre que $\theta$ et l'application réciproque de $\phi$.
+	On démontre que $\theta$ et l'application réciproque de $\varphi$.
 	
 	\begin{enumerate}
-		\item Soit $H' \leqslant Im(f)$, on vérifie $f(f^{-1}(H))=H'$ car $G \longrightarrow Im(f), ~ x \longmapsto f(x)$ est surjective.
+		\item Soit $H' \leqslant Im(f)$, on vérifie $(\theta \circ \varphi)(H')=f(f^{-1}(H'))=H'$.
 		
-		\item Soit $G' \leqslant G$ tel que $\ker f \subseteq G'$, on a bien $f^{-1}(f(G'))=G'$.
+		\item Soit $G' \leqslant G$ tel que $\ker f \subseteq G'$, on a $G' \subseteq (\varphi \circ \theta)(G')=f^{-1}(f(G'))$, montrons maintenant $f^{-1}(f(G')) \subseteq G'$ :
+		
+		Soit $x \in f^{-1}(f(G'))$, alors $f(x) \in f(G')$ et il existe $u \in G'$ tel que $f(x)=f(u)$.
+		
+		On a donc : $$f(x)=(u)$$
+		$$f(xu^{-1})=e$$
+		$$xu^{-1} \in \ker f \subseteq G'$$
+		$$x \in \underbrace{\left(G'\right) \cdot u}_{G' \text{ car } u \in G'}=G'$$
+		
+		Ainsi $f^{-1}(f(G')) \subseteq G'$, et donc $(\varphi \circ \theta)(G')=G'$.
 	\end{enumerate}
+	
+	$\theta$ est bien la bijection réciproque de $\varphi$.
 	
 	\cqfd
 \end{myproof}
@@ -491,13 +502,13 @@ $$\sum_{h \in G}f(h)\underbrace{\epsilon(h^{-1}*g)}_{1 \text{ ssi } h = g}=f(g)$
 \checked
 
 \subparagraph{Existence d'un inverse :}
-Soit $\funcshort{f}{G}{\mathbb{Z}}$, il existe $\funcshort{\phi}{G}{\mathbb{Z}}$ telle que $f \otimes \phi = \phi \otimes f = \epsilon$
+Soit $\funcshort{f}{G}{\mathbb{Z}}$, il existe $\funcshort{\varphi}{G}{\mathbb{Z}}$ telle que $f \otimes \varphi = \varphi \otimes f = \epsilon$
 
-$$\forall g \neq e, ~ \sum_{h \in G}\phi(h)f(h^{-1}*g)=\sum_{h \in G}f(h)\phi(h^{-1}*g)=0$$
+$$\forall g \neq e, ~ \sum_{h \in G}\varphi(h)f(h^{-1}*g)=\sum_{h \in G}f(h)\varphi(h^{-1}*g)=0$$
 
 et
 
-$$\sum_{h \in G}\phi(h)f(h^{-1})=\sum_{h \in G}f(h)\phi(h^{-1})=1$$
+$$\sum_{h \in G}\varphi(h)f(h^{-1})=\sum_{h \in G}f(h)\varphi(h^{-1})=1$$
 
 la deuxième égalité est impossible lorsque $f$ est la fonction nulle, $\left(\mathbb{Z}^G, \otimes\right)$ n'est donc pas un groupe.
 
