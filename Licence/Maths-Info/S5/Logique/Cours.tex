@@ -11,7 +11,7 @@
 
 \geometry{hmargin=2cm}
 
-\title{Analyse}
+\title{Logique}
 
 \author{Arnaud Durand et Pierre Gervais}
 
@@ -20,6 +20,7 @@
 \newtheorem{myproposition}{Proposition}
 \newtheorem{myproperty}{Propriété}
 \newtheorem{mylemma}{Lemme}
+\newtheorem{mycor}{Corollaire}
 
 % Environnement type texte
 \theoremstyle{remark}
@@ -40,6 +41,11 @@
 	\hfill$\square$
 }
 
+% "Checkmark" de fin d'étape de preuve
+\newcommand{\checked}{
+	\hfill$\checkmark$
+}
+
 % Définition de fonction
 \newcommand{\func}[5]{
 #1 ~ : ~ \left\{ \begin{array}{lcl}
@@ -49,8 +55,22 @@
 \right.
 }
 
-\newcommand{\fun}[3]{
+\newcommand{\funcinline}[5]{
+#1 ~ : ~ #2 \longrightarrow #3, ~ #4 \longmapsto #5
+}
+
+\newcommand{\funcshort}[3]{
 #1 ~ : ~ #2 \longrightarrow #3
+}
+
+\newenvironment{proofpart}[1]{
+	\leavevmode
+	
+	\noindent
+	{\textit{\textbf{\boldmath #1}}}
+	
+}{
+	\checkmark
 }
 
 \begin{document}
@@ -214,7 +234,7 @@ On s'intéresse à des propositions dont la valeur de vérité est soit vrai soi
 
 \begin{mydef}
 	Une \textit{valuation} est une fonction $v ~ : ~ \mathcal{P} \longrightarrow \{0, 1\}$.
-	Étant donné une valuation $v$, on définit l'\textit{interprétation} $\fun{\overline{v}}{\mathcal{F}}{\{0, 1\}}$ comme ceci
+	Étant donné une valuation $v$, on définit l'\textit{interprétation} $\funcshort{\overline{v}}{\mathcal{F}}{\{0, 1\}}$ comme ceci
 	\begin{itemize}
 		\item si $F = p \in \mathcal{P}$ alors $\overline{v}=v(p)$
 		\item si $F = (\neg G) \in \mathcal{P}$ alors $\overline{v}(F) = 1$ si et seulement si $\overline{v}(G) = 0$
@@ -237,7 +257,7 @@ $$
 	\end{array}
 $$
 
-On définit formellement la \textit{table de vérité} par une fonction $\fun{v}{\{0, 1\}^\mathcal{P}}{\{0, 1\}}$
+On définit formellement la \textit{table de vérité} par une fonction $\funcshort{v}{\{0, 1\}^\mathcal{P}}{\{0, 1\}}$
 
 \begin{mydef}
 	\leavevmode
@@ -245,6 +265,7 @@ On définit formellement la \textit{table de vérité} par une fonction $\fun{v}
 		\item $F \in \mathcal{F}$ est dit \textit{satisfaisable} s'il existe une valuation $v$ de $\mathcal{P}$ tel que $\overline{v}(F)=1$
 		\item $F$ est dit \textit{valide} si pour toute valuation $v$ de $\mathcal{P}$, $\overline{v}(F) = 1$, on dit aussi que $F$ est une \textit{tautologie}.
 		\item $F$ et $G$ sont dites \textit{équivalentes}, notées $F \equiv G$, si pour toute valuation $v$, $\overline{v}(F)=\overline{v}(G)$
+		\item On note $v \models F \Longleftrightarrow \overline{v}(F)=1$, c'est à dire si et seulement si $v$ satisfait $F$.
 	\end{itemize}
 \end{mydef}
 
@@ -306,8 +327,6 @@ On exprime deux propositions :
 	Soit $v$ une valuation de $\mathcal{P}$ avec $\forall i, ~ v(H_i)=\delta_i$. 
 	
 	Alors la valuation $v'$ définie par $v'(p_i)=\delta_i$ vérifie $\overline{v}(F[H_1/p_1,...,H_n/p_n])=\overline{v'}(F)$
-	
-	On note $v \models F \Longleftrightarrow \overline{v}(F)=1$, c'est à dire si et seulement si $v$ satisfait $F$.
 \end{mylemma}
 
 \begin{myproof}
@@ -366,7 +385,7 @@ Par la suite, pour toutes formules propositionnelles $A$, $B$ et $C$, les équiv
 				
 		\item Expression des connecteurs : $\bot \equiv (A \land \neg A)$ et $\top \equiv (A \lor \neg A)$
 		
-		\item Distributivité : $(A\lor (B \land C)) = ((A \lor B) \land (A \lor C)$
+		\item Distributivité : $(A\lor (B \land C)) \equiv ((A \lor B) \land (A \lor C)$
 		\item Idempotence : $A \lor A \equiv  A \land A \equiv A$
 		\item Absorption : $(A \land \bot) \bot$ et $(A \lor \top) \equiv \top$
 		\item Neutre $(A \land \top) \equiv A$ et $(A \lor \bot) \equiv A$
@@ -382,13 +401,318 @@ Ici $\mathcal{P}=\{x_1, ..., x_n\}$
 	\begin{itemize}
 		\item Un \textit{littéral} est une variable ou une négation de variable.
 		
-		\item Une \textit{clause} est une formule $C$ de la forme $\displaystyle C = \bigvee_{i \in A}x_i \lor \bigvee_{i \in B} \neg x_i$ où $A, B \subseteq \{1, ..., n\}$.
+		\item Une \textit{clause} (ou \textit{disjonction élémentaire})est une formule $C$ de la forme $\displaystyle C = \bigvee_{i \in A}x_i \lor \bigvee_{i \in B} \neg x_i$ où $A, B \subseteq \{1, ..., n\}$.
 		
 		\item La longueur d'une clause $C$ notée $|C|$ est son nombre de variables : $|C|=|A|+|B|$.
 		
-		\item Si $|C|=1$, $C$ est une \textit{clause unitaire} (ou \textit{disjonction élémentaire}).
+		\item Si $|C|=1$, $C$ est une \textit{clause unitaire}.
 	\end{itemize}
 \end{mydef}
+
+\begin{mydef}
+	\leavevmode
+	\begin{itemize}
+		\item $F$ est sous \textit{forme normale disjonctive} (\textit{FND} ou \textit{DNF}) si $F$ est une disjonction de conjonctions élémentaires, c'est à dire si $F$ est de la forme
+		
+		$$F = \bigvee_{i=1}^m \left(\bigwedge_{j \in A_i} x_j \land \bigwedge_{j \in B_i} \neg x_j \right)$$
+		
+		\item $F$ est sous \textit{forme normale conjonctive} (\textit{FNC} ou \textit{CNF}) si $F$ est une conjonction de disjonctions élémentaires, c'est à dire si $F$ est de la forme
+		
+		$$F = \bigwedge_{i=1}^m \left(\bigvee_{j \in A_i} x_j \land \bigvee_{j \in B_i} \neg x_j \right)$$
+		
+		\item Si la longueur de chaque clause est bornée par $l > 0$, on dit que $F$ est $l$-FNC (de même pour $l$-FND).
+	\end{itemize}
+\end{mydef}
+
+\begin{mydef}
+	Soit $F$ sous forme FNC, c'est à dire si $\displaystyle F=\bigwedge_{i \in I} C_i$ où $(C_i)_{i \in I}$ sont des clauses, la longueur $|F|$ de $F$ est : $$|F| = \sum_{i \in I} |C_i|$$ 
+\end{mydef}
+
+\begin{myexmpl}
+	\leavevmode
+	\begin{itemize}
+		\item $F = (p \land q \neg r) \lor (\neg p \land r) \lor \neg r$ est une 3-FND.
+		
+		\item $F = p \lor \neg q$ est une 2-FNC à une clause et une 1-FND à deux clauses unitaires.
+	\end{itemize}
+\end{myexmpl}
+
+\begin{myrem}
+	Le nombre de clauses différentes possibles est borné : $|I| \leqslant 2^{|\mathcal{P}|}$
+\end{myrem}
+
+\subsection{Tables de vérité et formes normales}
+
+Soit $v$ une valuation de $\mathcal{P}$, on note : $$C_v^1 = \left(\bigvee_{i \in A_1} x_i\right) \land \left(\bigvee_{i \in B_1} \neg x_i\right)$$
+
+où $\forall x_i \in \mathcal{P}, \left\{
+\begin{array}{l}
+	v(x_i) = 1 \Longleftrightarrow i \in A \\
+	v(x_i) = 0 \Longleftrightarrow i \in B \\
+\end{array}
+\right.$.
+
+On a $A_1 \sqcup B_1 = \mathcal{P}$.
+
+\begin{mylemma}
+	Soit $F$ une formule, $F$ est équivalente à la FND suivante : $$\bigwedge\limits_{\substack{\funcshort{v}{\mathcal{P}}{\{0, 1\} \\ \overline{v}(F) = 1}}} C_v^1$$
+\end{mylemma}
+
+On note à présent : $$C_v^0 = \left(\bigvee_{i \in B} x_i\right) \lor \left(\bigvee_{i \in A} \neg x_i\right)$$
+
+\begin{mylemma}
+	Soit $F$ une formule, $F$ est équivalente à la FNC suivante : $$\bigwedge\limits_{\substack{\funcshort{v}{\mathcal{P}}{\{0, 1\} \\ \overline{v}(F) = 0}}} C_v^0$$
+\end{mylemma}
+
+\subsection{Systèmes complets de connecteurs}
+
+\begin{mydef}
+	Un système de connecteurs est fonctionnellement complet si toute table de vérité est représentable ar une formule utilisant ces seuls connecteurs.
+\end{mydef}
+
+\begin{mycor}
+	$\{\land, \lor, \neg\}$ est fonctionnellement complet, de même pour $\{\land, \neg\}$, $\{\lor, \neg\}$, $\{\rightarrow, \neg\}$ et $\{\bot, \rightarrow\}$.
+\end{mycor}
+
+\subsection{Mise sous forme normale}
+
+On cherche comment construire une forme normale équivalente à une formule $F$ donnée, il faut :
+\begin{itemize}
+	\item construire la table de vérité de $F$
+	\item en déduire une FND ou une FNC
+\end{itemize}
+
+Cette méthode est très coûteuse car elle oblige à en passer par l'examen de toutes les valuations.
+
+Une autre méthode consiste à jouer avec les équivalences pour trouver une FND ou FNC.
+
+\section{Formes normales complètes et bornes inférieures de FND}
+
+\begin{mydef}
+	Soient $F$ une formule sur $\mathcal{P}$ et $C$ une conjonction élémentaire.
+	
+	On dit que $C$ est \textit{impliquant} de $F$ (ou que $F$ absorbe $C$) si $(C \rightarrow F)$ est valide.
+\end{mydef}
+
+\begin{myrem}
+	$(C \rightarrow F)$ est valide si et seulement si :
+	$$\forall \funcshort{v}{\mathcal{P}}{\{0, 1\}}, ~ (\overline{v}(C) = 1 \Longrightarrow \overline{v}(F)=1)$$
+\end{myrem}
+
+Le terme d'absorption est justifié par le fait que $(C \rightarrow F)$ soit valide si et seulement si $C \lor F \equiv F$.
+
+\begin{mydef}
+	Soit $C_1$ une conjonction élémentaire, $C_1$ est un impliquant premier de $F$ si :
+	\begin{itemize}
+		\item $C_1$ est un impliquant de $F$
+		\item aucun impliquant $C_2$ de $F$ n'absorbe $C_1$, c'est-à-dire : pour toute conjonction élémentaire $C_2$, si $(C_2 \rightarrow F)$ est valide alors $(C_1 \rightarrow C_2)$ n'est pas valide (c'est à dire $C_1 \lor C_2 \not\equiv C_2$).
+	\end{itemize}
+\end{mydef}
+
+En résumé, $C_1$ est un impliquant de $C_2$ si et seulement si $(C_1 \rightarrow C_2)$ est valide, si et seulement si $(C_1 \lor C_2 \equiv C_2)$, et si et seulement si $C_2$ absorbe $C_1$.
+
+\begin{myexmpl}
+	$C_2 = (x_1 \land \neg x_2 \land \neg x_3)$ est un impliquant de $C_1=(x_1 \land \neg x_2)$ car pour toute valuation $v$, si $\overline{v}(C_2)=1$, alors 
+	$\left\{
+		\begin{array}{l}
+			v(x_1)=1 \\
+			v(x_2) = v(x_2)=0
+		\end{array}
+	\right.$ et donc $\overline{v}(C_2)=1$.
+	
+	$C_2$ est "plus général" que $C_1$.
+\end{myexmpl}
+
+\begin{mylemma}
+	Soient $\displaystyle C_1 = \bigwedge_{i \in A_1} \land \bigwedge_{i \in B_1} \neg x_i$ et $\displaystyle C_2 = \bigwedge_{i \in A_2} \land \bigwedge_{i \in B_2} \neg x_i$
+	
+	$C_1$ est un impliquant de $C_2$ ($C_2$ absorbe $C_1$) si et seulement si $A_2 \subseteq A_1$ et $B_2 \subseteq B_1$.
+\end{mylemma}
+
+\begin{myexer}
+	Le démontrer.
+\end{myexer}
+
+\begin{myexmpl}
+	$C_1=x_1 \land x_2 \land\neg x_2\land \neg x_4$ et $C_2 = x_1 \land \neg x_3$
+	
+	$C_2$ absorbe $C_1$.
+\end{myexmpl}
+
+\begin{mylemma}
+	Soient $\displaystyle C=\bigwedge_{i \in A} l_i$ où $(l_i)_i$ sont des littéraux et $F$ est une formule.
+	
+	$C$ est un impliquant premier de $F$ si et seulement si :
+	\begin{itemize}
+		\item $C$ est un impliquant de $F$
+		\item Pour tout  $j \in A$, on a que $\displaystyle C_j = \bigwedge\limits_{\substack{i \in A \\ i \neq j}} l_i$n'est pas un impliquant de $F$.
+	\end{itemize}
+\end{mylemma}
+
+\begin{myexer}
+	Le démontrer.
+\end{myexer}
+
+\begin{myrem}
+	Soit $\displaystyle F=\bigvee_{i \in I} D_i$, chaque $D_i$ est un impliquant de $F$.
+\end{myrem}
+
+\begin{myproposition}
+	Toute formule propositionnelle peut être mise sous forme normale disjonctive dont toutes les clauses élémentaires sont les impliquants premiers de $F$. Une telle FND est dite \textit{complète}.
+\end{myproposition}
+
+\begin{myproof}
+	Soit $n$ le nombre de variables, à équivalence logique près il n'existe qu'un nombre fini de conjonctions élémentaire (au plus $3^n$) donc d'impliquants premiers de $F$.
+
+	Par exemple :
+		$\mathcal{P}=\{x_1, x_2, x_3\}$ ,chaque variable peut apparaître ou pas dans la clause.
+		
+		Si elle apparaît, cela peut être positivement ou négativement.
+	
+	Soient $(D_i)_{i \leqslant m}$ des impliquants premiers de $F$.
+	
+	\begin{itemize}
+		\item $F$ absorbe chacun de ses impliquants
+		\item $F$ est équivalente à une FND : $\displaystyle \bigvee_{i \in A}C_i$
+	\end{itemize}
+	
+	donc par associativité de la disjonction :
+	
+	$$F \equiv \bigvee_{i \in A} C_i \lor \bigvee_{i = 1}^m D_i$$
+	
+	Pour tout $j$, par absorption, $\displaystyle \bigvee_{i \in A} C_i \lor D_j \equiv F$.
+	
+	Chaque $C_i$ est un impliquant :
+	\begin{itemize}
+		\item Soit $C_i$ est premier
+		\item Soit $C_i$ est absorbé par un impliquant premier $D_j$ (c'est à dire $C_i \lor D_j \equiv D_j$).
+	\end{itemize}
+	
+	Par associativité et absorptions successives, on a :
+	
+	$$F = \bigvee_{i = 1}^m D_i$$
+\end{myproof}
+
+\begin{mynot}
+	Par abus de langage, on appelle les modèles de $F$ l'ensemble des valuations $S_F$ satisfaisant $F$.
+	
+	Si $C$ est un impliquant de $F$, $S_C \subseteq S_F$ et si $C$ est un impliquant premier de $F$, $S_C$ est maximal au sens de l'inclusion.
+\end{mynot}
+
+\begin{mydef}
+	Soient $F \in \mathcal{F}_{\mathcal{P}}$, $F = \bigvee\limits_{i \in I} C_i$ et $C_i$ des conjonctions élémentaires.
+	
+	\begin{itemize}
+		\item $F$ est \textit{première} si chaque $C_i$ est un impliquant premier.
+		\item $F$ est \textit{redondante} s'il existe $j \in I$ tel que $F \equiv \bigvee\limits_{\substack{i \in I \\ i \neq j}} C_i$
+		
+		\item $F$ est \textit{non-redondante} si pour tout $j \in I$, $F \not\equiv \bigvee\limits_{\substack{i \in I \\ i \neq j}} C_i$.
+	\end{itemize}
+\end{mydef}
+
+La redondance est une généralisation de la notion d'absorption : si $C_j$ vérifie $F \equiv \bigvee\limits_{\substack{i \in I \\ i \neq j}} C_i$, alors $C_j$ est absorbée par $\bigvee\limits_{\substack{i \in I \\ i \neq j}} C_i$
+
+\begin{myexmpl}
+	$C_1 = x \land y$, $C_2 = x \land \neg y$, $C_3 = x$ et $F = \bigvee\limits_{i=1}^3 C_i$, on a $F \equiv \bigvee\limits_{i=1}^2 C_i \equiv C_3$ car $C_1$ et $C_2$ sont des impliquants de $C_3$.
+\end{myexmpl}
+
+\begin{mylemma}
+	Si $F$ est complète, alors $F$ est première, mais l'inverse n'est pas vrai si la forme complète est redondante.
+\end{mylemma}
+
+Ces notion sont utiles pour caractériser des FND (de longueurs) minimales de certaines formules.
+
+\subsection{Formules propositionnelles positives}
+
+\begin{mydef}
+	Soit $\mathcal{P}$ un ensemble de variables propositionnelles, on définit l'ordre $\leqslant$ sur les valuations par $$\forall \funcshort{v_1, v_2}{\mathcal{P}}{\{0, 1\}}, ~ v_1 \leqslant v_2 \Longleftrightarrow \forall x \in \mathcal{P}, v_1(x) \leqslant v_2(x)$$
+\end{mydef}
+
+\begin{mydef}
+	Une formule $F$ est \textit{positive} si pour tout valuation $v_1, v_2$ telles que $v_1 \leqslant v_2$ on a $\overline{v_1}(F) \leqslant \overline{v_2}(F)$.
+\end{mydef}
+
+\begin{myproposition}
+	Soit $F$ une formule, elle est positive si et seulement si tous les impliquants premiers de $F$ sont positifs, c'est-à-dire si elle ne contient aucun littéral négatif.
+\end{myproposition}
+
+\begin{myrem}
+	Si une formule est positive alors elle peut être écrite sans utiliser de négation.
+\end{myrem}
+
+\begin{myproof}
+	\begin{proofpart}{$F$ positive $\Longrightarrow$ $F$ tous les littéraux de $F$ sont positifs}
+		Soit $F$ une formule positive, et $C$ un impliquant premier de $F$ contenant un littéral négatif.
+		
+		$$C = \bigwedge\limits_{i \in A} x_i \land \bigwedge\limits_{i \in B} \neg x_i, ~ B \neq \emptyset$$
+		
+		$C' = \bigwedge\limits_{i \in A} x_i$ absorbe $C$, or $C$ est un impliquant premier, donc $C$ ne peut pas être absorbé par un autre impliquant de $F$.
+		
+		Alors $C'$ n'est pas un impliquant de $F$, d'où l'existence d'une valuation $v$ satisfaisant $C'$ mais pas $F$.
+		
+		Si $\overline{v}(C')=1$ alors $\forall i \in 1, ~ v(x_i)=1$ et $\forall i \in B, ~ v(x_i) \in \{0, 1\}$.
+		
+		$C$ est un impliquant de $F$ donc pour toute valuation $v'$, si $\overline{v'}(C)=1$ alors $\overline{v'}(F)=1$, par exemple :
+		$$\left\{\begin{array}{c}
+			v'(x_i)=1, ~ \forall i \in A \\
+			v'(x_i)=0, ~ \forall i \in B \\
+		\end{array}\right.$$
+		
+		On a donc :
+		$$\left\{\begin{array}{c}
+			\overline{v}(F)=0, ~ \forall i \in A \\
+			\overline{v'}(F)=1, ~ \forall i \in B \\
+			v' \leqslant v
+		\end{array}\right.$$
+		
+		On sait que $F$ est positive alors $1=v'(F) \leqslant v(F)=0$, contradiction.
+	\end{proofpart}
+
+	\begin{proofpart}{$F$ tous les littéraux de $F$ sont positifs $\Longrightarrow$ $F$ positive }
+		On considère une forme (par exemple complète) de $F$ :
+	
+		$$F \equiv \bigvee_{ii \in I} C_i$$
+		
+		où $(c_i)_i$ sont des impliquants premiers de $F$.
+		
+		Par hypothèse chaque $C_i$ est positif, on doit montrer que $F$ est positive, c'est-à-dire que
+		$$\forall v, v' ~ : ~ (v \leqslant v' \Longrightarrow \overline{v}(F) \leqslant \overline{v'}(F))$$
+		
+		Soit $v$ une valuation, on pose $A_v = \{i | v(x_i) = 0\}$.
+		
+		Par définition, pour tout $j$ on a $$\overline{v}(C_j) = 0 \Longleftrightarrow C_j \text{ ne contient quue des variables de } A_v$$
+		
+		Soit $v'$ une autre valuation telle que $v \leqslant v'$, on a $A_{v'} \subseteq A_v$, donc $\{C_j ~ | ~ \overline{v}(C_j) = 1\} \subseteq \{C_j ~ | ~ \overline{v'}(C_j) = 1\}$, d'où :
+		
+		$$\overline{v}(F) \leqslant \overline{v'}(F)$$
+	\end{proofpart}
+\end{myproof}
+
+\begin{myproposition}
+	Soit $F$ une formule positive, alors la FND complète de $F$ est positive et non-redondante.
+	
+	Elle est l'unique FND première de F.
+\end{myproposition}
+
+\begin{myrem}
+	Il n'existe pas de forme équivalente plus courte : aucun impliquant premier n'est redondant.
+\end{myrem}
+
+\begin{myproof}
+	Soit $F$ une formule positive de variables $x_1, ..., x_n$.
+	
+	Par les propositions précédentes, la FND complète $\displaystyle \bigvee_{i \in I} C_i$ de $F$ n'a que des impliquants premiers positifs.
+	
+	Supposons parl'absurde qu'il existe $j \in I$ telle que $C_j$ soit superflue (que $F$ soit redondante), c'est à dire que $\displaystyle F \equiv \bigvee_{\substack{i \in I \\ i \neq j}} C_i$.
+	
+	On pose $\displaystyle C_j = \bigwedge_{a \in A} x_a$, considérons la valuation $v$ telle que $v(x_a) = 1 \Longleftrightarrow a \in A$. On a $\overline{v}(C_j) = 1$ donc $\overline{v}(F)=1$.
+	
+	Or $\displaystyle F \equiv \bigvee_{\substack{i \in I \\ i \neq j}} C_i$, donc il existe $i \neq j$ tel que $\overline{v}(C_i) = 1$.
+	
+	Posons à présent $\displaystyle C_i = \bigwedge_{b \in B} x_b$, on sait que $C_i$ et $C_j$ sont des impliquants premiers de $F$
+	
+	Donc $C_i$ (resp. $C_j$) n'absorbe pas $C_j$ (resp. $C_i$), d'après une proposition précédente $A \not\subseteq B$ et $B \not\subseteq A$, il existe alors $b \in B$ tel que $b \notin A$, donc $v(b) = 0$ et $\overline{v}(C_i)=0$, ce qui est contradictoire.
+\end{myproof}
 
 \part{Compléments}
 
@@ -489,5 +813,21 @@ Ici $\mathcal{P}=\{x_1, ..., x_n\}$
 		\cqfd
 	\end{itemize}
 \end{myproof}
+
+\paragraph{Exercice 3}
+
+Soit $C = \bigwedge_{i \in I} l_i$ et $F$ telle que $C$ soit un impliquant de $F$.
+
+\begin{proofpart}{S'il existe $j$ tel que $C_j$ implique $F$, alors $C$ n'est pas premier}
+	Supposons qu'il existe $j$ tel que $C_j$ soit un impliquant de $F$.
+	
+	$C = C_j \land l_j$ alors si une valuation $v$ est telle que $\overline{v}(C) = 1$, c'est que $\overline{v}(C_j)=\overline{v}(l_j)=1$
+	
+	Cela signifie que $C$ est un impliquant de $C_j$, $C$ n'est donc pas un impliquant premier de $F$.
+\end{proofpart}
+
+\begin{proofpart}{Si pour tout $j$ $C_j$ n'implique pas $F$, alors $C$ est premier}
+	
+\end{proofpart}
 
 \end{document}

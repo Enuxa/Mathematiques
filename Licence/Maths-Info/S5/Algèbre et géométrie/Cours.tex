@@ -137,8 +137,8 @@ Montrer que pour tout $m, n \in \mathbb{Z}$ on a $g^{m+n}=g^m*g^n$ et $g^{-n}=\l
 		\item Si $(G, *)$ est un groupe alors $\{e\} \leqslant G$
 		\item On définit $SL_n(\mathbb{R})=\{M \in \mathcal{M}_n | \det M = 1\}$ le \textit{groupe spécial linéaire} qui est un sous-groupe de $GL_n(\mathbb{R})$
 		\item On définit $\mathcal{O}_n(\mathbb{R})=\{M \in \mathcal{M}_n | \,^tMM = I_n\}$ le \textit{groupe orthogonal} qui est un sous-groupe de $GL_n(\mathbb{R})$
-		\item $\mathfrak{U} = \{z \in \mathbb{C} ~ | ~ |z| = 1\} \leqslant (\mathbb{C}^*, \times)$
-		\item Pour $n > 0$, $\mathfrak{U}_n = \{z \in \mathbb{C}^* ~ | ~ z^n = 1\} \leqslant \mathfrak{U} \leqslant \mathbb{C}^*$
+		\item $\mathbb{U} = \{z \in \mathbb{C} ~ | ~ |z| = 1\} \leqslant (\mathbb{C}^*, \times)$
+		\item Pour $n > 0$, $\mathbb{U}_n = \{z \in \mathbb{C}^* ~ | ~ z^n = 1\} \leqslant \mathbb{U} \leqslant \mathbb{C}^*$
 	\end{enumerate}
 \end{myexmpl}
 
@@ -255,7 +255,7 @@ Or $0 \leqslant l - k < d$ et par minimalité de $d$, $l=k$.
 \begin{myexmpl}
 	\leavevmode
 	\begin{enumerate}
-		\item Dans $(\mathfrak{U}, \times)$, pour $n > 0$ on a $g=\exp\left(\frac{2i \pi}{n}\right)$
+		\item Dans $(\mathbb{U}, \times)$, pour $n > 0$ on a $g=\exp\left(\frac{2i \pi}{n}\right)$
 		
 		g est d'ordre fini égal à $n$.
 		
@@ -278,7 +278,7 @@ Or $0 \leqslant l - k < d$ et par minimalité de $d$, $l=k$.
 \end{mycor}
 
 \begin{myexmpl}
-	Dans $\mathfrak{U}_6$, d'ordre 6, les éléments peuvent avoir pour ordre 1, 2, 3 et 6.
+	Dans $\mathbb{U}_6$, d'ordre 6, les éléments peuvent avoir pour ordre 1, 2, 3 et 6.
 \end{myexmpl}
 
 \begin{myproperty}
@@ -406,7 +406,7 @@ $$f_1=f_2 \Longleftrightarrow f_1(1)=f_2(1)$$
 	
 	$$\left\{
 		\begin{array}{ccc}
-			\mathfrak{U}_n & \longrightarrow & \mathfrak{U}_n \\
+			\mathbb{U}_n & \longrightarrow & \mathbb{U}_n \\
 			x & \longmapsto & x^d
 		\end{array}
 	\right.$$
@@ -426,16 +426,16 @@ $$f_1=f_2 \Longleftrightarrow f_1(1)=f_2(1)$$
 \begin{myproof}
 	Pour tout $G' \leqslant G$ contenant $\ker f$, on définit $\theta$ par $\theta(G')=f(G') \leqslant Im(f)$.
 	
-	On démontre que $\theta$ et l'application réciproque de $\varphi$.
+	On démontre que $\theta$ est l'application réciproque de $\varphi$.
 	
 	\begin{enumerate}
-		\item Soit $H' \leqslant Im(f)$, on vérifie $(\theta \circ \varphi)(H')=f(f^{-1}(H'))=H'$.
+		\item Soit $H' \leqslant Im(f)$, on vérifie $(\theta \circ \varphi)(H')=f(f^{-1}(H'))=H'$ car la co-restriction de $f$ à $Im(f)$ est surjective.
 		
 		\item Soit $G' \leqslant G$ tel que $\ker f \subseteq G'$, on a $G' \subseteq (\varphi \circ \theta)(G')=f^{-1}(f(G'))$, montrons maintenant $f^{-1}(f(G')) \subseteq G'$ :
 		
 		Soit $x \in f^{-1}(f(G'))$, alors $f(x) \in f(G')$ et il existe $u \in G'$ tel que $f(x)=f(u)$.
 		
-		On a donc : $$f(x)=(u)$$
+		On a donc : $$f(x)=f(u)$$
 		$$f(xu^{-1})=e$$
 		$$xu^{-1} \in \ker f \subseteq G'$$
 		$$x \in \underbrace{\left(G'\right) \cdot u}_{G' \text{ car } u \in G'}=G'$$
@@ -449,6 +449,226 @@ $$f_1=f_2 \Longleftrightarrow f_1(1)=f_2(1)$$
 \end{myproof}
 
 \part{Opérations de groupes}
+
+\section{Rappels sur les relations d'équivalence}
+
+\begin{mydef}Soit $X$ un ensemble.
+
+	Une relation binaire $\sim$ sur $X$ est une \textit{relation d'équivalence} si :
+	\begin{enumerate}
+		\item $\sim$ est transitive : $\forall x, y, z \in X, ~ (x \sim y \land y \sim z \Longrightarrow x \sim z)$
+		\item $\sim$ est réflexive : $\forall x \in X, ~ x \sim x$
+		\item $\sim$ est symétrique : $\forall x, y \in X, ~ x \sim x$
+	\end{enumerate}
+	
+	On appelle la \textit{classe d'équivalence de $x$} l'ensemble $\{y \in X ~ | ~ x \sim y\}$ et on note $X/\sim$ l'ensemble des classes d'équivalence que l'on appelle \textit{ensemble quotient}.
+	
+	L'application de $X \longrightarrow X/\sim$ qui à tout élément $x$ associe sa classe d'équivalence est appelée \textit{surjection canonique}.
+\end{mydef}
+
+\begin{myproposition}
+	Pour une relation $\sim$ donnée, $X/\sim$ est une partition de $X$.
+\end{myproposition}
+
+\begin{myexmpl}
+	Soit $(G, \cdot)$ un groupe.
+	
+	\begin{enumerate}
+		\item Soit $H \leqslant G$ et $\sim$ la relation définie par $\forall g_1, g_2 \in G, ~ (g_1 \sim g_2 \Longleftrightarrow \exists h \in H ~ : ~ g_1 \cdot h=g_2)$
+		
+		\item $\mathcal{R}$ par $\forall g_1, g_2 \in G, ~ (g_1 \mathcal{R} g_2 \Longleftrightarrow \exists h \in H ~ g_1 = h g_2 h^{-1})$
+		
+		\item $\forall H, K \leqslant G, ~ (H \sim K \Longleftrightarrow \exists g \in G ~ : ~ gHg^{-1}=K)$
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{mythm}
+	Soit $\sim$ une relation d'équivalence, sur un ensemble $X$, $Y$ un ensemble et $\funcshort{f}{X}{Y}$ une application constante sur les classes d'équivalences.
+	
+	Il existe alors une unique application de $\funcshort{g}{(X/\sim)}{Y}$ telle que $g\circ \pi=f$ où $\pi$ est la surjection canonique.
+\end{mythm}
+
+\section{Opérations de groupes}
+
+\begin{mydef}
+	On définit une action de groupe $(G, \star)$ sur un ensemble $X$ par la donnée d'une application $$\func{\phi}{G \times X}{X}{(g,x)}{g \cdot x}$$
+	vérifiant $\forall x \in G, ~ e \cdot x = x$ et $\forall g, h \in G, ~ \forall x \in X, ~ g \cdot (h \cdot x) = (h \star g) \cdot x$
+\end{mydef}
+
+\begin{myexmpl}
+	Soit $G$ un groupe.
+	\begin{enumerate}
+		\item Soit $H$ un sous-groupe de $G$, l'action de $H$ sur $G$ définie par $h\cdot g = hg$ est appelée action de $H$ sur $G$ par \textit{translation à gauche}.
+		
+		\item L'action de $G$ sur lui même définie par $h\cdot g = hgh^{-1}$ est appelée action de $G$ sur lui-même par \textit{conjugaison}.
+		
+		\item L'action de $G$ sur $\mathcal{S}(G)$ définie par $g \cdot H=gHg^{-1}=i_g(H)$ est l'opération de $G$ sur ses sous-groupes par \textit{conjugaison}.
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{myproposition}
+	Soient $(G, \star)$ un groupe, $X$ un ensemble et $\funcshort{\varphi}{G \times X}{X}$.
+	
+	$\varphi$ définit une action de groupe si et seulement si pour tout $g \in G$, l'application $\func{\varphi_g}{G}{X}{x}{g \cdot x}$ est bijective et $g\longmapsto \varphi_g$ est un homomorphisme de $(G, \star)$ dans $(\mathfrak{S}_X, \circ)$.
+\end{myproposition}
+
+\begin{myrem}
+	On en déduit $\forall g, h \in G, ~ \varphi_g \circ \varphi_h = \varphi_{g \star h}$ et $\varphi_{g^{-1}}=(\varphi_g)^{-1}$
+\end{myrem}
+
+\begin{myexmpl}
+	\begin{enumerate}
+		\item L'action de $GL_n(\mathbb{K})$ sur $\mathbb{K}^n$ définie par $M\cdot x=Mx$ est une action de groupe.
+	
+		\item L'action de $GL_n(\mathbb{K})$ sur $M_{m \times n}(\mathbb{K})$ définie par $M \cdot N=MN$ est une action de groupe.
+				
+		\item L'action des applications linéaires inversibles de $E$ sur les formes quadratiques de $E$ définie par $g \cdot q = q \circ g^{-1}$
+		
+		\begin{myexer}
+			Le démontrer.
+		\end{myexer}
+		
+		\item L'action par conjugaison des matrice inversibles sur les matrices carrées est une action de groupe.
+	\end{enumerate}
+\end{myexmpl}
+
+\section{Orbites, stabilisateurs}
+
+\begin{mydef}
+	Soit $G$ un groupe opérant sur $X$ et $x \in X$, on définit :
+	
+	\begin{itemize}
+		\item L'orbite de $x$ l'ensemble $G \cdot x=\{g\cdot x ~ | ~ g \in G\}$
+		
+		\item Le stabilisateur de $x$ l'ensemble $Stab_G(x)=G_x = \{g \in G ~ | ~ g \cdot x = x\}$
+	\end{itemize}
+\end{mydef}
+
+\begin{myexmpl}
+	Considérons l'action de $G$ sur lui-même par translation à gauche.	
+	On a $G \cdot x = G$ et $G_x=\{e\}$
+\end{myexmpl}
+
+\begin{myproposition}
+	La relation sur $X$ définie par :
+	$$\forall x, y \in X, x \sim y \Longleftrightarrow \exists g \in G ~ : ~ g \cdot x = y$$
+	est une relation d'équivalence, dite \textit{associée à l'opération de $G$ sur $X$}.
+\end{myproposition}
+
+\begin{myrem}
+	Si $x \in X$, alors $G \cdot x$ est la classe d'équivalence de $x$.
+	
+	On rappelle aussi que si $\mathcal{R}$ est une relation d'équivalence sur un ensemble $X$, alors $X / \mathcal{R}$ est une partition de $X$.
+	
+	En particulier, dans le cas d'une relation d'équivalence associée à une action de groupe, $x \sim y \Longleftrightarrow G \cdot x = G \cdot y$.
+\end{myrem}
+
+On note alors l'ensemble quotient $X / \sim$ par $G \backslash X$ et on l'appelle ensemble quotient de $X$ par $G$.
+
+\begin{myrem}
+	Si on se donne une action à droite sur $X$, on note $X/G$ l'ensemble des classes d'équivalence.
+\end{myrem}
+
+\begin{mydef}
+	Soit $H \leqslant G$, on note l'ensemble quotient de $G$ par l'opération de translation à gauche de $H$ :
+	
+	$$H \backslash G = \{Hg ~ | ~ g \in G\}$$
+	
+	De même on note l'ensemble quotient de $G$ par l'opération de translation à droite de $H$ :
+	
+	$$G / H = \{gH ~ | ~ g \in G\}$$
+\end{mydef}
+
+\begin{mydef}
+	Une action de $G$ sur $X$ est dite :
+	\begin{itemize}
+		\item \textit{transitive} s'il n'existe qu'une seule orbite
+		\item \textit{fidèle} si $\forall g \in G, ~ (\forall x \in X, ~ g \cdot x = x) \Longrightarrow g=e$
+		\item \textit{libre} si $\forall x \in X, \forall g \in G, g \cdot x = x \Longrightarrow g=e$
+	\end{itemize}
+\end{mydef}
+
+\begin{myrem}
+	L'action est fidèle si : $$\bigcap_{x \in X} Stab(x) = \{e\}$$
+	et elle est transitive si $\forall x \in X, ~ Stab(x) = \{e\}$.
+\end{myrem}
+
+\begin{myexer}
+	Une opération est fidèle si et seulement si l'homomorphisme associé est injectif.
+\end{myexer}
+
+\begin{myexmpl}
+	\leavevmode
+	\begin{enumerate}
+		\item L'action de $GL_n(\mathbb{R})$ sur  $\mathbb{R}^n$ admet deux orbites : $\{0\}$ et $\mathbb{R}^n \backslash \{0\}$
+		
+		\item L'action de $GL_n(\mathbb{R})$ sur  $\mathbb{R}^n \backslash \{0\}$ admet une unique orbite $\mathbb{R}^n \backslash \{0\}$ donc l'action est transitive.
+		
+		Elle est fidèle ($(\forall x \in \mathbb{R}^n, ~ Mx=x) \Longrightarrow M=I_n$) mais elle n'est pas libre car une matrice inversible différente de $I_n$ de vecteur propre $x$ et de valeur propre $1$ vérifie $Mx=x$.
+		
+		\item Soient $H \leqslant G$, l'action de $H$ sur $G$ par translation à gauche.
+		
+		L'action est transitive si et seulement si $G = H$.
+		
+		L'opération est libre car pour tout $g \in G$ et $x \in G$, si on a $g \star x=x$, alors en simplifiant par $x$ on a $g=e$. Elle est donc également fidèle.
+		
+		\item On considère les sommets du cube de côté $2$ l'ensemble $\mathcal{C}=\{(x_1, x_2, x_3) \in \mathbb{R}^3 ~ | ~ \forall i, ~ |x_i| = 1 \}$ et le groupe $G \leqslant SO_3(\mathbb{R}^3)$ préservant globalement $\mathcal{C}$.
+		
+		L'opération est fidèle, car si $g$ est une application fixant trois points distincts, alors elle possède trois vecteurs propres linéairement indépendants de valeur propre 1, elle est donc diagonalisable et est égale à l'identité.
+		
+		Elle est transitive car tout sommet peut être envoyé sur un autre.
+		
+		Elle n'est pas libre car la rotation autour d'une "diagonale" fixe les sommets par laquelle elle passe.
+	\end{enumerate}
+\end{myexmpl}
+
+\subsection{Aspects numériques}
+
+\begin{myproposition}
+	\begin{enumerate}
+		\item Étant donné une opération de $G$ sur $X$, il existe une application bijective
+		
+		$$\func{\varphi}{G/Stab(x)}{G \cdot x}{g Stab(x)}{g \cdot x}$$
+		
+		\item Si $G$ et $X$ sont finis, alors $$|G \cdot x| = \frac{|G|}{|Stab(x)|}$$
+		
+		\item Si $G$ et $X$ sont finis, on choisit pour chaque orbite $\omega$ un élément $x_\omega \in \omega$ et on obtient :
+		
+		$$|X| = \sum_{\omega \in G \backslash X} \frac{|G|}{Stab_G(x_\omega)}$$
+	\end{enumerate}
+	
+	Les deux égalités s'appellent \textit{équations aux classes}.
+\end{myproposition}
+
+\begin{myproof}
+	Soit $x \in G$, on considère l'action de $Stab_G(x)$ sur $G$ par translation à droite, et $\sim$ la relation d'équivalence sur $G$ associée à celle-ci.
+	
+	On définit : $$\func{f}{G}{G \cdot x}{g}{g \cdot x}$$
+	
+	qui est constante sur les classes d'équivalences $G/\sim$, donc il existe $\funcshort{\varphi}{G/Stab_G(x)}{G \cdot x}$ telle que $\forall g \in G, ~ \varphi(gStab_G(x))=g \cdot x$
+	
+	Montrons que $\varphi$ est bijective.
+	
+	\begin{proofpart}{$\varphi$ est surjective}
+		Soit $y \in G \cdot x$, il existe $g \in G$ tel que $y = g \cdot x = f(g) = \varphi(g Stab_G(x))$.
+	\end{proofpart}
+	
+	\begin{proofpart}
+		Soient $\alpha, \beta \in G/Stab_G(x)$ tels que $\varphi(\alpha) = \varphi(\beta)$.
+		
+		Il existe $g, h \in G$ tels que $\alpha = g Stab_G(x)$ et $\beta = h Stab_G(x)$.
+		
+		Alors $g \cdot x=f(g)=\varphi(\alpha)=\varphi(\beta)=f(h)=h \cdot x$, d'où $h^{-1} \star g \in Stab_G(x)$ ainsi $gStab_G(x)=hStab_G(x)$, on obtient alors $\alpha = \beta$.
+	\end{proofpart}
+	
+	\cqfd
+\end{myproof}
+
+\begin{myexer}
+	Pour chaque classe $\omega \in G/Stab_G(x)$ on pose $g_\omega \in \omega$, alors pour tout $g \in G$ il existe un unique couple $(\omega, h) \in G/Stab_G(x) \times Stab_G(x)$ tel que $g = g_\omega \star h$
+\end{myexer}
+
+
 \part{Groupes symétriques}
 \part{Sous-groupes distingués et groupes quotient}
 \part{Théorème de Sylow}
@@ -572,12 +792,53 @@ $$
 
 \paragraph{Solution de l'exercice 7}
 
-Soit $\func{f}{\mathfrak{U}_n}{\mathfrak{U}_n}{x}{x^d}$
+Soit $\func{f}{\mathbb{U}_n}{\mathbb{U}_n}{x}{x^d}$
 
 \subparagraph{Noyau}
 
-$\ker f = \{x \in \mathfrak{U}_n ~ | ~ x^d = e \} = \mathfrak{U}_d$
+$\ker f = \{x \in \mathbb{U}_n ~ | ~ x^d = e \} = \mathbb{U}_d$
 
-$Im(f)=\{x^d ~|~ x \in \mathfrak{U}_n\}=\mathfrak{U}_{\frac{n}{n \land d}}$
+$Im(f)=\{x^d ~|~ x \in \mathbb{U}_n\}=\mathbb{U}_{\frac{n}{n \land d}}$
+
+\paragraph{Solution de l'exercice 8}
+
+On considère l'action des applications linéaires inversibles de $E$ sur les formes quadratiques de $E$ définie par $g \cdot q = q \circ g^{-1}$, montrons que c'est une action de groupe.
+
+\begin{proofpart}{Composition}
+
+	Soient $f, g \in GL(E)$ et une forme quadratique $q$ :
+	
+	$f\cdot(g \cdot q)=(g \cdot q) \circ f^{-1}=q\circ g^{-1}\circ f^{-1}=q \circ (f \circ g)^{-1}=(f \circ g) \cdot q$
+\end{proofpart}
+
+\begin{proofpart}{Élément neutre}
+
+	$id \cdot q = q \circ id^{-1} = q$
+\end{proofpart}
+
+\paragraph{\boldmath $C_m \times C_n \cong C_{mn}$} Soient $m$ et $n$ premiers entre eux.
+
+On considère l'application
+$$\func{\varphi}{C_m \times C_n}{C_{mn}}{(g,h)}{gh}$$
+
+Pour tout $(g, h), (g', h') \in C_m \times C_n$, on a :  $$\varphi((g,h)(g',h')=\varphi(gg',hh')=gg'hh'=(gh)(g'h')=\varphi(g,h)\varphi(g',h')$$
+
+Donc $\varphi$ est un morphisme, de plus si elle est injective alors elle sera bijective car $|C_{mn}| = |C_m \times C_n|$.
+
+Soit $(g,h) \in C_m \times C_n$ tel que $\varphi(g, h) = gh = e$
+
+$g \in C_m$ donc l'ordre de $g$ divise $m$, de même l'ordre de $h^{-1}$ divise $n$. On a donc que l'ordre de $g=h^{-1}$ divise $m$ et $n$, or $m$ et $n$ sont premiers entre eux, alors l'ordre de $g$ divise $m \land n = 1$.
+
+Ainsi $g = h = e$, $\varphi$ est donc injective et donc un isomorphisme.
+
+\paragraph{Solution de l'exercice 10}
+
+Montrons que pour tout $g \in G$ il existe un unique couple $(\omega, h) \in G / \text{Stab}(x) \times \text{Stab}(x)$ tel que $g_\omega \star h = g$, c'est-à-dire qu'il existe une bijection entre les ensembles $G$ et $G/\text{Stab}(x) \times \text{Stab}(x)$.
+
+On pose $$\func{\varphi}{G/\text{Stab}(x) \times \text{Stab}(x)}{G}{(\omega, h)}{g_\omega \star h}$$
+
+Pour tout $g \in G$, $g \in \omega = \text{Stab}(x)$ et il existe un certain $g_\omega \in \omega$ tel que $g_\omega \text{Stab}(x) = g \text{Stab}(x)$, c'est-à-dire qu'il existe un $h \in \text{Stab}(x)$ tel que $g_\omega \star h = g$, d'où la surjectivité de $\varphi$.
+
+$\varphi$ est bijective car $\left|G / \text{Stab}(x) \times \text{Stab}(x)\right| = \frac{|G|}{\text{Stab}(x)} \cdot |\text{Stab}(x)| = |G|$.
 
 \end{document}
