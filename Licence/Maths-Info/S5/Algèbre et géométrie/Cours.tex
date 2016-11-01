@@ -668,6 +668,78 @@ On note alors l'ensemble quotient $X / \sim$ par $G \backslash X$ et on l'appell
 	Pour chaque classe $\omega \in G/Stab_G(x)$ on pose $g_\omega \in \omega$, alors pour tout $g \in G$ il existe un unique couple $(\omega, h) \in G/Stab_G(x) \times Stab_G(x)$ tel que $g = g_\omega \star h$
 \end{myexer}
 
+\begin{mythm}
+	Soit $(G, \star)$ un $p$-groupe (avec $p$ premier) opérant sur un ensemble fini $X$, on note
+	$X^G = \{x \in X ~ | ~ \forall g \in G, ~ g \cdot x = x\}$, on a :
+	
+	$$|X^G| \equiv |X| \mod p$$
+\end{mythm}
+
+\begin{myproof}
+	On remarque tout d'abord
+	$$\forall x \in X, (x \in X^G \Longleftrightarrow G \cdot x = \{x\})$$
+	
+	et de manière équivalente sachant qu'une orbite n'est jamais vide
+	
+	$$\forall x \in X, (x \notin X^G \Longleftrightarrow |G \cdot x| \geqslant 2)$$
+	
+	Soient $\omega_1, \omega_2, ...\omega_n$ les orbites $X$ sous l'actions de $X$ ordonnées de telle façon que les $k$ premières soient les orbites réduites à un élément, où $k = \left|X^G\right|$, et $x_1, x_2, ...x_n$ des éléments de $X$ tels que $\forall i \leqslant n, ~ x_i \in \omega_1$.
+	
+	Les orbites de $(\omega_i)_{i \leqslant n}$ forment une partition de $X$, d'où :
+	
+	$$|X| = \sum_{i = 1}^{n} |\omega_i|$$
+	
+	$$|X| = \sum_{i = 1}^{k} |w_i| + \sum_{i = k + 1}^{n} |w_i|$$
+	
+	$$|X| = \sum_{i = 1}^{k} 1 + \sum_{i = k + 1}^{n} |w_i|$$
+	
+	$$|X| = \left|X^G\right| + \sum_{i = k + 1}^{n} |w_i|$$
+	
+	Chaque $\text{Stab}(x_i)$ est un sous-groupe de $G$, qui est d'ordre puissance $p$, donc d'après le théorème de Lagrange, $\text{Stab}(x_i)$ l'est aussi, et ainsi $\displaystyle |\omega_i| = \frac{|G|}{|\text{Stab}(x_i)|}$ est une puissance de $p$.
+	
+	De plus, pour tout $i > k$, $x_i \notin X^G$ donc $|G \cdot x_i| = |w_i| \geqslant 2$, et comme $p \geqslant 2$, $|\omega_i|$ est une puissance non-nulle de $p$.
+	
+	On en déduit que $\displaystyle \sum_{i = k + 1}^{n} |w_i|$ est un multiple de $p$, d'où :
+	
+	$$|X| \equiv \left|X^G\right| \mod p$$
+	
+	\cqfd
+\end{myproof}
+
+\begin{mythm}Théorème de Cauchy
+
+	Soit $G$ un groupe fini et $p$ un diviseur premier de $|G|$, alors il existe $g \in G$ tel que $|g|=p$.
+\end{mythm}
+
+\begin{myproof}
+	Soit $n = |G|$ et soit $X = \{(g_1, g_2, ...g_p) ~ | ~ g^p = e\}$, cet ensemble est de cardinal $n^{p-1}$ car il existe $n^{p-1}$ $(p-1)$-uplets $(g_1, ..., g_{p-1})$ de $G$ et il existe pour chacun un unique $g_p = (g_1...g_{p-1})^{-1}$ tel que $g_1...g_p = e$.
+	
+	On pose $\omega$ la permutation de $X$
+	
+	$$\func{\omega}{X}{X}{(g_1, g_2, ... g_p)}{(g_2, g_3, ... g_p, g_1)}$$
+	
+	Celle-ci est bien définie car pour tout $(g_1, ... g_p) \in X$
+	$$g_1...g_p = e$$
+	$$g_2...g_p g_1 = g_1^{-1} g_1$$
+	$$g_2...g_p g_1 = e$$
+	$$\underbrace{(g_2, ..., g_p, g_1)}_{\omega(g_1, ...g_p)} \in X$$
+	
+	et par récurrence, pour tout $k \geqslant 0$, $\omega^k (g_1, ...g_p) \in X$.
+	
+	De plus, elle est d'ordre $p$, il  existe donc un unique homomorphisme de $G$ vers $\mathcal{S}_X$ envoyant $e^{2 i \pi / p}$ sur $\omega$, on définit une action de $\mathbb{U}_p$ sur $X$ à l'aide de celle-ci.
+	
+	D'après le théorème précédent, on a :
+	$$\left|X^G\right| \equiv |X| \mod p$$
+	$$\left|X^G\right| \equiv n^{p-1} \mod p$$
+	$$\left|X^G\right| \equiv 0 \mod p, \text{ car $p$ divise $n$}$$
+	
+	Or $X^G$ est non-vide, il contient $(e, e, ...e)$, donc $X^G$ est un multiple de $p \geqslant 2$, c'est-à-dire qu'il contient un élément $g=(g_1, g_2, ... g_p)$ tel que $e^{2 i \pi / p} \cdot g = g$, donc $g_1 = g_2$, $g_2 = g_3$, etc. et alors $g_1 = g_2 = ... = g_p$.
+	
+	$g=(g_1, ..., g_1) \in X^G$ donc $g_1^p = e$ avec $g_1 \neq e$, il existe donc un élément d'ordre $p$ dans $G$.
+	
+	\cqfd
+\end{myproof}
+
 
 \part{Groupes symétriques}
 \part{Sous-groupes distingués et groupes quotient}

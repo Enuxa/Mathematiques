@@ -443,7 +443,7 @@ Ici $\mathcal{P}=\{x_1, ..., x_n\}$
 
 \subsection{Tables de vérité et formes normales}
 
-Soit $v$ une valuation de $\mathcal{P}$, on note : $$C_v^1 = \left(\bigvee_{i \in A_1} x_i\right) \land \left(\bigvee_{i \in B_1} \neg x_i\right)$$
+Soit $v$ une valuation de $\mathcal{P}$, on note : $$C_v^1 = \left(\bigwedge_{i \in A_1} x_i\right) \land \left(\bigwedge_{i \in B_1} \neg x_i\right)$$
 
 où $\forall x_i \in \mathcal{P}, \left\{
 \begin{array}{l}
@@ -455,7 +455,7 @@ où $\forall x_i \in \mathcal{P}, \left\{
 On a $A_1 \sqcup B_1 = \mathcal{P}$.
 
 \begin{mylemma}
-	Soit $F$ une formule, $F$ est équivalente à la FND suivante : $$\bigwedge\limits_{\substack{\funcshort{v}{\mathcal{P}}{\{0, 1\} \\ \overline{v}(F) = 1}}} C_v^1$$
+	Soit $F$ une formule, $F$ est équivalente à la FND suivante : $$\bigvee\limits_{\substack{\funcshort{v}{\mathcal{P}}{\{0, 1\} \\ \overline{v}(F) = 1}}} C_v^1$$
 \end{mylemma}
 
 On note à présent : $$C_v^0 = \left(\bigvee_{i \in B} x_i\right) \lor \left(\bigvee_{i \in A} \neg x_i\right)$$
@@ -524,7 +524,7 @@ En résumé, $C_1$ est un impliquant de $C_2$ si et seulement si $(C_1 \rightarr
 \end{myexmpl}
 
 \begin{mylemma}
-	Soient $\displaystyle C_1 = \bigwedge_{i \in A_1} \land \bigwedge_{i \in B_1} \neg x_i$ et $\displaystyle C_2 = \bigwedge_{i \in A_2} \land \bigwedge_{i \in B_2} \neg x_i$
+	Soient $\displaystyle C_1 = \bigwedge_{i \in A_1} x_i \land \bigwedge_{i \in B_1} \neg x_i$ et $\displaystyle C_2 = \bigwedge_{i \in A_2} x_i \land \bigwedge_{i \in B_2} \neg x_i$
 	
 	$C_1$ est un impliquant de $C_2$ ($C_2$ absorbe $C_1$) si et seulement si $A_2 \subseteq A_1$ et $B_2 \subseteq B_1$.
 \end{mylemma}
