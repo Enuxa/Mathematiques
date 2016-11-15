@@ -7,6 +7,7 @@
 \usepackage{geometry}
 \usepackage{enumitem}
 \usepackage{amsthm}
+\usepackage[hidelinks]{hyperref}
 
 \geometry{hmargin=2cm}
 
@@ -54,6 +55,14 @@
 \right.
 }
 
+\newcommand{\anonfunc}[4]{
+\left\{ \begin{array}{lcl}
+	#1 & \longrightarrow & #2 \\
+	#3 & \longmapsto & #4
+\end{array}
+\right.
+}
+
 \newcommand{\funcinline}[5]{
 #1 ~ : ~ #2 \longrightarrow #3, ~ #4 \longmapsto #5
 }
@@ -64,7 +73,7 @@
 
 \newenvironment{proofpart}[1]{
 	\noindent
-	{\boldmath #1}
+	{\textbf{\boldmath #1}}
 }{
 	\checkmark
 }
@@ -625,6 +634,7 @@ On note alors l'ensemble quotient $X / \sim$ par $G \backslash X$ et on l'appell
 \subsection{Aspects numériques}
 
 \begin{myproposition}
+	\leavevmode
 	\begin{enumerate}
 		\item Étant donné une opération de $G$ sur $X$, il existe une application bijective
 		
@@ -645,15 +655,17 @@ On note alors l'ensemble quotient $X / \sim$ par $G \backslash X$ et on l'appell
 	
 	On définit : $$\func{f}{G}{G \cdot x}{g}{g \cdot x}$$
 	
-	qui est constante sur les classes d'équivalences $G/\sim$, donc il existe $\funcshort{\varphi}{G/Stab_G(x)}{G \cdot x}$ telle que $\forall g \in G, ~ \varphi(gStab_G(x))=g \cdot x$
+	qui est constante sur les classes d'équivalences de $G/\sim$ (de la forme $g\text{Stab}_G(x)$), donc il existe $\funcshort{\varphi}{G/Stab_G(x)}{G \cdot x}$ telle que $\forall g \in G, ~ \varphi(gStab_G(x))=g \cdot x$
 	
 	Montrons que $\varphi$ est bijective.
 	
 	\begin{proofpart}{$\varphi$ est surjective}
+	
 		Soit $y \in G \cdot x$, il existe $g \in G$ tel que $y = g \cdot x = f(g) = \varphi(g Stab_G(x))$.
 	\end{proofpart}
 	
-	\begin{proofpart}
+	\begin{proofpart}{$\varphi$ est injective}
+	
 		Soient $\alpha, \beta \in G/Stab_G(x)$ tels que $\varphi(\alpha) = \varphi(\beta)$.
 		
 		Il existe $g, h \in G$ tels que $\alpha = g Stab_G(x)$ et $\beta = h Stab_G(x)$.
@@ -683,7 +695,7 @@ On note alors l'ensemble quotient $X / \sim$ par $G \backslash X$ et on l'appell
 	
 	$$\forall x \in X, (x \notin X^G \Longleftrightarrow |G \cdot x| \geqslant 2)$$
 	
-	Soient $\omega_1, \omega_2, ...\omega_n$ les orbites $X$ sous l'actions de $X$ ordonnées de telle façon que les $k$ premières soient les orbites réduites à un élément, où $k = \left|X^G\right|$, et $x_1, x_2, ...x_n$ des éléments de $X$ tels que $\forall i \leqslant n, ~ x_i \in \omega_1$.
+	Soient $\omega_1, \omega_2, ...\omega_n$ les orbites de $X$ sous l'actions de $G$ ordonnées de telle façon que les $k$ premières soient les orbites réduites à un élément, où $k = \left|X^G\right|$, et $x_1, x_2, ...x_n$ des éléments de $X$ tels que $\forall i \leqslant n, ~ x_i \in \omega_i$.
 	
 	Les orbites de $(\omega_i)_{i \leqslant n}$ forment une partition de $X$, d'où :
 	
@@ -695,7 +707,7 @@ On note alors l'ensemble quotient $X / \sim$ par $G \backslash X$ et on l'appell
 	
 	$$|X| = \left|X^G\right| + \sum_{i = k + 1}^{n} |w_i|$$
 	
-	Chaque $\text{Stab}(x_i)$ est un sous-groupe de $G$, qui est d'ordre puissance $p$, donc d'après le théorème de Lagrange, $\text{Stab}(x_i)$ l'est aussi, et ainsi $\displaystyle |\omega_i| = \frac{|G|}{|\text{Stab}(x_i)|}$ est une puissance de $p$.
+	Chaque $\text{Stab}(x_i)$ est un sous-groupe de $G$, qui est d'ordre puissance de $p$, donc d'après le théorème de Lagrange, $\text{Stab}(x_i)$ l'est aussi, et ainsi $\displaystyle |\omega_i| = \frac{|G|}{|\text{Stab}(x_i)|}$ est une puissance de $p$.
 	
 	De plus, pour tout $i > k$, $x_i \notin X^G$ donc $|G \cdot x_i| = |w_i| \geqslant 2$, et comme $p \geqslant 2$, $|\omega_i|$ est une puissance non-nulle de $p$.
 	
@@ -712,7 +724,7 @@ On note alors l'ensemble quotient $X / \sim$ par $G \backslash X$ et on l'appell
 \end{mythm}
 
 \begin{myproof}
-	Soit $n = |G|$ et soit $X = \{(g_1, g_2, ...g_p) ~ | ~ g^p = e\}$, cet ensemble est de cardinal $n^{p-1}$ car il existe $n^{p-1}$ $(p-1)$-uplets $(g_1, ..., g_{p-1})$ de $G$ et il existe pour chacun un unique $g_p = (g_1...g_{p-1})^{-1}$ tel que $g_1...g_p = e$.
+	Soit $n = |G|$ et soit $X = \{(g_1, g_2, ...g_p) ~ | ~ g_1 g_2 ... g_p = e\}$, cet ensemble est de cardinal $n^{p-1}$ car il existe $n^{p-1}$ $(p-1)$-uplets $(g_1, ..., g_{p-1})$ de $G$ et il existe pour chacun un unique $g_p = (g_1...g_{p-1})^{-1}$ tel que $g_1...g_p = e$.
 	
 	On pose $\omega$ la permutation de $X$
 	
@@ -740,8 +752,386 @@ On note alors l'ensemble quotient $X / \sim$ par $G \backslash X$ et on l'appell
 	\cqfd
 \end{myproof}
 
+\section{Applications à la géométrie affine}
+
+Soit $\mathbb{K}$ un corps.
+
+\subsection{Espaces affines}
+
+\begin{mydef}
+	Soit $\mathcal{E}$ un ensemble non-vide, et $E$ un espace vectoriel, $\mathcal{E}$ est un \textit{espace affine} de \textit{direction} $E$ s'il existe une action libre et transitive de $E$ sur $\mathcal{E}$
+	
+	$$\anonfunc{E}{\mathcal{E}}{(M, u)}{M + u}$$
+
+	On a alors :
+
+	\begin{itemize}
+		\item Pour tout $A, B \in \mathcal{E}$ il existe un unique $u \in E$ tel que $A + u = B$, on note $\overrightarrow{AB} = u$.
+		
+		\item Pour tout $A, B, C \in \mathcal{E}$ on a :
+		\begin{enumerate}
+			\item $\overrightarrow{AB} = 0 \Leftrightarrow A = B$
+			\item $\overrightarrow{AB}+\overrightarrow{BC} = \overrightarrow{AC}$
+			\item $-\overrightarrow{AB} = \overrightarrow{BA}$
+		\end{enumerate} 
+	\end{itemize}
+\end{mydef}
+
+En effet, pour tout $A, B \in \mathcal{E}$, l'action étant transitive, il existe $u \in E$ tel que $B + u = A$, et étant libre, s'il existe un autre $v \in E$ tel que $B = A + u = A + v$ on a que $u = v$.
+
+De plus, pour tout $A, B, C \in \mathcal{E}$ on vérifie les propriétés :
+\begin{enumerate}
+	\item $\overrightarrow{AB} = 0 \Longleftrightarrow B = A + \overrightarrow{AB} = A \Longleftrightarrow A = B$
+	\item $A + (\overrightarrow{AB} + \overrightarrow{BC}) = (A + \overrightarrow{AB}) + \overrightarrow{BC} = B + \overrightarrow{BC} = C$ d'où $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$
+	\item $A = A + 0 = A + \overrightarrow{AA}$ donc $\overrightarrow{AA} = 0$, alors $\overrightarrow{AA} = \overrightarrow{AB} + \overrightarrow{BA} = 0$, donc $-\overrightarrow{AB} = \overrightarrow{BA}$.
+\end{enumerate}
+
+\subsection{Sous-espaces affine}
+
+Soit $\mathcal{E}$ un espace affine de direction $E$.
+
+\begin{mydef}
+	On appelle \textit{sous-espace affine} de $\mathcal{E}$ tout sous-ensemble $\mathcal{F} \subseteq \mathcal{E}$ tel que $\mathcal{F}$ est l'orbite d'un élément de $\mathcal{E}$ pour l'opération d'un sous-espace vectoriel de $E$.
+\end{mydef}
+
+\begin{myexmpl}
+	\leavevmode
+	\begin{enumerate}
+		\item
+		$E=\mathcal{E} = \mathcal{K}^3$
+		
+		$\mathcal{F} = \{ (x, y, z) \in \mathbb{K}^3 ~ | ~ z = 1 \}$
+		
+		$\mathcal{F} = (0, 0, 1) + \{(x, y, z) \in \mathbb{K}^3 ~ | ~ z = 0\}$
+		
+		\item
+		Soit $V$ un $\mathbb{K}$-espace vectoriel et $\varphi$ une forme linéaire non-nulle, alors $\{u \in V ~ | ~ \varphi(u) = 1\} = u_0 + \ker \varphi$ est un sous-espace affine, où $\varphi(u_0)=1$.
+		
+		\begin{myexer}
+			Le démontrer
+			\label{exo11}
+		\end{myexer}
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{myrem}
+	Soient $X, Y \in \mathcal{E}$ et $F, G$ des sous-espace vectoriels de $E$ tels que $X + F = Y + G$, alors $F = G$.
+	
+	$X \in X + F = Y + G$, alors $\overrightarrow{XY} \in G$, symétriquement on montre $\overrightarrow{YX} \in F$ et donc $\overrightarrow{XY} = -\overrightarrow{YX} \in F$, on en déduit $\overrightarrow{XY} \in F \cap G$.
+	
+	Soit $u \in F$, on a $X + u \in X + F = Y + G$.
+
+	Il existe $v \in G$ tel que
+	$$X + u = X + v$$
+
+	$$X + (u-v) = X$$
+
+	$$\overrightarrow{XY} = u - v$$
+
+	$$u = \overrightarrow{XY} + v \in G$$
+	
+	Donc $F \subseteq G$, symétriquement $G \subseteq F$ donc $F = G$.
+\end{myrem}
+
+\begin{myrem}
+	Soit $X \in \mathcal{E}$ soit $F$ un sous-espace vectoriel de $E$, alors pour tout $M \in \mathcal{E}$, $M \in X + F \Longleftrightarrow \overrightarrow{XM} \in F$
+	
+	\begin{myexer}
+		Remontrer la remarque précédente à l'aide de cette propriété.
+		\label{exo12}
+	\end{myexer}
+\end{myrem}
+
+\begin{mydef}
+	Soit $\mathcal{F}$ un sous-espace affine de $\mathcal{E}$, il existe un unique sous-espace vectoriel $F$ de $E$ tel qu'il existe $M \in \mathcal{E}$ vérifiant $\mathcal{F} = M + F$, on l'appelle direction de $\mathcal{F}$.
+	
+	Si $\dim F$ est finie, on dit que $\mathcal{F}$ est de dimension $\dim F$.
+\end{mydef}
+
+\begin{myproperty}
+	\leavevmode
+
+	\begin{itemize}
+	\item Soit $I$ un ensemble et $\left(\mathcal{F}_i\right)_{i \in I}$ une famille de sous-espace affine de $\mathcal{E}$ de directions respectives $\left(F_i\right)$.
+	
+	Si $\displaystyle \bigcap_{i \in I} \mathcal{F}_i \neq \emptyset$, alors il est un sous-espace affine de direction $\displaystyle \bigcap_{i \in I} F_i$.
+	
+	\item Soient $\mathcal{F}, \mathcal{G}$ deux sous-espaces affines de $\mathcal{E}$ de directions supplémentaires dans $E$, alors $\mathcal{F} \cap \mathcal{G}$ est réduite à un point.
+	
+	\item Soient $\mathcal{F}$ et $\mathcal{G}$ de directions respectives $F$ et $G$, si $\mathcal{F} \subseteq \mathcal{G}$ alors $F \subseteq G$.
+	\end{itemize}
+\end{myproperty}
+
+\begin{myproof}
+	\leavevmode
+	\begin{enumerate}
+		\item On se restreint au cas ou $I$ est de cardinal 2, soient $\mathcal{F}$ et $\mathcal{G}$ deux sous-espaces affines de directions $F$ et $G$.
+		
+		\item Soient $\mathcal{A}, \mathcal{B}$ deux sous-espaces affines de directions supplémentaires.
+		
+		Il existe $A, B \in \mathcal{E}$ tels que $\mathcal{F} = A + F$  et $\mathcal{G} = B + G$.
+		
+		$F \oplus G = E$, on peut alors décomposer $\overrightarrow{AB} = f + g$ avec $(f,g) \in F \times G$
+		
+		$$A + \overrightarrow{AB} = B$$
+		
+		$$\underbrace{A + f}_{\in \mathcal{F}} = A + (\overrightarrow{AB} - g) = \underbrace{B - g}_{\in \mathcal{G}}$$
+		
+		Donc $X := A + f \in \mathcal{F} \cap \mathcal{G}$.
+		
+		Ce point est de plus unique car si $Y \in \mathcal{F} \cap \mathcal{G}$, alors $\overrightarrow{XY} \in F \cap G = \{0\}$, c'est-à-dire $\overrightarrow{XY} = 0$ et donc $X = Y$.
+	\end{enumerate}
+\end{myproof}
+
+\begin{myexmpl}
+	\item Soit $S$ un système d'équations linéaires à $n$ inconnues, soit $S_h$ son système homogène.
+	
+	Soit $\mathcal{F} \subseteq \mathbb{K}^n$ l'ensemble des solutions de $S$, et $F \subseteq \mathbb{K}^n$ l'ensemble de solutions de $S_h$.
+	
+	Si $F \neq \emptyset$, alors $\mathcal{F}$ est un sous-espace affine de direction $F$.
+\end{myexmpl}
+
+\begin{myrem}
+	On suppose $\dim E = 2$, deux droites affines de $\mathcal{E}$ vérifient une et une seule des trois conditions suivantes :
+	\begin{itemize}
+		\item Elles sont égales
+		\item Elles sont disjointes de même direction
+		\item Leur intersection est réduite à un point
+	\end{itemize}
+	
+	\begin{myexer}
+		Le démontrer
+		\label{exo13}
+	\end{myexer}
+\end{myrem}
+
+\begin{mydef}
+	Deux sous-espaces affines sont \textit{parallèles} s'ils sont de même direction.
+\end{mydef}
+
+\begin{myrem}
+	Deux sous-espace affines parallèles sont soit égaux, soit disjoints.
+	
+	En effet s'ils ne sont pas disjoints, alors il existe $M \in \mathcal{F} \cap \mathcal{G}$ et donc $\mathcal{F} = M + \overrightarrow{\mathcal{F}} = \mathcal{F} = M + \overrightarrow{\mathcal{G}} = \mathcal{G}$
+\end{myrem}
+
+\subsection{Applications affines}
+
+\begin{mydef}
+	Soient $\mathcal{E}, \mathcal{F}$ deux espaces affines de directions $E$ et $F$ et $\funcshort{f}{\mathcal{E}}{\mathcal{F}}$, $f$ est \textit{une application affine} s'il existe application linéaire $l$ de $E$ à $F$ telle que :
+	
+	$$\forall A, B \in \mathcal{E}, \overrightarrow{f(A) f(B)} = l(\overrightarrow{AB})$$
+	
+	ou de manière équivalente
+	
+	$$\forall (M, u) \in \mathcal{E} \times E, ~ f(M + u) = f(M) + l(u)$$
+\end{mydef}
+
+\begin{myproof}
+	$$\forall A, B \in \mathcal{E}, ~ \overrightarrow{f(A)f(B)} = l(\overrightarrow{AB}) \Longleftrightarrow \forall A, B \in \mathcal{E}, ~ f(A) + l(\overrightarrow{AB}) = f(B)$$
+
+	$$\forall A, B \in \mathcal{E}, ~ \overrightarrow{f(A)f(B)} = l(\overrightarrow{AB}) \Longleftrightarrow \forall (A, u) \in \mathcal{E} \times E, ~ f(A) + l(u) = f(A+u)$$
+\end{myproof}
+
+\begin{myexmpl}
+	\leavevmode
+	
+	\begin{enumerate}
+		\item Soit $u \in E$, on pose $\func{\tau_u}{\mathcal{E}}{\mathcal{E}}{x}{x + u}$, c'est une application affine d'application linéaire associée $id_E$.
+		
+		\item Soit $\Omega \in \mathcal{E}$ et $\lambda \in \mathbb{K}^{\times}$, on note $h_{\Omega, \lambda}$ de $\mathcal{E}$ dans $\mathcal{E}$ définie par $h_{\Omega \lambda}(M) = \Omega + \lambda \overrightarrow{\Omega M}$, c'est une application affine d'application linéaire associée $\lambda id_E$.
+		
+		Pour tout $(M, u) \in \mathcal{E} \times E$ :
+		
+		$\begin{aligned}
+		   h(M+u)& = \Omega + \lambda \overrightarrow{\Omega(M+u)} \\
+		   & = \Omega + \left(\overrightarrow{\Omega M} + \overrightarrow{M(M+u)}\right) \\
+		   & = \Omega + \lambda \overrightarrow{\Omega M} + \lambda u \\
+		   & = h(M) + \lambda u \\
+		   & = h(M) + (\lambda id_E)(u)
+		 \end{aligned}$
+		
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{myrem}
+	Soient $X, Y \in \mathcal{E}$ et $u, v \in \mathcal{E}$, on a $\overrightarrow{(X+u)(Y+v)} = \overrightarrow{XY} + v - u$ car
+	$$\begin{aligned}
+		\overrightarrow{(X+u)(Y+v)}& = \overrightarrow{(X+u)X} + \overrightarrow{XY} + \overrightarrow{Y(Y+v)}	\\
+		& = -u + \overrightarrow{XY} + v
+	\end{aligned}$$
+\end{myrem}
+
+\begin{myproposition}
+	Soient $\mathcal{F}$ et $\mathcal{G}$ des espaces affines, alors :
+	\begin{enumerate}
+		\item $\anonfunc{\mathcal{E}}{\mathcal{E}}{X}{X}$ est une application affine d'application linéaire associée $id_E$.
+		
+		\item Si $\funcshort{f}{\mathcal{E}}{\mathcal{F}}$ et $\funcshort{f}{\mathcal{F}}{\mathcal{G}}$ sont des applications affines, alors $g \circ f$ l'est aussi, et son application linéaire associée est la composée de celle de $f$ avec celle de $g$.
+		
+		\item Soit $\funcshort{f}{\mathcal{E}}{\mathcal{F}}$ une application affine, on note $L$ son application linéaire associée, alors $f$ est bijective si et seulement si $L$ bijective, dans ce cas $f^{-1}$ est affine, d'application linéaire associée $L^{-1}$.
+	\end{enumerate}
+\end{myproposition}
+
+\begin{myproof}
+	\leavevmode
+	
+	\begin{enumerate}
+		\item \checkmark
+		\item Soient $A, B \in \mathcal{E}$ $$\overrightarrow{g(f(A)) g(f(B))} = L_g(\overrightarrow{f(A) f(B)}) = L_g(L_f(\overrightarrow{AB})) = (L_g \circ L_f)(\overrightarrow{AB})$$
+		\item
+		\begin{proofpart}{$f \text{ bijective} \Longrightarrow L \text{ bijective}$}
+		
+			Soit $A \in \mathcal{E}$, et $u \in E$ tel que $L(u)=0$, on a $f(A + u) = f(A) + L(u) = f(A)$
+			
+			or $f$ est injective, alors $A+u = A$, donc $u = 0$, ainsi $\ker L = \{0\}$, $L$ est donc injective.
+			
+			Soit $v \in F$ et $u \in E$ tel que $A + u = f^{-1}(f(A) + v)$ alors $$L(u) = \overrightarrow{f(A)f(A+u)} =  \overrightarrow{f(A)(f(A)+v)} = v$$ donc $L$ est surjective.
+			
+			$L$ est donc bijective.
+
+		\end{proofpart}
+
+		\begin{proofpart}{$L \text{ bijective} \Longrightarrow f \text{ bijective}$}
+			
+			Réciproquement, si $L$ est bijective, soit $M,X \in \mathcal{E}$ fixés et un point quelconque $A \in \mathcal{E}$, on a
+			
+			$$f(M) = X \Longleftrightarrow f(A + \overrightarrow{AM}) = f(A) + L(\overrightarrow{AM}) = X$$
+			
+			$$f(M) = X \Longleftrightarrow L(\overrightarrow{AM}) = \overrightarrow{f(A)X}$$
+			
+			$$\overrightarrow{AM} = L^{-1}(\overrightarrow{f(A)X})$$
+			
+			On pose $\func{f'}{\mathcal{F}}{\mathcal{E}}{X}{A + L^{-1}(\overrightarrow{f(A)X})}$
+	
+			On a bien $f'\circ f = id_{\mathcal{E}}$ et $f \circ f' = id_{\mathcal{F}}$ :
+			
+			Soit $X \in \mathcal{E}$, on a :
+			$$
+			\begin{aligned}
+				(f' \circ f)(X) &= f'\left(f(A)+L\left(\overrightarrow{AX}\right)\right)\\
+				&=A+L^{-1}\left(\overrightarrow{f(A)\left(f(A)+L\left(\overrightarrow{AX}\right)\right)}\right)\\
+				&=A+L^{-1}\left(L\left(\overrightarrow{AX}\right)\right)\\
+				&=A+\overrightarrow{AX}\\
+				&=X
+			\end{aligned}$$
+			
+			De même pour $(f \circ f')(Y)$.
+		\end{proofpart}
+
+		On suppose à présent que $f$ et $l$ sont bijectives.
+
+		\begin{proofpart}{$f^{-1} \text{ est affine, d'application linéaire associée } L^{-1}$}
+		
+		Soient $X, Y \in \mathcal{F}$, on montre que $\overrightarrow{f^{-1}(X)f^{-1}(Y)} = L^{-1}(\overrightarrow{XY})$
+		
+		$L(\overrightarrow{f^{-1}(X)f{-1}(Y)} = \overrightarrow{f(f^{-1}(X) f(f^{-1}(Y))} = \overrightarrow{XY}$
+		
+		Or $L$ est injective, donc $\overrightarrow{f^{-1}(X)f^{-1}(Y)} = L^{-1}(\overrightarrow{XY})$
+		
+		Comme $\funcshort{L}{E}{F}$ est linéaire injective, on a que $L^{-1}$ est linéaire.
+
+		\end{proofpart}		
+	\end{enumerate}
+\end{myproof}
+
+\begin{mycor}
+	\leavevmode
+	\begin{itemize}
+		\item L'ensemble des applications affines bijectives de $\mathcal{E}$ est un sous-groupe de $\mathfrak{S}_{\mathcal{E}}$, il est appelé \textit{groupe affine de $\mathcal{E}$} et est noté $GA(\mathcal{E})$.
+		
+		\item L'ensemble des translations est un sous-groupe de $GA(\mathcal{E})$.
+		
+		\item L'ensemble $G$ des translations et des homothéties de rapport non-nul est un sous-groupe de $GA(\mathcal{E})$.
+	\end{itemize}
+\end{mycor}
+
+\begin{myexer}
+	Soit $f$ d'application linéaire associée $L = \phi(f)$, $f$ est une translation ou une homothétie si et seulement s'il existe $\lambda \in \mathbb{K}^{\times} ~ : ~ L = \lambda id_E$.
+	
+	Montrons que s'il existe $\lambda \neq 0$ tel que $L = \lambda id_E$, alors $f$ est une homothétie ou une translation :
+	
+	\begin{proofpart}{Si $\lambda = 1$}
+
+		Soient $M, N \in \mathcal{E}$ :
+		$$
+		\begin{aligned}
+			\overrightarrow{M f(M)} &= \overrightarrow{M f(N)} + \overrightarrow{f(N) f(M)} \\
+			& = \overrightarrow{M f(N)} + L\left(\overrightarrow{NM}\right)\\
+			& = \overrightarrow{M f(N)} + \overrightarrow{NM} \\
+			& = \overrightarrow{N f(N)}
+		\end{aligned}
+		$$
+		
+		il existe donc un certain $u \in \mathcal{E}$ tel que $\forall M \in \mathcal{E}, ~ f(M) = M+u$.
+		
+	\end{proofpart}
+	
+	
+		\begin{proofpart}{Si $\lambda \neq 1$}
+	
+			Soit $M \in \mathcal{E}$, on pose $\Omega \in \mathcal{E}$ tel que $\displaystyle \overrightarrow{M\Omega} = \frac{\overrightarrow{MM'}}{1 - \lambda}$
+
+			$\Omega$ est un point fixe de $f$ :
+
+			$$
+			\begin{aligned}
+				f(O) &=f(M + \overrightarrow{MO}) \\
+				&=f(M) + \lambda \overrightarrow{MO} \\
+				&=f(M) + \frac{\lambda}{1-\lambda} \overrightarrow{MM'}\\
+				&= 
+			\end{aligned}
+			$$
+			
+			il existe donc un certain $u \in \mathcal{E}$ tel que $\forall M \in \mathcal{E}, ~ f(M) = M+u$.
+			
+		\end{proofpart}
+	
+\end{myexer}
+
+$G$ est alors l'image réciproque du sous-groupe $\{\lambda id_E ~ | ~ \lambda \neq 0\}$ par $\phi$.
 
 \part{Groupes symétriques}
+
+\begin{myexer}
+	Soient $E$ et $F$ deux ensembles, $f$ une bijection de $E$ dans $F$, l'application
+	$$\anonfunc{\mathcal{S}_E}{\mathcal{S}_F}{\sigma}{f^{-1} \circ \sigma \circ f}$$
+	est un isomorphisme de groupes et elle est bien définie.
+\end{myexer}
+
+\begin{mydef}
+	Soit $n \geqslant 1$, on appelle $n$-ième groupe symétrique, noté $\mathcal{S}_n$ le groupe $\mathcal{S}_{\{1, 2, ...n\}}$.
+\end{mydef}
+
+\begin{myproposition}
+	Soit $n \geqslant 1$, on a $\left|\mathcal{S}_n\right| = n!$
+\end{myproposition}
+
+\begin{myexmpl}
+	\leavevmode
+	\begin{itemize}
+		\item Soient $i, j \leqslant n$ distincts, on note $(i ~ j)$ la transposition de $i$ et $j$, elle est d'ordre 2.
+		\item Soient $a_1, ...a_l$ distincts avec $l \geqslant n$, on note $(a_1 ~ a_2 ... a_l)$ le $l$-cycle et on a $(a_1 ~ a_2 ... a_l)^{-1} = (a_l ~ a_{l-1} ... a_2 a_1)$, elle est d'ordre $l$.
+	\end{itemize}
+\end{myexmpl}
+
+\begin{mythm}
+	Soit $n \geqslant 2$ et $\sigma \in \mathcal{s}_n$, il existe d'uniques cycles $c_1, ... c_N$ avec $N$ éventuellement nul à supports deux à deux disjoints tels que $\sigma = c_1 \circ c_2 ... c_N$.
+\end{mythm}
+
+\begin{myrem}
+	On définit le support de $\sigma$ par
+	$$supp(\sigma) = \{i \leqslant n ~ | ~ \sigma(i) \neq i\}$$
+	
+	On a aussi pour toutes permutations $\sigma$ et $\pi$
+	
+	$$supp(\sigma) \cap supp(\pi) = \emptyset \Longrightarrow \sigma \circ \pi = \pi \circ \sigma$$
+	
+	De plus $\{supp(c_i) ~ | ~ i \leqslant n\} = \langle\sigma\rangle \backslash \{1, ...n\}$
+	
+	L'ordre de $\sigma$ est le ppcm des longueurs de cycles $C_1, ...c_N$.
+\end{myrem}
+
 \part{Sous-groupes distingués et groupes quotient}
 \part{Théorème de Sylow}
 
@@ -913,4 +1303,32 @@ Pour tout $g \in G$, $g \in \omega = \text{Stab}(x)$ et il existe un certain $g_
 
 $\varphi$ est bijective car $\left|G / \text{Stab}(x) \times \text{Stab}(x)\right| = \frac{|G|}{\text{Stab}(x)} \cdot |\text{Stab}(x)| = |G|$.
 
+\paragraph{Solution de l'exercice 11}
+
+$\varphi$ est non-nulle alors il existe $u_0 \in V$ tel que $\varphi(u_0) \neq 0$, on pose $u_1 = \frac{u_0}{\varphi(u_0)}$ afin d'avoir $\varphi(u_1) = 1$.
+
+Montrons $\mathcal{F} = \{M \in V\ ~ | ~ \varphi(M) = 1\} = u_1 + \ker \varphi$.
+
+$u_1 + \ker \varphi = \{w = u_1 + v ~ | ~ v \in \ker f\}$
+
+$u_1 + \ker \varphi = \{w = u_1 + v ~ | ~  \varphi(v) = 0\}$
+
+$u_1 + \ker \varphi = \{w = u_1 + v ~ | ~ \varphi(w - u_1) = 0\}$
+
+$u_1 + \ker \varphi = \{w \in V ~ | ~ \varphi(w - u_1) = 0\}$
+
+$u_1 + \ker \varphi = \{w \in V ~ | ~ \varphi(w) = \varphi(u_1) = 1\}$
+
+$u_1 + \ker \varphi = \mathcal{F}$
+
+\paragraph{Solution de l'exercice \ref{exo12}}
+
+Soient $X, Y \in \mathcal{E}$
+
+$$u \in F \Longleftrightarrow X + u \in X + F$$
+$$u \in F \Longleftrightarrow X + u \in Y + G$$
+$$u \in F \Longleftrightarrow \exists v \in G ~ : ~ X + u = Y + v$$
+$$u \in F \Longleftrightarrow \exists v \in G ~ : ~ Y + (v - u) = X \in X + F = Y + G$$
+$$u \in F \Longleftrightarrow (v - u) \in G$$
+$$u\in F \Longleftrightarrow u \in G$$
 \end{document}

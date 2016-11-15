@@ -1,0 +1,173 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+
+\geometry{hmargin=2cm}
+
+% Environnement type théorème
+\newtheorem{mythm}{Théorème}
+\newtheorem{myproposition}{Proposition}
+\newtheorem{myproperty}{Propriété}
+\newtheorem{mylemma}{Lemme}
+\newtheorem{mycor}{Corollaire}
+
+% Environnement type texte
+\theoremstyle{remark}
+\newtheorem{mynot}{Notation}
+\newtheorem{myrem}{Remarque}
+\newtheorem{myexer}{Exercice}
+\newtheorem{myproof}{Preuve}
+\newtheorem{myexmpl}{Exemple}
+
+% Environnement de définition
+\theoremstyle{definition}
+\newtheorem{mydef}{Définition}
+
+\setlist[itemize]{label=-}
+
+% Carré de fin de preuve
+\newcommand{\cqfd}{
+	\hfill$\square$
+}
+
+% "Checkmark" de fin d'étape de preuve
+\newcommand{\checked}{
+	\hfill$\checkmark$
+}
+
+% Définition de fonction
+\newcommand{\func}[5]{
+#1 ~ : ~ \left\{ \begin{array}{lcl}
+	#2 & \longrightarrow & #3 \\
+	#4 & \longmapsto & #5
+\end{array}
+\right.
+}
+
+\newcommand{\funcinline}[5]{
+#1 ~ : ~ #2 \longrightarrow #3, ~ #4 \longmapsto #5
+}
+
+\newcommand{\funcshort}[3]{
+#1 ~ : ~ #2 \longrightarrow #3
+}
+
+\newenvironment{proofpart}[1]{
+	\noindent
+	{\boldmath #1}
+}{
+	\checkmark
+}
+
+\begin{document}
+
+\section*{Exercice 1}
+
+\begin{enumerate}
+	\item Soit $f \in E$ et $x \in [0, 1]$, d'après l'inégalité e Taylor on a :
+	
+	$$|f(x) - f(0)| \leqslant\sup_{c \in [0, 1]}|f'(c)|$$
+	
+	$$|f(x)| \leqslant\sup_{c \in [0, 1]}|f'(c)| + |f(0)|$$
+	
+	$$|f(x)| \leqslant \|f'\|_{\infty} + |f(0)|$$
+	
+	Cette inégalité est vraie pour tout $x$, donc $\|f\|_{\infty}\leqslant \|f'\|_{\infty} + |f(0)|$.
+	
+	De plus $\|f'\|_{\infty} \leqslant \|f'\|_{\infty} + |f(0)|$, et en additionnant les deux égalités :
+	
+	$$\underbrace{\|f\|_{\infty}+\|f'\|_{\infty}}_{N_1(f)} \leqslant 2 \cdot \underbrace{(\|f'\|_{\infty}+|f(0)|)}_{N_2(f)}$$
+	
+	De même $|f(0)| \leqslant \|f\|_{\infty}$ et donc $N_2(f) = |f(0)| + \|f'\|_{\infty} \leqslant \|f\|_{\infty} + \|f'\|_{\infty} = N_1(f)$.
+	
+	En conclusion $N_1$ et $N_2$ sont équivalentes :
+	
+	$$N_2(f) \leqslant N_1(f) \leqslant 2 \cdot N_2(f)$$
+	
+	\item Une suite de fonctions dérivables convergeant uniformément n'est pas nécessairement dérivable.
+	
+	La suite de fonctions $(f_n)_{n > 0}$ définie par $$f_n(x) = \sqrt{x^2 + \frac{1}{n}}$$
+	
+	$(f_n)_n$ converge uniformément vers la fonction valeur absolue mais celle ci n'est pas dérivable, $(f_n')_n$ ne converge pas uniformément.
+	
+	Les normes $N_1$ et $\|\cdot\|_{\infty}$ ne sont pas équivalentes.
+	
+	\item Soit $(f_n)_n$ une suite de Cauchy pour la norme $N_2$, pour tous $m, n$ on a :
+	
+	$$N_2(f_n - f_m) = |f_n(0) - f_m(0)| + \|f_n' - f_m'\|$$
+	
+	Donc $(f_n')_n$ converge uniformément et est $(f_n(0))_n$ converge, de plus les fonctions sont définies sur un intervalle borné, on en déduit que $(f_n)_n$converge uniformément vers une fonction dérivable $f$.
+	
+	$E$ est donc un espace de Banach.
+\end{enumerate}
+
+\section*{Exercice 2}
+
+\begin{enumerate}
+	\item
+	\item Soient $n > m > 0$
+	
+	$$\|f_n - f_m\|_1 = \int_{-1}^{1} |f_n(t) - f_m(t)|dt$$
+	
+	$$\|f_n - f_m\|_1 = 2\int_{0}^{1} |f_n(t) - f_m(t)|dt$$
+
+	$$\|f_n - f_m\|_1 = 2\left(\int_{0}^{1/n} |f_n(t) - f_m(t)|dt + \int_{1/n}^{1/m} |f_n(t) - f_m(t)|dt + \int_{1/m}^{1} |f_n(t) - f_m(t)|dt\right)$$
+	
+	$$\|f_n - f_m\|_1 = 2\left(\int_{0}^{1/n} |nt - mt|dt + \int_{1/n}^{1/m} |1 - mt|dt + \int_{1/m}^{1} 0dt\right)$$
+
+	$$\|f_n - f_m\|_1 = 2\left(\left[nt^2/2 - mt^2/2\right]_{t=0}^{t=1/n} + \left[t - mt^2/2\right]_{1/n}^{1/m}\right)$$
+	
+	$$\|f_n - f_m\|_1 = 2\left(\left[\frac{n}{2n^2} - \frac{m}{2n^2}\right] + \left[\frac{1}{m} - \frac{m}{2m^2} - \frac{1}{n} + \frac{m}{2n^2}\right]\right)$$
+	
+	$$\|f_n - f_m\|_1 = 2\left(\frac{n}{2n^2} + \frac{1}{m} - \frac{m}{2m^2} - \frac{1}{n}\right)$$
+	
+	$$\|f_n - f_m\|_1 = 2\left(\frac{1}{2n} + \frac{1}{m} - \frac{1}{2m} - \frac{1}{n}\right)$$
+	
+	$$\|f_n - f_m\|_1 = 2\left(\frac{-1}{2n} + \frac{1}{2m}\right)$$
+	
+	$$\|f_n - f_m\|_1 = \frac{1}{m} - \frac{1}{n} \leqslant \frac{1}{m}$$
+	
+	$(f_n)_n$ est bien une suite de Cauchy pour $\|\cdot\|_1$ : pour tout $\varepsilon > 0$, il existe $N = \lceil\frac{1}{\varepsilon}\rceil$ tel que si $n, m > N$, alors $\|f_n - f_m\| \leqslant \frac{1}{m} < \varepsilon$.
+	
+	\item Cependant la suite ne converge pas dans $E$, en effet elle converge ponctuellement vers une fonction $f$ telle que
+	$$f(x) = \left\{
+	\begin{array}{ll}
+		-1 & x < 0\\
+		0 & x = 0\\
+		1 & x > 0
+	\end{array}
+	\right.$$
+	
+	qui n'appartient pas à $E$ car elle est discontinue.
+	
+	\item $E$ n'est donc pas complet.
+\end{enumerate}
+
+\section*{Exercice 3}
+
+Pour toute suite $(x_n)_n$ convergeant vers 0, $(L(x_n))_n$ est bornée, c'est-à-dire qu'il existe un $M > 0$ tel que pour n'importe quel $\delta > 0$, on a pour toute suite $(x_n)_n$ convergeant vers 0 :
+$$\forall n, ~ \|x_n\| < \delta \Longrightarrow \|L(x_n)\| < M$$
+
+Ainsi, pour tout $\varepsilon > 0$ toute suite $(x_n)_n$ de limite 0 et $n$ assez grand on a :
+
+$$\|x_n\| < \delta \frac{\varepsilon}{M}$$
+
+$$\left\|x_n \frac{M}{\varepsilon}\right\| < \delta $$
+
+$$\left\|x_n \frac{M}{\varepsilon}\right\| < \delta $$
+
+$$\left\|L\left(x_n \frac{M}{\varepsilon}\right)\right\| < M$$
+
+$$\frac{M}{\varepsilon} \left\|L\left(x_n\right)\right\| < M$$
+
+$$\left\|L\left(x_n\right)\right\| < \varepsilon$$
+
+$L$ est donc séquentiellement continue en 0, et donc continue en 0. Étant linéaire, elle est alors continue sur $E$.
+
+\end{document}

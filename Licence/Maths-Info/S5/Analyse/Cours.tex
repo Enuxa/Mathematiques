@@ -50,7 +50,7 @@
 
 % Définition de fonction
 \newcommand{\func}[5]{
-#1 ~ : ~ \left\{ \begin{array}{lcl}
+#1 \, : \, \left\{ \begin{array}{lcl}
 	#2 & \longrightarrow & #3 \\
 	#4 & \longmapsto & #5
 \end{array}
@@ -58,11 +58,11 @@
 }
 
 \newcommand{\funcinline}[5]{
-#1 ~ : ~ #2 \longrightarrow #3, ~ #4 \longmapsto #5
+#1 \, : \, #2 \longrightarrow #3, ~ #4 \longmapsto #5
 }
 
 \newcommand{\funcshort}[3]{
-#1 ~ : ~ #2 \longrightarrow #3
+#1 \, : \, #2 \longrightarrow #3
 }
 
 \newenvironment{proofpart}[1]{
@@ -1344,6 +1344,7 @@ On rappelle qu'une série $\sum x_n$ est normalement convergente si $\left(\sum 
 \end{mydef}
 
 \begin{myproperty}
+	\leavevmode
 	\begin{itemize}
 		\item Une fonction dérivable est continue
 		\item Soient $f$ et $g$ dérivables sur un même intervalle, alors on a :
@@ -1432,6 +1433,219 @@ On rappelle qu'une série $\sum x_n$ est normalement convergente si $\left(\sum 
 	on a $$\lim\limits_{y \to y_0} \frac{y-y_0}{f^{-1}(y) - (f^{-1})'(y_0)} = f'(x_0)$$
 		
 	et comme $f'(x_0) > 0$ on a $$\lim\limits_{y \to y_0} \frac{y-y_0}{f^{-1}(y) - (f^{-1})'(y_0)} = \frac{1}{f'(x_0)} = \frac{1}{f'(f^{-1}(y_0))}$$ 
+\end{myproof}
+
+\section{Fonctions dérivables à valeurs dans un espace de Banach}
+
+\begin{mydef}
+	Soit $E$ un espace de Banach, $I$ un intervalle de $\mathbb{R}$ et $\funcshort{f}{I}{E}$.
+	
+	On dit que $f$ est \textit{dérivable en un point $x_0 \in I$} si la limite suivant existe et est finie :
+	$$\lim\limits_{\substack{x \to x_0 \\ x \neq x_0}} \frac{f(x) - f(x_0)}{x - x_0}$$
+	
+	Cette valeur est notée $f'(x_0)$.
+	
+	On dit que $f$ est \textit{dérivable sur $I$} si elle est dérivable en tout point de $I$ et on note
+	
+	$$\func{f'}{I}{E}{x_0}{f'(x_0)}$$
+\end{mydef}
+
+On peut naturellement définir la somme et le produit de dérivées de fonctions dérivables de $I$ dans $E$.
+
+De plus, si on a deux fonctions dérivables $\funcshort{f}{I}{\mathbb{R}}$ et $\funcshort{g}{\mathbb{R}}{E}$, alors $g \circ f$ est dérivable et $\forall x \in \mathbb{R}, ~ (g \circ f)'(x) = f'(x)(g \circ f')(x)$.
+
+\begin{mythm}
+	Soit $\funcshort{f}{I}{E}$ avec $I$ un intervalle de $\mathbb{R}$ et $E$ un espace de Banach de dimension finie $d$.
+	
+	Soit $(e_1, ..., e_d)$ une base de $E$ et soient $\funcshort{f_1, ...f_d}{I}{\mathbb{R}}$ les coordonnées de $f$ dans cette base.
+	
+	Alors $f$ est dérivable en $x_0 \in E$ si et seulement si les fonctions $f_1, ... f_d$  sont dérivables en $x_0$, et on a $$f'(x_0) = f_1'(x_0) e_1 + ... f'_d(x_0) e_d$$ :.
+\end{mythm}
+
+\subsection{Inégalité des accroissements finis}
+
+Le théorème de Rolle n'est pas vrai si $E \neq \mathbb{R}$, par exemple
+
+$$\func{f}{[0, 2\pi]}{\mathbb{R}^2}{t}{(\cos t, \sin t)}$$
+
+On a pour tout $t$ : $f'(t)=(-\sin t, \cos t)$, donc $\|f'(t)\|_2 = 1$, $f'$ ne s'annule pas alors que $f(0)=f(2\pi)$.
+
+Les accroissements finis ne sont pas valables non-plus.
+
+\begin{mythm}
+	Soit $\funcshort{f}{[a, b]}{E}$ continue, et dérivable sur $]a,b[$, et $\funcshort{h}{[a, b]}{\mathbb{R}}$ continue et dérivable sur $]a, b[$ telle que $\forall x \in ]a,b[, ~ \|f'(x)\| \leqslant h'(x)$
+	
+	Alors $\|f(b) - f(a)\| \leqslant h(b) - h(a)$.
+\end{mythm}
+
+\begin{myproof}
+	Soit $\varepsilon > 0$ et soit $\funcshort{\varphi_\varepsilon}{[a, b]}{\mathbb{R}}$ définie par $\varphi_\varepsilon(t) = \|f(t) - f(a)\| + h(a) - h(t) - \varepsilon (t-a)$, elle vérifie $\varphi_\varepsilon(a) = 0$
+	
+	On définit l'ensemble borné contenant $a$
+	
+	$$E_\varepsilon = \{t \in [a, b] ~ | ~ \varphi_\varepsilon(t) \leqslant \varepsilon\}$$
+	
+	Si on montre que $b \in E_\varepsilon$ alors le théorème est démontré, en effet si $b \in E_\varepsilon$ alors $\|f(b) - f(a)\| - (h(b) - h(a) + \varepsilon(b-a)) \leqslant \varepsilon$ et en faisant tendre $\varepsilon$ vers 0 : $\|f(b) - f(a)\| - (h(b) - h(a)) \leqslant 0$.
+	
+	On a $E_\varepsilon = \varphi_\varepsilon^{-1}\left(]-\infty, \varepsilon]\right)$ donc comme $\varphi_\varepsilon$ est continue, $E_\varepsilon$ est fermé et contient sa borne supérieure, notée $c$. Celle-ci est inférieure ou égale à $b$, on suppose par l'absurde $c < b$.
+	
+	Comme $\varphi_\varepsilon(a) = 0$, il existe $t' > a$ tel que $[a, t'] \subseteq E_\varepsilon$ car $\varphi_\varepsilon$ est continue, ainsi $c > a$.
+	
+	Comme $f$ et $h$ sont dérivables en $c$, il existe $t > c$ suffisamment proche de $c$ tel que $$\frac{\|f(t) - f(c)\|}{t - c} \leqslant \|f'(c)\| + \frac{\varepsilon}{2} ~ \text{ et } ~ \frac{h(t) - h(c)}{t - c} \geqslant h'(c) - \frac{\varepsilon}{2}$$
+	
+	$$\|f(t) - f(c)\| \leqslant (t-c) \left(\|f'(c)\| + \frac{\varepsilon}{2}\right) ~ \text{ et } ~ (t-c)\left(h'(c) - \frac{\varepsilon}{2}\right) \leqslant h(t) - h(c)$$
+	
+	et par hypothèse $\|f'(c)\| \leqslant h'(c)$, alors
+	
+	$$\|f(t) - f(c)\| \leqslant (t-c)\left(h'(c) + \frac{\varepsilon}{2}\right)$$
+	
+	$$\|f(t) - f(c)\| \leqslant (t-c)\left(h'(c) - \frac{\varepsilon}{2} + \varepsilon\right)$$
+	
+	$$\|f(t) - f(c)\| \leqslant (t-c)\left(h'(c) - \frac{\varepsilon}{2}\right) + \varepsilon(t - c)$$
+	
+	$$\|f(t) - f(c)\| \leqslant (h(t) - h(c)) + \varepsilon(t - c)$$
+	
+	On sait que $c \in E{_\varepsilon}$ et donc vérifie $\|f(c)-f(a)\| \leqslant h(c) - h(a) + \varepsilon(c-a) + \varepsilon$, et en sommant les deux inégalités on obtient
+	
+	$$\|f(t) - f(a)\| \leqslant \|f(c)-f(a)\| + \|f(t) - f(c)\| \leqslant h(c)-h(a)+\varepsilon(c-a) + h(t) - h(c) + \varepsilon(t-c) + \varepsilon$$
+	
+	$$\|f(c) - f(a)\| \leqslant h(t) - h(a) + \varepsilon(t-a) + \varepsilon$$
+	
+	$$\varphi_\varepsilon(t) = \|f(c) - f(a)\| - (h(t) - h(a) + \varepsilon(t-a)) \leqslant \varepsilon$$
+	
+	Mais alors $\varphi_\varepsilon(t) \leqslant \varepsilon$, donc $t \in E_\varepsilon$, ce qui contredit le fait que $c$ soit la borne supérieure de $E_\varepsilon$, donc $c = b$.
+
+	\cqfd
+\end{myproof}
+
+En particulier, en prenant $h$ une primitive de $f'$ on obtient
+
+$$\|f(b) - f(a)\| \leqslant h(b) - h(a) \leqslant \sup_{x \in [a, b]} |h'(x)| (b-a) = \|f'\|_{\infty}(b-a)$$
+
+\begin{mycor}
+	Soit $\funcshort{f}{[a, b]}{E}$ continue et dérivable sur $]a, b[$.
+
+	S'il existe une constante $k > 0$ tel que $\forall x \in ]a, b[$, alors $f$ est $k$-lipschitzienne.
+\end{mycor}
+
+\begin{myproof}
+	On suppose $x > y$, on définit $\funcshort{h}{[a, b]}{\mathbb{R}}$ définie par $h(x)=kx$., par l'inégalité des accroissements finis on a alors
+	
+	$$\|f(x)-f(y)\| \leqslant h(x) - h(y) \leqslant k(x-y)$$
+\end{myproof}
+
+\subsection{Dérivées successives et inégalités de Taylor}
+
+\begin{mythm}
+	Théorème de Taylor-Lagrange
+	
+	Soit $n \geqslant 0$ et $f \in \mathcal{C}^{n+1}([a, b], E)$, on pose
+	
+	$$M = \sup_{x \in [a, b]} \|f^{(n+1)}(x)\|$$
+	
+	Alors on a l'inégalité suivante :
+	
+	$$\left\|f(b) - \sum_{k = 0}^{n} \frac{f^{(k)}(a)}{k!} (b-a)^k\right\| \leqslant M \frac{(b-a)^{n+1}}{(n+1)!}$$
+\end{mythm}
+
+\begin{myproof}
+	Par récurrence sur $n$ :
+	
+	\begin{proofpart}{$n = 0$ :}
+		$\|f(b) - f(a)\| \leqslant M (b - a)$ par le corollaire précédent
+	\end{proofpart}
+	
+	\begin{proofpart}{$ n \geqslant 1$}
+		On définit la fonction $\varphi = f'$ qui est de classe $\mathcal{C}^n$ puisque $f$ est $\mathcal{C}^{n+1}$.
+		
+		On peut appliquer l'hypothèse de récurrence à $\varphi$ sur $[a, x]$ avec $x < b$, alors on a
+		
+		$$\left\|\varphi(x) - \sum_{k = 0}^{n - 1} \frac{(x - a)^k}{k!} \varphi^{(k)}(a)\right\| \leqslant \sup_{y \in [a, x]} \|\varphi^{(n)}(y)\| \frac{(x-a)^n}{n!}$$
+		
+		Or $\displaystyle \sup_{y \in [a, x]} \|\varphi^{(n)}(y)\| = \sup_{y \in [a, x]} \|f^{(n+1)}(y)\| \leqslant M$
+		
+		On pose $g(x) = f(x) - \sum_{k = 0}^{n} \frac{(x-a)^k}{k!}f^{(k)}(a)$, donc $g'(x) = \varphi(x) - \sum_{k = 1}^{n} \frac{(x-a)^{k-1}}{(k-1)!}f^{(k)}(a) = \varphi(x) - \sum_{k = 0}^{n-1} \frac{(x-a)^k}{k!}\varphi^{(k)}(a)$ et donc $\|g'(x)\| \leqslant M \frac{(x-a)^n}{n!}$, ainsi si $h(x)= M \frac{(x-a)^{n+1}}{(n+1)!}$ alors $\|g'(x)\| \leqslant h'(x)$
+		
+		Par l'inégalité des accroissements finis on a donc
+		
+		$$\|g(b) - g(a)\| \leqslant M \frac{(b-a)^{n+1}}{(n+1)!}$$
+		
+		Or $g(b) - g(a) = g(b) = f(b) - \sum_{k= 0}^{n} \frac{(b-a)^k}{k!} f^{(k)}(a)$, d'où le théorème.		
+	\end{proofpart}
+	
+	\cqfd
+\end{myproof}
+
+\begin{mythm}
+	Théorème de Taylor-Young
+	
+	Si $f$ est de classe $\mathcal{C}^n$ sur $I$ avec $n > 0$, alors pour tout $a \in I$
+	
+	$$f(x) = \sum_{k = 0}^{n} \frac{(x-a)^k}{k} f^{(k)}(a) + (x-a)^n \varepsilon_n(x- a)$$
+	
+	Où $\lim\limits_{u \to a} \varepsilon_n(u) = 0$.
+\end{mythm}
+
+\begin{myproof}
+	On note $\|f\|_{\infty} = \displaystyle \sup_{x \in [a, b]} \|f(x)\|$.
+
+	On définit $g(x) = f(x) - \sum_{k = 0}^{n} \frac{(x-a)^k}{k!} f^{(k)}(a)$ et $\varepsilon_n(u) = \frac{g(a+u)}{u^n}$, on a bien $g(x) = (x-a)^n \varepsilon_n(x - a)$.
+	
+	$g$ est de classe $\mathcal{C}^n$, et on a $g(a) = 0$, $g'(a) = f(a) - \sum_{k = 1}^{n} \frac{(a-a)^k}{(k-1)!}f^{(k)}(a) = 0$ et de même pour tout $k \leqslant n$, $g^{(k)}(a) = 0$.
+	
+	Soit $\varepsilon > 0$, il existe $\delta > 0$ tel que $\|g^{(n)}(u)\| \leqslant \varepsilon$ si $\|u - a\| \leqslant \delta$.
+	
+	Appliquons l'inégalité de Taylor-Lagrange à l'ordre $n-1$ à la fonction $g$ on trouve pour $0 < u < \delta$ : 
+	
+	$$\|g(a+u)\| = \left\|g(a+u) - \sum_{k = 0}^{n-1} \frac{u^k}{k!} g^{(k)}(a)\right\| \leqslant \sup_{y \in [a, a+u]} \|g^{(n)}(y)\| \frac{u^n}{n!}$$
+	
+	Donc $\|g(a+u)\| \leqslant \varepsilon \frac{u^n}{n!}$, mais $\varepsilon_n(u) = \frac{1}{u^n} g(a+u)$ donc pour $0 < u< \delta$ on a $\|\varepsilon_n(u)\| \leqslant \frac{\varepsilon}{n!} \leqslant \varepsilon$, d'où $\lim\limits_{u \to 0} \varepsilon_n(u) = 0$.
+	
+	\cqfd
+\end{myproof}
+
+\subsection{Application au séries de fonctions}
+
+\begin{mythm}
+	Soit $(f_n)_n$ une suite de fonctions définies sur $I$ un intervalle ouvert de $\mathbb{R}$ vers un espace de Banach $E$.
+	
+	On suppose que
+	\begin{enumerate}
+		\item il existe $x_0 \in I$ tel que $\sum \|f_n(x_0)\|$ converge
+		\item $f_n$ est dérivable sur $I$ et la série de dérivées converge normalement : $\sum \sup_x \|f'_n(x)\|$ converge
+	\end{enumerate}
+	
+	Alors $\sum f_n(x)$ converge en tout pont de $I$ et la limite $f$ de la série est dérivable avec $f'(x) = \sum f'_n(x)$
+\end{mythm}
+
+\begin{myproof}
+	Démontrons la convergence de $\sum f_n(x)$ pour tout $x \in I$, comme $E$ est complet il suffit de montrer que $\sum \|f_n(x)\|$ converge.
+	
+	Par les accroissements finis, $\|f_n(x) - f_n(x_0)\| \leqslant \|f'_n\|_{\infty} |x - x_0|$ donc $\|f_n(x)\| \leqslant \|f_n(x_0)\| + \|f'\|_{\infty}$
+	
+	(...)
+	
+	Soit $f(x) = \sum f_n(x)$, montrons que $f$ est dérivable sur $i$.
+	
+	Soit $\tau(h) = \left\|\frac{f(x+h) - f(x)}{h} - \sum f'_n(x)\right\|$., montrons $\lim\limits_{0} \tau = 0$.
+	
+	On peut toujours ecrire $\sum f'_n(x) = \sum_{ n = 0}^{N} f'_n(x) + \sum_{n = N+1}^{\infty} f'_n(x)$ et on sait que
+	
+	$$\lim\limits_{N \to \infty} \sum_{n=N}^{\infty}\|f'_n\|_{\infty} = 0$$.
+	
+	Alors pour $h > 0$
+	
+	$$\tau(h) \leqslant \frac{1}{h} \|\sum_{n = 0}^{N} f_n(x+h) - f_n(x) - h f_n'(x)\| + \frac{1}{h} \|\sum_{n=N+1}^{\infty} f_n(x+h) - f_n(x) - hf_n'(x)\|$$
+	
+	On a $$\|f_n(x+h) - f_n(x)\| \leqslant h \|f'_n\|_{\infty}$$
+	
+	Donc $\frac{1}{h} \sum_{N+1}^{\infty} \|f_n(x+h) - f_n(x) - h f'_n(x)\| \leqslant\frac{1}{h} \sum_{N+1}^{\infty} 2h \|f'_n\|_{\infty}$.
+	
+	Soit $\varepsilon > 0$ il existe $N$ tel que $2 \sum_{N+1}^{\infty} \|f'_n\|_{\infty} \leqslant \frac{\varepsilon}{2}$ par ailleurs $$\lim\limits_{h \to 0} \frac{f_n(x+h) - f_n(x)}{h} = f_n'(x)$$
+	
+	Comme $N$ ets fixé il existe $\delta > 0$ tel que $\forall n \leqslant N$, $\|\frac{f_(x+h) - f_n(x)}{h} - f'_n(x)\| \leqslant \frac{\varepsilon}{Z(N+1)}$
+	
+	Finalement pour $|h| \leqslant \delta$, $|\tau(h)| \leqslant (N+1 \frac{\varepsilon}{2(N+1)} + \varepsilon/2 = \varepsilon$, d'où le théorème.
 \end{myproof}
 
 \end{document}

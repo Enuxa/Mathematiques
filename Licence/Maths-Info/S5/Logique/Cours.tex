@@ -714,6 +714,68 @@ Ces notion sont utiles pour caractériser des FND (de longueurs) minimales de ce
 	Donc $C_i$ (resp. $C_j$) n'absorbe pas $C_j$ (resp. $C_i$), d'après une proposition précédente $A \not\subseteq B$ et $B \not\subseteq A$, il existe alors $b \in B$ tel que $b \notin A$, donc $v(b) = 0$ et $\overline{v}(C_i)=0$, ce qui est contradictoire.
 \end{myproof}
 
+\part{La méthode de résolution}
+
+Problème 1 : Déterminer si une formule en FNC est satisfaisable
+Problème 2 : Mettre une formule sous forme FNC en préservant l'équivalence.
+
+Première stratégie pour le premier problème : Construire une table de vérité : $2^n$ lignes où $n$ est le nombre de variables.
+
+Deuxième stratégie : Construire la FND de la formule : $F = \bigvee_{i \in I} D_i$ avec $D_i = p_i^1 \land p_i^2 ... \land p_i^k$. 
+
+$f$ est satisfaisable si et seulement s'il existe un $i \in I$ tel que $D_i$ soit satisfaisable, ce qui est facile à tester : $D_i$ est satisfaisable si on n'a pour aucune variable $p \land ... \neg p$.
+
+On cherche seulement à savoir si une formule $G$ est satisfaisable, on n'a pas besoin de construire une formule équivalente, on peut se contenter de construire une formule \textit{équisatisfaisable}.
+
+\begin{mydef}
+	$F \in \mathcal{F}_{\mathcal{P}}$ et $G \in \mathcal{F}_{\mathcal{Q}}$ sont équisatisfaisables si elles sont toutes les deux satisfaisables.
+\end{mydef}
+
+
+\begin{myexmpl}
+	$F = x \lor y$, avec $\mathcal{P} = \{x, y\}$ et $F = ((x \lor y) \leftrightarrow p) \land p$, avec $\mathcal{Q} = \{x, y, p\}$
+\end{myexmpl}
+
+\begin{myproposition}
+	Soit $F \in \mathcal{F}_{\mathcal{P}}$, il existe $\mathcal{Q}$,  $G \in \mathcal{F}_{\mathcal{Q}}$ avec $G = \bigvee_{i \in I}C_i$ en FNC tels que $F$ et $G$ soient équisatisfaisables et
+	
+	\begin{itemize}
+		\item $|\mathcal{Q} \leqslant |SF(F)|$
+		\item $|I| \leqslant E \cdot |SF(F)|+1$
+		\item $\forall i \in I, ~ |C_i| \leqslant 3$
+	\end{itemize}
+\end{myproposition}
+
+\newpage
+
+\begin{myproof}
+	On le montre sur un exemple.
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=250pt]{arbre_3_FND}
+	\end{figure}
+	
+	$\mathcal{P}=\{p_1, p_2, p_3\}, \mathcal{Q}=\mathcal{P} \cup \{q_1, ... q_7\}$
+	
+	On pose $G \in \mathcal{F}_{\mathcal{Q}}$ avec : $G=$
+	$$\begin{array}{l}
+	(q_1 \leftrightarrow (p_1 \land p_2)) \\
+	\land (q_2 \leftrightarrow q_1)\\
+	\land (q_3 \leftrightarrow (q_2 \land p_3))\\
+	\land (q_5 \leftrightarrow \neg p_3)\\
+	\land (q_6 \leftrightarrow (p_1 \land q_5))\\
+	\land (q_7 \leftrightarrow (q_6 \land q_3))\\
+	\land q_7
+	\end{array}
+	$$
+	
+	On transforme chaque pseudo-clause $(q_i \leftrightarrow (q_j \lor q_k))$ en une conjonction de 3-clauses équivalentes :
+	$$(q_i \leftrightarrow (q_j \lor q_k))$$
+	$$(q_i \rightarrow (q_j \lor q_k))\land((q_j \lor q_k) \rightarrow q_i)$$
+	$$(\neg q_j \lor q_i)\land (\neg q_k \lor q_i)\land(\neg q_i \lor q_j \lor q_k)$$
+\end{myproof}
+
 \part{Compléments}
 
 \section{Calcul propositionnel}
