@@ -8,6 +8,8 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{geometry}
+\usepackage[]{algorithm2e/tex/algorithm2e}
+
 
 \geometry{hmargin=2cm}
 
@@ -716,19 +718,24 @@ Ces notion sont utiles pour caractériser des FND (de longueurs) minimales de ce
 
 \part{La méthode de résolution}
 
-Problème 1 : Déterminer si une formule en FNC est satisfaisable
-Problème 2 : Mettre une formule sous forme FNC en préservant l'équivalence.
+\section{Notion d'équisatisfaisabilité}
+
+\paragraph{Problème 1 :}
+Déterminer si une formule en FNC est satisfaisable
+
+\paragraph{Problème 2 :}
+Mettre une formule sous forme FNC en préservant l'équivalence.
 
 Première stratégie pour le premier problème : Construire une table de vérité : $2^n$ lignes où $n$ est le nombre de variables.
 
-Deuxième stratégie : Construire la FND de la formule : $F = \bigvee_{i \in I} D_i$ avec $D_i = p_i^1 \land p_i^2 ... \land p_i^k$. 
+Deuxième stratégie : Construire la FND de la formule : $\displaystyle F = \bigvee_{i \in I} D_i$ avec $D_i = p_i^1 \land p_i^2 ... \land p_i^k$. 
 
-$f$ est satisfaisable si et seulement s'il existe un $i \in I$ tel que $D_i$ soit satisfaisable, ce qui est facile à tester : $D_i$ est satisfaisable si on n'a pour aucune variable $p \land ... \neg p$.
+$F$ est satisfaisable si et seulement s'il existe un $i \in I$ tel que $D_i$ soit satisfaisable, ce qui est facile à tester : $D_i$ est satisfaisable si on n'a pour aucune variable $p \land ... \neg p$.
 
 On cherche seulement à savoir si une formule $G$ est satisfaisable, on n'a pas besoin de construire une formule équivalente, on peut se contenter de construire une formule \textit{équisatisfaisable}.
 
 \begin{mydef}
-	$F \in \mathcal{F}_{\mathcal{P}}$ et $G \in \mathcal{F}_{\mathcal{Q}}$ sont équisatisfaisables si elles sont toutes les deux satisfaisables.
+	$F \in \mathcal{F}_{\mathcal{P}}$ et $G \in \mathcal{F}_{\mathcal{Q}}$ sont équisatisfaisables si elles sont toutes les deux satisfaisables ou non-satisfaisables.
 \end{mydef}
 
 
@@ -737,11 +744,11 @@ On cherche seulement à savoir si une formule $G$ est satisfaisable, on n'a pas 
 \end{myexmpl}
 
 \begin{myproposition}
-	Soit $F \in \mathcal{F}_{\mathcal{P}}$, il existe $\mathcal{Q}$,  $G \in \mathcal{F}_{\mathcal{Q}}$ avec $G = \bigvee_{i \in I}C_i$ en FNC tels que $F$ et $G$ soient équisatisfaisables et
+	Soit $F \in \mathcal{F}_{\mathcal{P}}$, il existe $\mathcal{Q}$,  $G \in \mathcal{F}_{\mathcal{Q}}$ avec $\displaystyle G = \bigwedge_{i \in I}C_i$ en FNC tels que $F$ et $G$ soient équisatisfaisables et
 	
 	\begin{itemize}
-		\item $|\mathcal{Q} \leqslant |SF(F)|$
-		\item $|I| \leqslant E \cdot |SF(F)|+1$
+		\item $|\mathcal{Q}| \leqslant |SF(F)|$
+		\item $|I| \leqslant |SF(F)|+1$
 		\item $\forall i \in I, ~ |C_i| \leqslant 3$
 	\end{itemize}
 \end{myproposition}
@@ -776,8 +783,376 @@ On cherche seulement à savoir si une formule $G$ est satisfaisable, on n'a pas 
 	$$(\neg q_j \lor q_i)\land (\neg q_k \lor q_i)\land(\neg q_i \lor q_j \lor q_k)$$
 \end{myproof}
 
-\part{Compléments}
+\section{Méthode de résolution}
 
+On va montrer qu'une formule n'est pas satisfaisable, on va utiliser une méthode de réfutation.
+
+en considérant $p, \neg p \notin C_1 \lor C_2$, on n'utilisera qu'une seule règle de déduction :
+
+On notera la règle de déduction "de $(C_1 \lor p)$ et $(C_2 \lor \neg p)$ on déduit $(C_1 \lor C_2$)" par
+
+$$\frac{(C_1 \lor p) \quad (C_2 \lor \neg p)}{C_1 \lor C_2}$$
+
+Cette règle préserve la satisfaisabilité :
+
+Soit $v$ satisfaisant $(C_1 \lor p)$ et $(C_2 \lor \neg p)$, alors $\overline{v}(C_1) = 1$ ou $\overline{v}(p) = 1$
+
+\begin{itemize}
+	\item Si $v$ satisfait $C_1$ alors $v$ satisfait $C_1 \lor C_2$
+	\item Si $v$ satisfait $p$ alors $\overline{v}(\neg p) = 0$ et nécessairement $\overline{C_2} = 1$, d'où $\overline{v}(C_1 \lor C_2) = 1$.
+\end{itemize}
+
+\begin{myrem}
+	$(C_1 \lor p) \land (C_2 \lor \neg p)$ est satisfaisable si et seulement si $(C_1 \lor p) \land (C_2 \lor \neg p) \land (C_1 \lor C_2)$
+\end{myrem}
+
+\begin{mydef}
+	$C_1 \lor C_2$ est appelé le \textit{résolvant} de $C_1 \lor p$ et $C_2 \lor \neg p$.
+\end{mydef}
+
+Idée : D'une formule $\displaystyle \varphi = \bigwedge_{i = 1}^n C_i$ et une variable $p \in \mathcal{P}$, on construit $\varphi' = \varphi \land (C_i' \lor C_j')$ avec $C_i' = C_i \lor p$ et $C_j' = C_j \lor \neg p$, jusqu'à ce qu'on ne puisse plus appliquer la méthode ou jusqu'à ce qu'on ait produit la clause vide $\square$ sachant que pour toute variable $p$, on a :
+
+$$\frac{p \quad \neg p}{\square}$$
+
+NB : pour toute valuation $v$, $v(\square) = 0$.
+
+\begin{mydef}
+	Une preuve de réfutation par résolution de $\displaystyle \varphi = \bigwedge_{i=1}^n C_i$ (avec $\varphi$ en FNC) est une suite $r_1, ...r_m$ telle que pour tout $i \leqslant m$
+	\begin{itemize}
+		\item $r_i \in \{C_1, ... C_n\}$
+		\item $r_i$ se déduit par résolution de $r_j$ et $r_k$ avec $j, k < i$
+	\end{itemize}
+	
+	et $r_m = \square$
+\end{mydef}
+
+\begin{myexmpl}
+	$\varphi = (p \lor q) \land (p \lor \neg q) \land (\neg p \lor q) \land (\neg p \lor \neg q)$
+	
+	\begin{enumerate}
+		\item $r_1$ : $p \lor q$
+		\item $r_2$ : $p \lor \neg q$
+		\item $r_3$ : $\neg p \lor q$
+		\item $r_4$ : $\neg p \lor \neg q$
+		\item $r_5$ : $q$
+		\item $r_6$ : $\neg q$ résolution de $r_2$ et $r_4$
+		\item $r_7$ : $\square$ résolution de $r_5$ et $r_6$
+	\end{enumerate}
+\end{myexmpl}
+
+\begin{mydef}
+	Un système de réfutation est
+	\begin{itemize}
+		\item \textit{cohérent} si toute formule réfutable n'est pas satisfaisable.
+		
+		\item \textit{complet} si toute formule non satisfaisable est réfutable
+	\end{itemize}	
+\end{mydef}
+
+\begin{mythm}
+	La méthode de résolution est cohérente et complète, c'est à dire pour tout formule $\varphi$ :
+	
+	$\varphi$ est réfutable par résolution si et seulement si elle n'est pas satisfaisable
+\end{mythm}
+
+\begin{myproof}
+	\begin{proofpart}{réfutable $\Longrightarrow$ non satisfaisable}
+		Il existe une preuve par réfutation $r_1, ...r_m = \square$.
+		
+		On suppose par l'absurde que $\varphi$ est satisfaisable, alors il existe une valuation $\funcshort{v}{var(\varphi)}{\{0, 1\}}$ satisfaisant $\varphi$
+		
+		Pour tout $i \leqslant m$ :
+		\begin{itemize}
+			\item soit $r_i \in \varphi$, dans ce cas$\overline{v}(r_i) = 1$
+			\item soit $r_i$ est obtenu par résolution depuis $r_j$ et $r_k$ aveec $j, k \leqslant i$, dans ce cas $\overline{v}(r_j) = \overline{v}(r_k) = 1$ alors $\overline{v}(r_i) = 1$, or $\overline{v}(r_m) = 0$, contradiction
+		\end{itemize}
+	\end{proofpart}
+	
+	\begin{proofpart}{non satisfaisable $\Longrightarrow$ réfutable}
+		On le montre par induction sur le nombre $k$ de variables de $\varphi$
+		
+		$\displaystyle \varphi = \bigwedge_{i = 1}^m C_i$
+		
+		\begin{proofpart}{$k = 0$}
+			$\varphi = \phi$ ou $\varphi = \square$
+		\end{proofpart}
+		
+		\begin{proofpart}{$k \geqslant 0$}
+			On suppose l'équivalence vraie jusqu'à un certain $k \geqslant 0$
+			
+			Soit $p \in var(\varphi)$, on regroupe les clauses contenant $p$, celles contenant $\neg p$ et les autres.
+			
+			$$S = \bigwedge_{\substack{i ~ : ~ (p \lor \neg p) \notin C_i}} C_i$$
+			
+			$$Res_p = \bigwedge_{\substack{C \lor p \in S \\ D \lor \neg p \in S}} (C \lor D)$$
+
+			$$\varphi_p = Res_p \land \overbrace{\bigwedge_{\substack{C \in S \\ p \notin C \\ \neg p \notin C}} C}^{\psi_p}$$
+			
+			On utilisera le lemme suivant : si $\varphi$ n'est pas satisfaisable alors $\varphi_p$ n'est pas satisfaisable.
+			
+			$|var(\varphi_p)| \leqslant |var(\varphi)| - 1 = k$ on applique l'hypothèse d'induction : $\varphi_p$ est réfutable, or les clauses $\varphi_p$ sont :
+			\begin{itemize}
+				\item soit des clauses de $\psi_p$
+				\item soit des clasues obtenues par résolution à partir de clauses de $\varphi$
+				
+				Donc aucune $\varphi_p$ n'est réfutable, on peut obtenir une preuve de réfutation de $\varphi$ à partir de celles de $\varphi$
+				
+				autrement dit : ($\varphi_p$ est réfutable $\Longrightarrow$ un sous-ensemble $\varphi'$  de $\varphi$ est réfutable donc $\varphi$ est réfutable).
+			\end{itemize}
+		\end{proofpart}
+		
+	\end{proofpart}
+\end{myproof}
+
+Montrons le lemme :
+
+\begin{myproof}
+	On suppose $\varphi$ non-satisfaisable et $\varphi_p$ satisfaisable.
+	
+	Soit $v$ satisfaisant $\varphi_p$, par construction de $\varphi_p$ $p \notin var(\varphi_p)$.
+	
+	On peut étendre $v$ en $v_0$, $v_1$ telles que :
+	\begin{itemize}
+		\item $\forall p \neq q, ~ v(q) = v_0(p) = v_1(q)$
+		\item $v_0(p) = 0$, $v_1(p) = 1$
+	\end{itemize}
+
+	$\varphi$ n'est pas satisfaisable : $\overline{v_0}(\varphi) = 0$ et $\overline{v_1}(\varphi)=0$
+	
+	Il existe $C \in \varphi$ telle que $\overline{v_0}(C) = 0$ et $D \in \varphi$ telle que $\overline{v_1}(D) = 0$
+	
+	Si $C \in \psi_p$ alors $C \in \varphi_p$ et donc $\overline{v_0}(C)=1=\overline{v}(C)$ donc $C \notin \psi_p$, $C \in \varphi_p$
+	
+	De même $D \notin \psi_p$ ($D \in \varphi$), donc $C, D \in \{E ~ | ~ E \in \varphi, p \in E \text{ ou }\neg p \in E \}$
+	
+	\begin{itemize}
+		\item on suppose $\neg p \in C$, c'est à dire $C = C' \lor \neg p$, dans ce cas $\overline{v_0}(C) = \overline{v_0}(C')$ ou $\overline{v_0}(C) = \overline{v_0}(\neg p)=1$, contradiction, donc $p \in C$
+		
+		\item De même $\neg p \in D$
+	\end{itemize}
+	
+	Donc $C = C' \lor p$, $p,\neg p \notin C'$
+	
+	$D = D' \lor \neg p$, $p, \neg p \notin D'$
+	
+	Donc $C' \lor D' \in Res_p$ et $C' \lor D' \in \varphi_p$
+	
+	$\overline{v}(C' \lor D') = 1$
+	
+	or $\overline{v_0}(C) = 0$
+	
+	\begin{itemize}
+		\item $C = C' \lor p$, $p, \neg p \notin C'$
+		\item $\overline{v_0}(C) = \overline{v}(C') = 0$
+	\end{itemize}
+
+	de même $D = D' \lor \neg p$ et $p, \neg p \in D'$ donc $\overline{v_1}(D) = \overline{v}(D') = 0$, contradiction.
+\end{myproof}
+
+La preuve donne un algorithme
+
+\begin{algorithm}
+	$S \leftarrow \varphi$ \\
+	\While{$var(S) \neq \emptyset$ et $\square \notin S$}{
+		choisir $p \in var(S)$ \\
+		$S \leftarrow S \backslash \{C \in S ~ | ~ p \in C \text{ et } \neg p \in C \}$ \\
+		$Res \leftarrow \{C \cup P ~ | ~ C \cup \{p\} \in S \text{ et } D \cup \{\neg p\} \in S \}$ \\
+		$S \leftarrow Res \cup \{C \in S ~ | ~ p \notin C \text{ et } \neg p \in C \}$ \\
+	}
+	
+	\uIf{$\square \in S$}{
+		\Return 0
+	}
+	\Else{
+		\Return 1
+	}
+	\caption{DP-Résolution (Davis-Putnam, années 60)}
+\end{algorithm}
+
+On en déduit un tet de validité de$\varphi$ en regardant si $\neg \varphi$ est non-satisfaisable.
+
+\begin{mydef}
+	La \textit{longueur} d'une preuve par résolution est le nombre d'étapes de résolution utilisées dans la preuve
+\end{mydef}
+
+L'algorithme DP peut être très inefficace sur des formules "très simple", par exemple le principe des tiroirs.
+
+On note $PHP_n$ (\textit{pigeon hole principle}) le fait qu'il n'existe pas de fonction injective de $[n+1]$ à $[n]$)
+
+On note $\neg PHP_n = \varphi \land \psi$ avec $\varphi = \bigwedge_{i = 1}^{n+1} p_{i,1} \lor ... \lor p_{i, n}$ et $\psi = \bigwedge_{j=1}^n \bigwedge_{1 \leqslant i < i' < n+1} \neg (p_{i,j} \land p_{i',j})$
+
+\begin{mythm}(Haken)
+	Il existe un entier $n_0$ tel que toute preuve par résolution de $\neg PHP_n$ est de longueur au moins $2^{n/32}$ avec $n \geqslant n_0$.
+\end{mythm}
+
+\section{Application à certains types de formules}
+
+\begin{mydef}
+	Soit $C$ une clause telle que $var(C) \subseteq \mathcal{P}$, $C$ est une \textit{clause de Horn} si $C$ contient au plus un littéral positif.
+	
+	C'est à dire qu'une clause de Horn est de la forme $\neg p_1 \lor \neg p_2 ... \neg p_k \lor q$, ou encore sous la forme $(p_1 \land p_2 ... \land p_k) \rightarrow q$
+\end{mydef}
+
+\begin{mydef}
+	$\varphi$ en FNC est de Horn si toute ses clauses sont de Horn
+\end{mydef}
+
+Règle de résolution unitaire :
+$$\frac{\neg p_1 \lor ... \lor \neg p_k \lor q \quad q}{\neg p_1 \lor ... \lor \neg p_k}$$
+
+$$\frac{\neg p_1 \lor ... \lor \neg p_k \lor q \quad p_i}{\neg p_1 \lor ... \lor \neg p_{i-1} \lor \neg p_{i+1} ...\lor p_k \lor q}$$
+
+$$\frac{C \lor q \quad \neg q}{C}$$
+
+Sur l'exemple du début on ne peut pas appliquer la règle de résolution unitaire ($p \lor q$, $\neg p \lor q$, ...)
+
+\begin{myrem}
+	La méthode de réolution unitaire n'est pas complète pour le calcul propositionnel, c'est-à-dire qu'il existe des enoncés non-satisfaisables qui ne sont pas réfutables
+\end{myrem}
+
+\begin{mythm}
+	La méhode de DP-résolution unitaire est cohérente et complète pour les formules de Horn
+	
+	On peut décider de la satisfaisabilité de $\varphi$ en un nombre d'étapes linéaire en la taille de $\varphi$.
+\end{mythm}
+
+\begin{mynot}
+	Pour tout formule $\varphi$ on note $$unit(\varphi) = \{C \in \varphi ~ | ~ |C| = 1 \}$$
+\end{mynot}
+
+\begin{algorithm}
+	$S \leftarrow \varphi$ \\
+	\For{$q \in var(\varphi)$}{$v(q) \leftarrow 0$}
+	\caption{DP-Resolution-Horn($\varphi$)}
+	\While{$unit(S) \neq \emptyset$ et $\square \notin S$}{
+		choisir $\{l\} \in unit(\varphi)$ \\
+		$v(l) \leftarrow 1$ \\
+		$S \leftarrow S \backslash \{C \in S ~ | ~ l \in C \land \neg l \in C \}$ \\
+		$Res_p \leftarrow \{C ~ | ~ C \cup \{\neg p\} \in S \}$\\
+		$S \leftarrow \{C ~ | ~ C \cup \{\neg p\} \in S \}$
+	}
+	\uIf{$\square \in S$}{\Return 0}
+	\Else{\Return $v$}
+\end{algorithm}
+
+\begin{myrem}
+	Si $\varphi$ est de Horn et $unit(\varphi) = \emptyset$ alors $\varphi$ est satisfaisable.
+	
+	La valuation $\forall q \in var(\varphi), ~ v(q) = 0$ est telle que $\overline{v}(\varphi)=1$
+\end{myrem}
+
+\part{Procédure de décision pour la satisfaisabilité : DPLL}
+
+DPLL = Davis, Putnam, Logeman et Loveland, 1962
+
+\begin{enumerate}
+	\item On choisit $p \in var(\varphi)$
+	\item $\varphi$ est satisfaisable si et seulement si $\varphi[p/1]$ ou $\varphi[p/0]$ est satisfaisante
+\end{enumerate}
+
+\paragraph{Propagation unitaire :}
+
+\begin{myproposition}
+
+	Soit $\varphi \in \mathcal{F}_{\mathcal{P}}$ en FNC, $C \in unit(\varphi)$, c'est-à-dire $C = l$ où $l = x_i$ ou $l = \neg x_i$.
+	
+	Alors $\varphi$ est satisfaisable si et seulement si $\varphi[x/\top]$ est satisfaisable.
+\end{myproposition}
+
+Les clauses unitaires forcent l'assignation des variables concernées.
+
+\paragraph{Littéraux purs :}
+
+\begin{mydef}
+	$x \in \mathcal{P}$ est de \textit{polarité positive} (respectivement \textit{négative}) si $\forall C \in \varphi, ~ x \in var(C) \Longrightarrow x \in C$ (respectivement $x \in var(C) \Longrightarrow \neg x \in C$)
+\end{mydef}
+
+En notant pour toute formule $F$ et toute variable $y$ : "$y$ apparaît dans $F$" par $y \in F$.
+
+On note $Pol^+(\varphi)$ l'ensemble des variables de polarité positive de $\varphi$ et $Pol^-(\varphi)$ celles de polarité négative.
+
+\begin{myproposition}
+	Si $x \in Pol^+(\varphi)$ alors $\varphi$ est satisfaisable si et seulement si $\varphi[x/\top]$ est satisfaisable.
+	
+	Si $x \in Pol^-(\varphi)$ alors $\varphi$ est satisfaisable si et seulement si $\varphi[x/\bot]$ est satisfaisable.
+\end{myproposition}
+
+\begin{myproof}
+	\begin{proofpart}{On suppose $\varphi$ satisfaisable}
+		Soit $\varphi = \bigwedge_{i \in I} C_i \land \bigwedge_{j \in J}$ et $x \in Pol^+(\varphi)$ où $x \in C_i, ~ \forall i \in I$ et $x, \neg x \notin C_j, ~ \forall j \in J$.
+
+		Il existe une valuation $v$ satisfaisant $\varphi$, soit $v' = v_{| \mathcal{P}\backslash\{x\}}$.
+		
+		$\overline{v}(\varphi) = 1$ alors $\overline{v}\left(\bigwedge_{j \in J} C_j\right) = 1$, or $x, \neg x \notin X_j, ~ \forall j \in J$ donc $\overline{v'}\left(\bigwedge_{j \in J} C_j\right) = 1$
+		
+		or $$\varphi[x/\top] = \underbrace{\bigwedge_{i \in I} C_i[x/\top]}_{\top} \land \underbrace{\bigwedge_{j \in J} C_j[x/\top]}_{\text{satisfait par $v'$}}$$
+	\end{proofpart}
+	
+	\begin{proofpart}{Si $\varphi$ est satisfaisable}
+		Soit $\funcshort{v}{\mathcal{P}\backslash \{x\}}{\{0, 1\}}$ satisfaisant $\varphi[x/\top]$, dans ce cas $\funcshort{v'}{\mathcal{P}}{\{0, 1\}}$ définie par $v'(x)=1$ et $v'(y)=v(y), ~ \forall \neq x$
+		
+		$\varphi$ est satisfaisable.
+	\end{proofpart}
+\end{myproof}
+
+\begin{algorithm}
+	\uIf{$\varphi = \top$}{
+		\Return 1
+	}
+	\uElseIf{$\varphi = \bot$}{
+		\Return 0
+	}
+	\uElseIf{$unit(\varphi) \neq \emptyset$}{
+		Choisir $l \in unit(\varphi)$ \\
+		\Return DPLL($\varphi[l/\top]$) \\
+	}
+	\uElseIf{$Pol^+(\varphi) \cup Pol^-(\varphi) \neq \emptyset$}{
+		Choisir $x \in Pol^+(\varphi)$ \\
+		Choisir $y \in Pol^-(\varphi)$ \\
+		\Return DPLL($\varphi[x/\top][y/\bot]$)
+	}
+	\Else{
+		Choisir $x \in var(\varphi)$ \\
+		\Return $DPLL(\varphi[x/\top])$ ou $DPLL(\varphi[x/\bot])$
+	}
+
+	\caption{DPLL($\varphi$)}
+\end{algorithm}
+
+\begin{myrem}
+	DPLL est très performant en pratique.
+	
+	Il dépend fortement de l'heuistique du choix de $x$ dans la dernière étape.
+\end{myrem}
+
+\paragraph{Heuristiques pour le choix de $x$}
+
+\leavevmode
+
+\textbf{Schoning/Toran :} The satisfaisability theorem
+
+$l$ un littéral, $k \in \mathbb{N}$ et $\varphi$ une formule.
+
+$$f_k(l) = \text{Card}\{C ~ : ~ C \in \varphi, |C| = k, l \in C\}$$
+
+$$f(l) = \sum_{k \in \mathbb{N}} f_k(l)$$
+
+$f(l)$ est le nombre d'occurrences de $l$ dans $\varphi$.
+
+DLIS : choisir $f(l)$ maximal et poser $l = \top$.
+
+On choisit $x$ tel que $f(x) + f(\neg x)$ maximal et $x=\top$ si $f(x) > f(\neg x)$, $x = \bot$ sinon.
+
+Un SAT solver est dépendant du choix de $x$. Il dépend de la stratégie de backtrack.
+
+CDCL : conflict drivers clause legacy :
+\begin{itemize}
+	\item construire un graphe de conflits entre choix d'assignations de variables
+	\item apprendre les raisons qui ont amené à une contradiction (identifier un ensemble de choix contradictoires, par exemple $x_1 = 0, y_1 = 1, z_2 = 1$)
+	\item ajouter une clause qui empêche cette situation de se reproduire (par exemple $\neg x_1 \lor y_1 \lor \neg z_2$)
+\end{itemize}
+
+\part{Compléments}
 \section{Calcul propositionnel}
 
 \subsection{Théorème de lecture unique}

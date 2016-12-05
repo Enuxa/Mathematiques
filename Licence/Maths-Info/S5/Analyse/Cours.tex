@@ -16,7 +16,6 @@
 \title{Analyse}
 
 \author{Isabelle Galagher et Pierre Gervais}
-
 % Environnement type théorème
 \newtheorem{mythm}{Théorème}
 \newtheorem{myproposition}{Proposition}
@@ -65,15 +64,28 @@
 #1 \, : \, #2 \longrightarrow #3
 }
 
+\newcommand{\anonfunc}[4]{
+\left\{ \begin{array}{lcl}
+	#1 & \longrightarrow & #2 \\
+	#3 & \longmapsto & #4
+\end{array}
+\right.
+}
+
 \newenvironment{proofpart}[1]{
-	\leavevmode
-	
 	\noindent
-	{\textit{\textbf{\boldmath #1}}}
-	
+	{\textbf{\boldmath #1}}
 }{
 	\checkmark
 }
+
+\newcommand*{\ClGa}[2]%
+{\ensuremath{%
+    #1/\!\raisebox{-.65ex}{\ensuremath{\mathcal{#2}}}}}
+
+\newcommand*{\ClDr}[2]%
+{\ensuremath{%
+    \raisebox{-.65ex}{\ensuremath{#2}}\backslash #1}}
 
 \begin{document}
 
@@ -1570,7 +1582,7 @@ $$\|f(b) - f(a)\| \leqslant h(b) - h(a) \leqslant \sup_{x \in [a, b]} |h'(x)| (b
 		
 		$$\|g(b) - g(a)\| \leqslant M \frac{(b-a)^{n+1}}{(n+1)!}$$
 		
-		Or $g(b) - g(a) = g(b) = f(b) - \sum_{k= 0}^{n} \frac{(b-a)^k}{k!} f^{(k)}(a)$, d'où le théorème.		
+		Or $\displaystyle g(b) - g(a) = g(b) = f(b) - \sum_{k= 0}^{n} \frac{(b-a)^k}{k!} f^{(k)}(a)$, d'où le théorème.		
 	\end{proofpart}
 	
 	\cqfd
@@ -1589,9 +1601,9 @@ $$\|f(b) - f(a)\| \leqslant h(b) - h(a) \leqslant \sup_{x \in [a, b]} |h'(x)| (b
 \begin{myproof}
 	On note $\|f\|_{\infty} = \displaystyle \sup_{x \in [a, b]} \|f(x)\|$.
 
-	On définit $g(x) = f(x) - \sum_{k = 0}^{n} \frac{(x-a)^k}{k!} f^{(k)}(a)$ et $\varepsilon_n(u) = \frac{g(a+u)}{u^n}$, on a bien $g(x) = (x-a)^n \varepsilon_n(x - a)$.
+	On définit $\displaystyle g(x) = f(x) - \sum_{k = 0}^{n} \frac{(x-a)^k}{k!} f^{(k)}(a)$ et $\varepsilon_n(u) = \frac{g(a+u)}{u^n}$, on a bien $g(x) = (x-a)^n \varepsilon_n(x - a)$.
 	
-	$g$ est de classe $\mathcal{C}^n$, et on a $g(a) = 0$, $g'(a) = f(a) - \sum_{k = 1}^{n} \frac{(a-a)^k}{(k-1)!}f^{(k)}(a) = 0$ et de même pour tout $k \leqslant n$, $g^{(k)}(a) = 0$.
+	$g$ est de classe $\mathcal{C}^n$, et on a $g(a) = 0$, $\displaystyle g'(a) = f(a) - \sum_{k = 1}^{n} \frac{(a-a)^k}{(k-1)!}f^{(k)}(a) = 0$ et de même pour tout $k \leqslant n$, $g^{(k)}(a) = 0$.
 	
 	Soit $\varepsilon > 0$, il existe $\delta > 0$ tel que $\|g^{(n)}(u)\| \leqslant \varepsilon$ si $\|u - a\| \leqslant \delta$.
 	
@@ -1612,40 +1624,700 @@ $$\|f(b) - f(a)\| \leqslant h(b) - h(a) \leqslant \sup_{x \in [a, b]} |h'(x)| (b
 	On suppose que
 	\begin{enumerate}
 		\item il existe $x_0 \in I$ tel que $\sum \|f_n(x_0)\|$ converge
-		\item $f_n$ est dérivable sur $I$ et la série de dérivées converge normalement : $\sum \sup_x \|f'_n(x)\|$ converge
+		\item $f_n$ est dérivable sur $I$ et la série de dérivées converge normalement : $\sum \|f'_n(x)\|_{\infty}$ converge
 	\end{enumerate}
 	
-	Alors $\sum f_n(x)$ converge en tout pont de $I$ et la limite $f$ de la série est dérivable avec $f'(x) = \sum f'_n(x)$
+	Alors $\sum f_n(x)$ converge en tout point de $I$ et la limite $f$ de la série est dérivable avec $f'(x) = \sum f'_n(x)$
 \end{mythm}
 
 \begin{myproof}
-	Démontrons la convergence de $\sum f_n(x)$ pour tout $x \in I$, comme $E$ est complet il suffit de montrer que $\sum \|f_n(x)\|$ converge.
+
+	\leavevmode
 	
-	Par les accroissements finis, $\|f_n(x) - f_n(x_0)\| \leqslant \|f'_n\|_{\infty} |x - x_0|$ donc $\|f_n(x)\| \leqslant \|f_n(x_0)\| + \|f'\|_{\infty}$
+	\begin{proofpart}{Convergence de $\sum f_n$}
 	
-	(...)
+		Démontrons la convergence de $\sum f_n(x)$ pour tout $x \in I$, comme $E$ est complet il suffit de montrer que $\sum \|f_n(x)\|$ converge.
+		
+		Par les accroissements finis, $\|f_n(x) - f_n(x_0)\| \leqslant \|f'_n\|_{\infty} |x - x_0|$ donc $\|f_n(x)\| \leqslant \|f_n(x_0)\| + \|f'\|_{\infty}\cdot|x-x_0|$
+		
+		$$\sum \|f_n(x)\| \leqslant \sum \|f_n(x_0)\| + |x-x_0| \sum \|f_n'\|_{\infty}$$
+		
+		$\sum f_n(x)$ est une série normalement convergente, donc convergente car $E$ est complet.
+	\end{proofpart}
 	
-	Soit $f(x) = \sum f_n(x)$, montrons que $f$ est dérivable sur $i$.
+	\begin{proofpart}{$f$ est dérivable et $f'(x) = \sum f'_n(x$)}
 	
-	Soit $\tau(h) = \left\|\frac{f(x+h) - f(x)}{h} - \sum f'_n(x)\right\|$., montrons $\lim\limits_{0} \tau = 0$.
+		\leavevmode
 	
-	On peut toujours ecrire $\sum f'_n(x) = \sum_{ n = 0}^{N} f'_n(x) + \sum_{n = N+1}^{\infty} f'_n(x)$ et on sait que
+		Soit $f(x) = \sum f_n(x)$, montrons que $f$ est dérivable sur $I$.
+		
+		On pose $\displaystyle \tau(h) = \left\|\frac{f(x+h) - f(x)}{h} - \sum f'_n(x)\right\|$, montrons $\lim\limits_{0} \tau = 0$.
+		
+		On peut écrire pour tout $N$ : $$\sum f'_n(x) = \sum_{ n = 0}^{N} f'_n(x) + \sum_{n = N+1}^{\infty} f'_n(x)$$ en gardant en tête que $\displaystyle \lim\limits_{N \to \infty} \sum_{n=N}^{\infty}\|f'_n\|_{\infty} = 0$
+		
+		Pour tout $h > 0$ on a
+		$$
+			\begin{aligned}
+				\tau(h) &= \frac{1}{h} \left\|f(x+h) - f(x) - \sum h f'_n(x)\right\|\\
+				&=\left\|\sum f_n(x+h) - \sum f_n(x) - \sum h f'_n(x)\right\| \\
+				&=\left\|\sum(f_n(x+h)-f_n(x)-h f'_n(x))\right\|\\
+				&\leqslant \frac{1}{h} \left\|\sum_{n = 0}^{N} f_n(x+h) - f_n(x) - h f_n'(x)\right\| + \frac{1}{h} \left\|\sum_{n=N+1}^{\infty} f_n(x+h) - f_n(x) - hf_n'(x)\right\|\\
+				&\leqslant \frac{1}{h} \sum_{n = 0}^{N} \left\|f_n(x+h) - f_n(x) - h f_n'(x)\right\| + \frac{1}{h} \sum_{n=N+1}^{\infty} \left\|f_n(x+h) - f_n(x) - hf_n'(x)\right\|\\
+				&\leqslant \frac{1}{h} \sum_{n = 0}^{N} (\left\|f_n(x+h) - f_n(x)\right\| + h\left\| f_n'(x)\right\|) + \frac{1}{h} \sum_{n=N+1}^{\infty} (\left\|f_n(x+h) - f_n(x)\right\| + h\left\| f_n'(x)\right\|)\\
+				&\leqslant \frac{1}{h} \sum_{n = 0}^{N} (h\|f'_n\|_{\infty} + h\left\| f_n'(x)\right\|) + \frac{1}{h} \sum_{n=N+1}^{\infty} (h\left\|f_n\right\|_{\infty} + h\left\| f_n'(x)\right\|) ~~ \text{par les accroissements finis}\\
+				&\leqslant \frac{1}{h} \sum_{n = 0}^{N} 2h\|f'_n\|_{\infty} + \frac{1}{h} \sum_{n=N+1}^{\infty} 2h\left\|f_n\right\|_{\infty}\\
+				&\leqslant \frac{1}{h} \sum_{n = 0}^{N} 2h\|f'_n\|_{\infty} + 2\sum_{n=N+1}^{\infty} \left\|f_n\right\|_{\infty}\\
+			\end{aligned}
+		$$
+		
+		Soit $\varepsilon > 0$, pour $N$ assez grand $\displaystyle \sum_{n=N+1}^{\infty} \left\|f_n\right\|_{\infty} < \frac{\varepsilon}{4}$, par ailleurs pour $\delta > 0$ assez petit, on a :
+		
+		$$\forall n \leqslant N, ~ \left(0 < h < \delta \Longrightarrow \left\|\frac{f_n(x+h) - f_n(x)}{h} - f'_n(x)\right\| \leqslant \frac{\varepsilon}{2(N+1)}\right)$$
+		
+		Finalement pour $|h| < \delta$, on a que $\displaystyle |\tau(h)| \leqslant (N+1) \frac{\varepsilon}{2(N+1)} + \frac{\varepsilon}{2} = \varepsilon$, d'où le théorème.
+	\end{proofpart}
 	
-	$$\lim\limits_{N \to \infty} \sum_{n=N}^{\infty}\|f'_n\|_{\infty} = 0$$.
-	
-	Alors pour $h > 0$
-	
-	$$\tau(h) \leqslant \frac{1}{h} \|\sum_{n = 0}^{N} f_n(x+h) - f_n(x) - h f_n'(x)\| + \frac{1}{h} \|\sum_{n=N+1}^{\infty} f_n(x+h) - f_n(x) - hf_n'(x)\|$$
-	
-	On a $$\|f_n(x+h) - f_n(x)\| \leqslant h \|f'_n\|_{\infty}$$
-	
-	Donc $\frac{1}{h} \sum_{N+1}^{\infty} \|f_n(x+h) - f_n(x) - h f'_n(x)\| \leqslant\frac{1}{h} \sum_{N+1}^{\infty} 2h \|f'_n\|_{\infty}$.
-	
-	Soit $\varepsilon > 0$ il existe $N$ tel que $2 \sum_{N+1}^{\infty} \|f'_n\|_{\infty} \leqslant \frac{\varepsilon}{2}$ par ailleurs $$\lim\limits_{h \to 0} \frac{f_n(x+h) - f_n(x)}{h} = f_n'(x)$$
-	
-	Comme $N$ ets fixé il existe $\delta > 0$ tel que $\forall n \leqslant N$, $\|\frac{f_(x+h) - f_n(x)}{h} - f'_n(x)\| \leqslant \frac{\varepsilon}{Z(N+1)}$
-	
-	Finalement pour $|h| \leqslant \delta$, $|\tau(h)| \leqslant (N+1 \frac{\varepsilon}{2(N+1)} + \varepsilon/2 = \varepsilon$, d'où le théorème.
 \end{myproof}
 
+\part{Applications différentiables}
+
+Dans ce chapitre on considérera deux espaces de Banach $E$ et $F$ de dimension quelconque et une application $\funcshort{f}{E}{F}$.
+
+Si $T$ est une application linéaire, on notera $T \cdot x$ l'image de $x$ par $T$.
+
+On ne considérera que des applications linéaires continues.
+
+On rappelle la notation de Landau : $f(x)=o(x)$ si et seulement s'il existe une fonction $\funcshort{\varepsilon}{\mathbb{R}}{\mathbb{R}}$ tendant vers 0 en 0 telle que $\|f(x)\| \leqslant \|x\| \varepsilon(\|x\|)$
+
+\section{Applications différentiables}
+
+\subsection{Différentielles}
+
+\begin{mylemma}
+	Soit $\funcshort{T}{E}{F}$ une application linéaire continue telle que $T \cdot x = o(x)$, alors $T = 0$. 
+\end{mylemma}
+
+\begin{myproof}
+	Il existe $\funcshort{\varepsilon}{\mathbb{R}}{\mathbb{R}}$ tel que $\|T\cdot x\| = \varepsilon(\|x\|) \|x\|$ et $\lim\limits_{x \to 0} \varepsilon = 0$.
+	
+	si $T$ était non-nulle alors il existerait $x_0 \neq 0$ tel que $T \cdot x_0 \neq 0$, alors pour tout $\lambda > 0$ on a d'une part
+	
+	$$\|T \cdot (\lambda x_0)\| = |\lambda| \|T \cdot x_0\|$$
+	
+	et d'autre part
+	
+	$$\|T \cdot (\lambda x_0)\| = \varepsilon(\lambda \|x_0\|) |\lambda| \|x_0\|$$
+	
+	d'où l'identité $\|T \cdot x_0\| = \varepsilon(\lambda \|x_0\|) \|x_0\|$ ce qui est impossible car $\|T \cdot x_0\|$ est constant et $\varepsilon(\lambda \|x_0\|)$ tend vers 0 quand $\lambda$ tend vers 0.
+\end{myproof}
+
+\begin{mydef}
+	On dit que $f$ est \textit{différentiable} en $a \in E$ s'il existe $T \in \mathcal{L}(E, F)$ telle que :
+	
+	$$f(x) = f(a) + T \cdot (x-a) + o(x - a)$$
+\end{mydef}
+
+\begin{myrem}
+	Si $f$ est différentiable en $a$, alors l'application linéaire $T$ associée est unique, en effet s'il existe $T_1, T_2$ vérifiant la même égalité, alors
+	
+	$$f(x) = f(a) + T_1 \cdot (x-a) + o(x-a) = f(a) + T_2 \cdot (x-a) + o(x-a)$$
+	
+	$$T_1 \cdot (x-a) - T_2 \cdot (x-a) = o(x-a)$$
+	
+	$$(T_1 - T_2) \cdot (x-a) = o(x-a)$$
+	
+	alors $T_1 - T_2 = 0$ par le lemme précédent.
+
+	Cette application linéaire est appelée \textit{différentielle} de $f$ au point $a$ et on la note $T_a$, $f'(a)$, $df(a)$ ou $\nabla f(a)$.
+\end{myrem}
+
+\begin{myproposition}
+	Si $f$ est différentiable en $a$, alors elle est continue en $a$.
+\end{myproposition}
+
+\begin{mydef}
+	Si $f$ est différentiable en tout point d'un ouvert $U$ de $E$ alors on dit qu'elle est \textit{différentiable sur $U$}, et l'application suivante est appelée \textit{différentielle de $f$}
+	
+	$$\func{f'}{U}{\mathcal{L}(E, F)}{a}{f'(a)}$$
+\end{mydef}
+
+\begin{myproposition}
+	Les applications constantes sont différentiables, de différentielle nulle.
+	
+	Les applications linéaires continues sont différentiables et si $T \in \mathcal{L}(E, F)$ alors $T'=T$.
+\end{myproposition}
+
+\begin{myproposition}
+	Supposons que $E = \mathbb{R}$, alors $f$ est différentiable au point $a$ de $\mathbb{R}$ si et seulement si elle y est dérivable.
+	
+	On a alors $\funcinline{T_a}{\mathbb{R}}{\mathbb{R}}{h}{f'(a)h}$
+\end{myproposition}
+
+\begin{myproposition}
+	\leavevmode
+	\begin{itemize}
+		\item Si $f$ et $g$ sont deux fonctions différentiables, alors $f+g$ est différentiable, de différentielle $(f+g)'(a)=f'(a)+g'(a)$
+		\item Si $\funcshort{f}{E}{K}$ et $\funcshort{g}{K}{F}$ sont deux applications différentiables alors $g \circ f$ est différentiable et $(g \circ f)'(x) = (g'\circ f) \circ f'(x)$
+	\end{itemize}
+\end{myproposition}
+
+\begin{myproof}
+	Soit $a \in E$ et soit $b= f(a) \in K$, $g$ est différentiables en $b$ et $f$ est différentiable en $a$, donc $$g(y) = g(b) + g'(b) \cdot (y - b) + o(y - b)$$
+	$$g(f(x)) = g(b) + g'(b)\cdot(f(x) - b) + o(f(x)-b)$$
+	
+	Or $f(x) = f(a) + f'(a) \cdot (x-a) + o(x-a)$
+	
+	Donc $g \circ f(x) = g \circ f(a) + g'(f(a)) \cdot (f'(a) \cdot(x-a)+ o(x-a))$
+	
+	On voudrait montrer que $g \circ f(x) = (g \circ f)(a) + g'(f(a)) \circ f'(a)(x-a) + o(x-a)$
+	
+	Pour conclure il suffit de montrer que $$g'(f(a)) \cdot (o(x-a)) + o(f'(a) \cdot (x-a) + o(x-a)) = o(x-a)$$
+	
+	De manière générale, si $T$ est une application linéaire, alors $T \cdot o(x) = o(x)$, de même $o(T \cdot x) = o(x)$ et $o(o(x-a)) = o(x-a)$, d'où le résultat.
+\end{myproof}
+
+\begin{myproposition}
+	Soit $F = F_1 \times F_2$, une application $\funcshort{f}{E}{F}$ est différentiable si et seulement si chacune de ses deux coordonnées de $f=(f_1,f_2)$ sont différentiables et on a $f'=(f_1', f_2')$.
+\end{myproposition}
+
+\section{Dérivées partielles en dimension finie}
+
+\begin{myproposition}
+	Si $f$ est différentiable en $a \in E$, alors pour tout vecteur $b \in E$, la fonction $\funcinline{\varphi}{\mathbb{R}}{F}{t}{f(a+tb)}$ est dérivable en $0$ et $\varphi'(0) = f'(a) \cdot b$ 
+\end{myproposition}
+
+\begin{myproof}
+	
+	\leavevmode
+	
+	$
+	\begin{aligned}[t]
+		\varphi(t) - \varphi(0) &= f(a+tb) - f(a)\\
+		&=T_a \cdot tb + o(tb)\\
+		&=t T_a \cdot b + o(t)
+	\end{aligned}
+	$
+	
+	donc $\displaystyle \frac{\varphi(t) - \varphi(0)}{t} \longrightarrow T_a \cdot b, ~ (t \to 0)$
+\end{myproof}
+
+\begin{mydef}
+	Sous les hypothèses de la proposition le vecteur $f'(a) \cdot b$ est appelé \textit{dérivée partielle} de $f$ en $a$ dans la direction $b$.
+\end{mydef}
+
+Si on suppose $E$ de dimension finie $n$, de base $e=(e_1, ...e_n)$, alors $f$ est une fonction de $n$ variables $(x_1, ...x_n)$ si $\displaystyle x = \sum_{i = 1}^{n} x_i e_i$.
+
+Soit $a=(a_1, ...a_n) \in E$ fixé, on considère la fonction $\varphi$ de la proposition pour $b = e_1$, alors $\varphi(0)
+ = f'(a) \cdot e_1$ est la dérivée partielle de $f$ en $a$ dans la direction $e_1$, ce qui revient à dériver la fonction $f$ par rapport à $x_1$ en laissant $(x_2, ...x_n)$ fixes.
+ 
+ On note $\displaystyle \frac{\partial f}{\partial x_1}(a_1, ...a_n) = f'(a_1, ...a_n)\cdot e_1$
+
+Plus généralement on définit la dérivée partielle de $f$ dans la direction $e_i$ au point $a=(a_1, ...a_n)$ par $\displaystyle \frac{\partial f}{\partial x_i}(a) = f'(a_1, ...a_n)\cdot e_i$
+
+ce qui revient à dérivée la fonction $f$ par rapport à $x_i$, les autre variables étant fixées.
+
+Si $F$ est de dimension finie alors on peut définir une base $h_=(e'_1, ...e'_p)$ de $F$ et écrire $f$ dans cette base $f=f_1 e'_1 + ..f_n e'_n$. Alors si $h=(h_1, ...h_n)$ est un vecteur, alors $$f'(a) \cdot h = \sum_{j = 1}^{p} \sum_{i = 1}^{n} e_j \frac{\partial f_j}{\partial x_i} h_i$$
+
+\begin{mydef}
+	On appelle \textit{matrice jacobienne} de $f$ au point $a$ la matrice des dérivées partielles
+	$$J_f(a) = \left(
+		\begin{array}{ccc}
+			\frac{\partial f_1}{\partial x_1}(a) & ... & \frac{\partial f_1}{\partial x_n}(a) \\
+			\vdots & \ddots & \vdots \\
+			\frac{\partial f_p}{\partial x_1}(a) & ... & \frac{\partial f_p}{\partial x_n}(a)
+		\end{array}
+	\right)$$
+	
+	le \textit{déterminant jacobien} de $f$ en $a$ est le déterminant de $J_f(a)$.
+\end{mydef}
+
+\begin{myproposition}
+	Si $\funcshort{f}{E}{K}$ et $\funcshort{f}{K}{F}$ sont différentiables alors $J_{g \circ f}(a) = J_g(f(a))J_f(a)$
+\end{myproposition}
+
+\begin{myexmpl}
+	$$\func{f}{E}{F}{(x, y, z)}{(x-y, yz)}$$
+	
+	On note $f_1(x, y, z) = x - y$ et $f_2(x, y, z) = yz$.
+	
+	Soit $a=(a_1, a_2, a_3)$, on a $$J_f(a) = 
+	\left(
+	\begin{array}{ccc}
+		1 & -1 & 0 \\
+		0 & a_3 & a_2
+	\end{array}\right)$$
+\end{myexmpl}
+
+\subsection{Application de classe $\mathcal{C}^1$}
+
+On sait qu'une fonction différentiable admet des dérivées partielles puisque $\displaystyle \frac{\partial{f}}{\partial x_i} = f'(a) \cdot e_i$, on se demande si la réciproque est vraie.
+
+Considérons $\funcshort{f}{\mathbb{R}^2}{\mathbb{R}}$ définie par $\displaystyle f(x, y) = \frac{2 xy}{x^2 + y^2}$ si $(x, y) \neq (0, 0)$, et $f(0, 0) = 0$.
+
+Cette fonction n'est pas continue en $(0, 0)$, en effet $\forall x \in \mathbb{R}, f(x, x) = 1$, donc elle n'est pas différentiable en 0.
+
+Calculons les dérivées partielles de $f$ :
+
+$\displaystyle \frac{\partial f}{\partial x}(x, y) = \frac{2 y}{x^2 + y^2} - \frac{4x^2 y}{(x^2+y^2)^2}$
+
+Si $y \neq 0$ alors $\displaystyle \frac{\partial f}{\partial x}(0, y) = \frac{2}{y}$
+
+Par symétrie on calcule les dérivées partielles 
+$\displaystyle \frac{\partial f}{\partial y}(x, y)$ et 
+$\displaystyle \frac{\partial f}{\partial y}(0, y)$
+
+Enfin si $\displaystyle f_y(x) = \frac{2 xy}{x^2 + y^2}$, alors $\forall x \in \mathbb{R}, f_0(x) = 0$, donc $f$ admet des dérivées partielles en tout point de $\mathbb{R}^2$ mais elle n'est pas différentiable.
+
+\begin{myrem}
+	Les dérivées partielles de $f$ ne sont pas continues en $(0, 0)$
+\end{myrem}
+
+\begin{mydef}
+	Soit $U$ un ouvert de $E$, une fonction $\funcshort{f}{U}{F}$ est de \textit{classe $\mathcal{C}^1$} si elle est différentiable et si sa différentielle $\funcshort{f'}{U}{\mathcal{L}(E, F)}$ est continue.
+	
+	On dit que $f$ est de \textit{classe $\mathcal{C}^1$ en $a$} s'il existe un ouvert $V$ contenant $a$ tel que $f$ est de classe $\mathcal{C}^1$ sur $V$.
+\end{mydef}
+
+\begin{myrem}
+	Si $f$ est de classe $\mathcal{C}^1$ sur $U$ ouvert de $E$  de dimension finie, alors ses dérivées partielles sont continues sur $U$. En effet si $(e_1, ... e_n)$ est une base de $E$ alors $\displaystyle \frac{\partial f}{\partial x_i}(a) = f'(a) \cdot e_i$.
+	
+	En conclusion il suffit de démontrer que pour tout $i \leqslant n$, l'application $a \in U \mapsto f'(a) \cdot e_i$ est continue, ceci est dû au lemme suivant :
+\end{myrem}
+
+\begin{mylemma}
+	Soit $\funcshort{\phi}{U}{\mathcal{L}(E, F)}$ et $h \in E$, alors si $\phi$ est continue l'application $a \mapsto \phi(a) \cdot h$ est continue.
+\end{mylemma}
+
+En effet si $x \in E$ tend vers $a$, alors
+
+$$\begin{aligned}
+\|\phi(x) \cdot h - \phi(a) \cdot h\| &= \|(\phi(x)-\phi(a)) \cdot h\| \\
+& \leqslant \|\phi(x) - \phi(a)\| \|h\| 
+\end{aligned}$$
+
+et par continuité de $\phi$, $\|\phi(x) \cdot h - \phi(a) \cdot h\|$ tend vers 0.
+
+\begin{mythm}
+	Soit $E$ de dimension finie $n$, $U$ un ouvert de $E$ et $\funcshort{f}{E}{F}$, si $f$ admet des dérivées partielles continues dans toutes les directions et en tout point de $U$, alors $f$ est de classe $\mathcal{C}^1$ sur $U$.
+\end{mythm}
+
+\begin{myproof}
+	Soit $a \in U$, on veut montrer qu'il existe $f'(a) \in \mathcal{L}(E, F)$ telle que $f(a + \eta) = f(a) + f'(a) \cdot \eta + o(\eta)$.
+	
+	Afin de simplifier la rédaction de la preuve, on supposera $n = 2$, et on écrira $a = (x_0, y_0)$ et $\eta = (h, k)$. 
+	
+	On pose $\displaystyle S = \frac{\partial f}{\partial x}(x_0, y_0)$ et $T = \frac{\partial f}{\partial y}(x_0, y_0)$, on montre que $f'(a) \cdot \eta = Sh + Tk$, c'est-à-dire qu'il faut montrer que $f(x_0 + h, y_0 + k) - f(x_0, y_0) - Sh - Tk = o(\eta)$.
+	
+	On pose la fonction suivante : $$\func{\varphi}{\mathbb{R}}{F}{k}{f(x_0, y_0 + k) - f(x_0, y_0) - kT}$$
+	elle est dérivable et $$\varphi'(k) = \frac{\partial f}{\partial y}(x_0, y_0 + k) - T = \frac{\partial f}{\partial y} (x_0, y_0 + k) - \frac{\partial f}{\partial y} (x_0, y_0)$$
+	
+	Par continuité de $\displaystyle \frac{\partial f}{\partial y}(x_0, y_0)$ il existe $\delta_1 > 0$ tel que $\|\varphi'(k)\| \leqslant \varepsilon$ si $|k| \leqslant \delta_1$, donc par les accroissements finis on a : $$\|\varphi(k) -\varphi(0)\| = \|\varphi(k)\| \leqslant\varepsilon |k|$$
+	
+	On choisit dorénavant $|k| \leqslant \delta_1$ et on considère $\psi$ définie par $$\psi(h) = f(x_0+h, y_0+k) - f(x_0, y_0, k) - Sh$$
+	
+	Alors $\psi$ est dérivable et $$\psi'(h) = \frac{\partial f}{\partial x}(x_0+h, y_0+k) - S = \frac{\partial f}{\partial x}(x_0 + h, y_0 + k) - \frac{\partial f}{\partial x}(x_0, y_0)$$
+	
+	Encore une fois par continuité de $\displaystyle \frac{\partial f}{\partial x}$ en $(x_0, y_0)$ il existe $\delta_2 \leqslant \delta_2$ tel que si $|h| + |k| \leqslant \delta_2$ alors $\|\psi'(h)\| \leqslant \varepsilon$, on en déduit à nouveau par l'inégalité des accroissements finis : $$\forall (h, k) \in \mathbb{R},^2 ~ (|h|+|k| \leqslant \delta_2 \Longrightarrow \|\psi(h)\| \leqslant \varepsilon |h|)$$
+	
+	Mais alors $$\begin{aligned}
+		\|f(x_0+h, y_0+k) - f(x_0, y_0) - Sh - Tk\| &\leqslant \|f(x_0 + h, y_0 + k) - f(x_0, y_0 + k) - Sh\| \\ &+ \|f(x_0, y_0+k) - f(x_0, y_0) - Tk\|\\
+		& \leqslant \|\psi(h)\| + \|\varphi(k)\| \\
+		& \leqslant \varepsilon|h| + \varepsilon|k|, \quad \text{ si $|h| + |k| \leqslant \delta_2$} \\
+		& \leqslant \varepsilon(|h|+|k|)
+	\end{aligned}$$
+	
+	d'où $f$ est différentiable en $(x_0, y_0)$.
+	
+	Mais alors on peut écrire $f'(a) \cdot e_i = \frac{\partial f}{\partial x_i}(a)$ et donc $a \mapsto f'(a) \cdot e_i$ est continue pour tout $i \leqslant n$.
+	
+	\cqfd
+\end{myproof}
+
+\subsection{Accroissements finis}
+
+\begin{mydef}
+	On dit de $U \subseteq E$ qu'il est \textit{convexe} si pour tout couple de points $(x, y) \in U \times U$, le segments $[x, y] := \{x + t y ~ | ~ t \in [0, 1]\}$ est inclus dans $U$.
+\end{mydef}
+
+\begin{mythm} Inégalité des accroissements finis
+	Soit $U$ un ouvert convexe de $E$ et $f$ une application différentiable de $U$ dans $F$.
+	
+	On suppose qu'il existe une constante $M > 0$ telle que $\forall x \in U, \|f'(x)\| \leqslant M$
+	
+	Alors pour tout $a \in U$ et tout $h \in E$ tels que $a + h \in U$, alors $$\|f(a+h) - f(a)\| \leqslant M \|h\|$$
+\end{mythm}
+
+\begin{myproof}
+	On va appliquer l'inégalité des accroissements finis vue dans le chapitre précédent à $$\func{\phi}{[0, 1]}{F}{t}{f(a+th)}$$ comme $U$ est convexe on a $a + th \in U$ pour $0 \leqslant t \leqslant 1$ :
+	
+	$$\phi'(t) = f'(a+th) \cdot h$$
+	
+	Par hypothèse, pour tout $t \in [0, 1]$, on a $\|f'(a+th)\| \leqslant M$, donc $$\|f'(a+th) \cdot h\|\leqslant M \|h\|$$
+	
+	Donc $\|\phi'(t)\| \leqslant M \|h\|$ alors l'inégalité des accroissements finis on a :
+	
+	$$\|\phi(1) - \phi(0)\| \leqslant M \|h\|$$
+	
+	d'où le résultat.
+\end{myproof}
+
+\part{Extrema et différentielles secondes}
+
+Dans tout ce chapitre on considère des fonctions de $\mathbb{R}^n$ dans $\mathbb{R}$
+
+\section{Condition nécessaire d'extremum pour un application différentiable}
+
+\begin{myproposition}
+	Soit $U$ un ouvert de $\mathbb{R}^n$ et $\funcshort{f}{U}{\mathbb{R}}$ une application différentiable, si $f$ admet un extremum local en $x_0 \in U$ alors $f'(x_0) = 0$.
+\end{myproposition}
+
+\begin{myproof}
+	Soit $h \in E$, on calcule $f(a+th)$ avec $t$ assez petit pour que $a + th \in U$.
+	
+	Soit $\phi(t) := f(a+th)$ définie au voisinage de 0, $\phi$ admet un extremum en 0 donc $\phi'(0) = 0$, or $\phi'(t) = f'(a+th) = f'(a+th) \cdot h$, donc $\phi'(0) = f'(a) \cdot h$, on en déduit que pour tout $h$, $f'(a) \cdot h = 0$ et donc $f'(a) = 0$.
+\end{myproof}
+
+\begin{myrem}
+	La réciproque est fausse, par exemple $x \mapsto x^3$ ou $(x, y) \mapsto xy$
+\end{myrem}
+
+\begin{mydef}
+	Soit $\funcshort{f}{U}{\mathbb{R}}$ une application différentiable, on appelle point \textit{critique} tout point où la dérivée s'annule.
+\end{mydef}
+
+Si $n=1$ on détermine si un point critique est un extremum local en déterminant le signe de la dérivée seconde : si $f'(x_0) = 0$ et $f''(x_0) \geqslant 0$ alors $x_0$ est un minimum local, et un maximum local si $f''(x_0) \geqslant 0$.
+
+\section{Différentielle seconde}
+
+\begin{mydef}
+	Soit $U$ un ouvert de $\mathbb{R}^2$ et $\funcshort{f}{U}{\mathbb{R}}$ une application différentiable, on dit qu'elle est deux fois différentiable si sa différentielle $\funcshort{f'}{U}{\mathcal{L}(E, F)}$ est différentiable, de différentielle $\funcshort{f''}{U}{\mathcal{L}(\mathbb{R}^2, \mathcal{L}(\mathbb{R}^2, \mathbb{R}))}$
+\end{mydef}
+
+\begin{mylemma}
+	Soient $E$ et $F$ deux espaces de Banach de dimension finie, pour toute application linéaire de $S \in \mathcal{L}(E, \mathcal{L}(E, F))$, l'application $\funcshort{T}{E \times E}{F}$ définie par
+	$$T(x, y) = (S \cdot x) \cdot y$$
+	est une application bilinéaire, dans $\mathcal{L}_2(E, F)$.
+	
+	Cette correspondance $S \mapsto T$ est une bijection, sa réciproque associe à toute application bilinéaire $T$ une application $S \in \mathcal{L}(E, \mathcal{L}(E, F))$ définie par $(S \cdot x) \cdot y = T(x, y)$.
+\end{mylemma}
+
+\begin{mydef}
+	Soit $\funcshort{f}{U}{\mathbb{R}^2}$ deux fois différentiable, sa différentielle seconde est l'application $\funcshort{f''}{U}{\mathcal{L}_2(\mathbb{R}^2, \mathbb{R})}$ via l'identification du lemme précédent.
+	
+	On dit que $f$ est de classe $\mathcal{C}^2$ si sa différentielle seconde est continue.
+\end{mydef}
+
+\begin{myrem}
+	On a donc dans $\mathcal{L}(\mathbb{R}^2, \mathbb{R})$ : $\forall a \in U, f'(a+k) = f'(a) + f''(a) \cdot k + o(k)$
+\end{myrem}
+
+\begin{myexmpl}
+	Soit $\funcshort{f}{U}{\mathbb{R}}$ une application deux fois différentiable, alors pour $g \in \mathbb{R}^2$, l'application suivante est différentiable :
+	$\func{\phi}{U}{\mathbb{R}}{a}{f'(a) \cdot h}$
+	et on a pour tout vecteur $k \in \mathbb{R}^2$ :
+	
+	$$
+	\begin{aligned}
+		\phi'(a) \cdot k &= f''(a) \cdot k \cdot h\\
+		&= f''(a)(k, h)\\
+		&=(f''(a)\cdot k) \cdot h
+	\end{aligned}
+	$$
+	
+	En effet $\phi(a+k) = f'(a+k) \cdot h$, mais $f'(a+k) = f'(a) + f''(a) \cdot k + o(k)$, donc
+	$$\begin{aligned}
+		\phi(a+k) &= f'(a) \cdot h + f''(a) \cdot k \cdot h + o(k) \cdot h \\
+		&=\phi(a) + f''(a) \cdot k \cdot h + o(k)
+	\end{aligned}$$
+\end{myexmpl}
+
+\begin{myproposition}
+	La somme et le produit de deux fonctions de classe $\mathcal{C}^2$ est de classe $\mathcal{C}^2$, et de même pour la composée.
+\end{myproposition}
+
+\section{Dérivées partielles d'ordre 2 : Matrice hessienne}
+
+On note $\displaystyle \frac{\partial^2 f}{\partial x_j x_i}$ la dérivée partielle d'ordre 2 de $\displaystyle \frac{\partial f}{\partial x_i}$ dans la direction $e_j$, si $i = j$ on note $\displaystyle \frac{\partial^2 f}{\partial x_i^2}$
+
+\begin{mythm}
+	Si $\funcshort{f}{U}{\mathbb{R}}$ admet des dérivées partielles d'ordre 1 et 2 qui sont continues en tout point de $U$, alors $f$ est deux fois différentiable.
+\end{mythm}
+
+\begin{myproof}
+	On sait que pour tout $i$ la fonction $\displaystyle \frac{\partial f}{\partial x_i}$ admet des dériées partielles ontinues dans toutes les directions. Donc l fonction $\displaystyle \frac{\partial f}{\partial x_i}$ est diférentiable et de classe $\mathcal{C}^1$.
+	
+	Par ailleurs on a $$f'(a) \cdot h = \sum_i \frac{\partial f}{\partial x_i} (a) h_i$$ Donc $f'$ est de classe $\mathcal{C}^1$, donc $f$ est de classe $\mathcal{C}^2$.
+
+	\cqfd
+\end{myproof}
+
+\begin{myproposition}
+	Si $\funcshort{f}{U}{\mathbb{R}}$ est de classe $\mathbb{C}^2$, on a pour tout $h$ et :
+	
+	$$\sum_{i, j} \frac{\partial^2 f}{\partial x_j \partial x_i}(a) k_j h_i$$
+\end{myproposition}
+
+\begin{myproof}
+	Soit $\phi(a) := f'(a) \cdot h$, alors on a vu que $\phi$ est différentiable et $$\phi'(a) \cdot k = f''(a) \cdot k \cdot h$$
+	
+	autrement dit $\phi(a) = \sum_i \frac{\partial f}{\partial x_i}(a) h_i$ et $\phi'(a) \cdot k = \sum_j \frac{\partial \phi}{\partial x_j}(a)k_j$ et donc :
+	
+	$$
+	\begin{aligned}
+		f''(a) \cdot k \cdot h &= \sum_j \frac{\partial^2 f}{\partial x_j}(a) k_j \\
+		&=\sum_{i, j} \frac{\partial^2 f}{\partial x_j \partial x_i} h_i k_j
+	\end{aligned}
+	$$
+	\cqfd
+\end{myproof}
+
+\begin{mythm}Symétrie de Schwartz
+	
+	Si $\funcshort{f}{U}{\mathbb{R}}$ est de classe $\mathcal{C}^2$ sur $U$, alors en tout point de $x$ de $U$ on a
+	
+	$$\frac{\partial^2 f}{\partial x_i x_j} = \frac{\partial^2 f}{\partial x_j x_i}$$
+\end{mythm}
+
+\begin{myrem}
+	L'hypothèse d'être de classe $\mathcal{C^2}$ est nécessaire, par exemple $f(x, y) = \frac{xy(x^2 - y^2)}{x^2 + y^2}$ et $f(0, 0) = 0$, on a $\displaystyle \frac{\partial f}{\partial x}(0, y) = -y$ et $\displaystyle \frac{\partial^2 f}{\partial y \partial x}(0, 0) = -1$
+	
+	mais $\displaystyle \frac{\partial f}{\partial y}(x, 0) = x$ et $\displaystyle \frac{\partial^2 f}{\partial x \partial y}(0, 0) = 1$
+\end{myrem}
+
+\begin{myproof}
+		On fait le calcul en $(0, 0)$ d.
+		
+		Soit $\displaystyle \alpha := \frac{\partial^2 f}{\partial x \partial y}(0, 0)$, on va montrer que $\displaystyle \frac{\partial^2 f}{\partial y \partial x}(0, 0) = \alpha$, c'est-à-dire que $$\frac{\partial f}{\partial y}(x, 0) = \frac{\partial f}{\partial y}(0, 0) + \alpha x + o(x)$$
+		
+		Soit $f^*(x, y) := f(x, y) - \alpha xy$
+		
+		$\displaystyle \frac{\partial f^*}{\partial x}(x, y) = \frac{\partial f}{\partial x}(x, y) - \alpha y$ donc $\displaystyle \frac{\partial f^*}{\partial y \partial x}(x, y) = \frac{\partial f}{\partial y \partial x}(x, y) - \alpha$
+		
+		Soit $\varepsilon > 0$, il existe $\delta > 0$ tel que si $|x_0| + |y_0| \leqslant \delta$ alors $\displaystyle \left|\frac{\partial f^*}{\partial y \partial x}(x_0, y_0)\right| \leqslant\varepsilon$
+		
+		Soient $x_0, y_0$ fixés tels que $|x_0| + |y_0| \leqslant \delta$ et soient $$g(x) = f^*(x, y_0) - f^*(x, 0)$$
+		$$l(y) = f^*(x_0, y) - f^*(0, y)$$
+		
+		Enfin soit $\Delta = g(x_0) - g(0)$, alors $\Delta = l(y_0) - l(0)$.
+		
+		Par le théorème des accroissements finis on a
+		$$|\Delta| \leqslant |x_0| \sup_{|x| \leqslant |x_0|} |g'(x)|$$
+		
+		Si $|x| < |x_0|$ est suffisamment petit alors par le théorème des accroissements finis on a
+		
+		$$\begin{aligned}
+			|g'(x)| &\leqslant |y_0|\sup_{|y| \leqslant y_0} \left|\frac{\partial^2 f^*}{\partial y\partial x}(x, y)\right|\\
+			&\leqslant |y_0| \varepsilon
+		\end{aligned}$$
+		
+		D'où pour $x_0| + |y_0| \leqslant \delta$ on a $|\Delta| \leqslant |x_0||y_0|\varepsilon$, mais $\displaystyle l'(y) = \frac{\partial f^*}{\partial y}(x_0, y) - \frac{\partial f^*}{\partial y}(0, y)$
+		
+		Donc $\displaystyle l'(0) = \frac{\partial f}{\partial y}(x_0, 0) - \frac{\partial f}{\partial y}(0, 0) - \alpha x_0$
+		
+		donc on veut montrer que $l'(0)$ est un $o(x_0)$.
+		
+		On calcule $\displaystyle \frac{|l(y_0) - l(0)|}{|y_0|} = \frac{|\Delta|}{|y_0|} \leqslant \varepsilon |x_0|$
+		
+		On conclut que pour $|x_0| \leqslant \delta$
+		
+		$$\lim\limits_{y_0 \to 0} \leqslant \frac{|l(y_0) - l(0)|}{|y_0|} \leqslant \varepsilon |x_0|$$
+		
+		donc $|l'(0)$ est un $o(x_0)$, ce qu'on voulait démontrer.
+		
+		\cqfd
+\end{myproof}
+
+\begin{mydef}
+	On appelle \textit{matrice hessienne} de $\funcshort{f}{U}{\mathbb{R}}$ deux fois différentiable au point $x_0 \in U$ la matrice symétrique $\displaystyle \left(\frac{\partial^2 f}{\partial x_i \partial x_j}\right)_{i, j}$
+\end{mydef}
+
+\section{Formules de Taylor}
+
+\begin{mythm}
+	Soit $\funcshort{f}{U}{\mathbb{R}}$ une fonction de classe $\mathcal{C}^2$ avec $U$ un ouvert convexe, soient $a, b \in U$, alors
+	
+	$$|f(a) - f(b) - f'(a) \cdot (b-a)| \leqslant \frac{1}{2} \sup_{a \leqslant x \leqslant b} |f''(x) (b - a, b-a)|$$
+\end{mythm}
+
+\begin{myproof}
+	Soit $h = b - a$ et $\phi(t) = f(a+th)$ alors $\phi$ ets de classe $\mathcal{C}^2$ et par le théorème de Taylor-Lagrange
+	
+	$$\begin{aligned}
+	|\phi(1) - \phi(0)| &\leqslant \frac{1}{2} \sup_{0 \leqslant t \leqslant 1} |\phi''(t)| \\
+	&\leqslant \sup_{0 \leqslant t \leqslant 1} |f''(a+th)h \cdot h|
+	\end{aligned}$$
+\end{myproof}
+
+\begin{mythm}
+	Soit $\funcshort{f}{U}{\mathbb{R}}$ avec $U$ un ouvert de $\mathbb{R}^2$, $a \in U$, alors
+	
+	$$f(a+h) = f(a) + f'(a) \cdot h + \frac{1}{2} f''(a) \cdot h \cdot h + o(\|h\|^2)$$
+\end{mythm}
+
+\begin{myproof}
+	On définit la fonction $$\varphi(x) = f(x) - f(a) - f'(a) \cdot (x-a) - \frac{1}{2} f''(a)\cdot(x-a, x-a)$$ dans un voisinage de $a$.
+	
+	On différentie $\varphi$ :
+	$$\varphi(x) \cdot h = f'(x) \cdot h- f'(a) \cdot h - \frac{1}{2}f''(a)(x-a, h)- \frac{1}{2}f''(a)(h, x-a)$$
+	
+	Or $f$ est de classe $\mathcal{C}^2$, alors par le lemme de Schwartz :
+	
+	$$\varphi(x) \cdot h = f'(x) \cdot h- f'(a) \cdot h - f''(a)(x-a, h)$$
+	
+	De même on a :
+	
+	$$\varphi''(x)\cdot h \cdot k= f''(x) \cdot h \cdot k - f''(a)\cdot h \cdot k$$
+	car $$f''(a) (h, x+k-a) - f''(a)(h, x-a) = f''(a)(h, x-a) + f''(a)(h, k) - f''(a)(h, x-a)$$
+	
+	Comme $f$ est de classe $\mathcal{C}^2$, pour tout $\varepsilon > 0$ il existe $\delta > 0$ tel que si $\|x-a\| \leqslant \delta$ alors $\|f''(x)-f''(a)\| \leqslant \varepsilon$
+	
+	donc si $\|x-a\|\leqslant \delta$ alors $\|\varphi''(x)\| \leqslant \varepsilon$, et par le théorème de Taylor-Lagrange, on a donc :
+	$$|\varphi(a+h) - \varphi(a) - \varphi'(a)\cdot h| \leqslant \frac{1}{2} \sup_{x \in [a, a+h]} |\varphi''(x)(h, h)|$$
+	mais comme $\varphi(x) = f(x) - f(a) - f'(a)(x-a) - \frac{1}{2}f''(a)(x-a, x-a)$, alors $\varphi(a+h) = f(a+h) - f(a) - f'(a) \cdot h - \frac{1}{2} f''(a)(h, h)$
+	
+	On sait que $\varphi(a)=0$ et $\varphi'(a) \cdot h = 0$, donc
+	
+	$$\begin{aligned}
+		|f(a+h) - f'(a) \cdot h - \frac{1}{2} f''(a)(h, h)| &\leqslant \frac{1}{2} \sup_{x \in [a, a+h] |\varphi''(x)(h, h)|} \\
+		& \leqslant \frac{1}{2} \sup_{\|x-a\| \leqslant \delta} |\varphi''(x)(h, h)| \text{ si } \|h\| \leqslant \delta \\
+		&\leqslant \frac{1}{2} \varepsilon \|h\|^2
+	\end{aligned}$$
+	\cqfd
+\end{myproof}
+
+\begin{myrem}
+	S $B$ est bilinéaire :
+	$$B(x+h, x+h) - B(x, x) = B(x, h) + B(h, x) + \underbrace{B(h, h)}_{O(\|h\|^2) = o(h)}$$
+\end{myrem}
+
+\begin{mythm}
+	Soit $f \in \mathcal{C}^2(U, \mathbb{R})$, on suppose qu'elle admet un minimum local en $x_0$, alors la matrice hessienne $H_{x_0}$ de $f$ en $x_0$ est positive, c'est-à-dire que $\forall h, ~ H_{x_0}(h, h) \geqslant 0$.
+\end{mythm}
+
+\begin{myproof}
+	$x_0$ est un point critique de $f$, c'est-à-dire $f'(x_0) = 0$.
+	
+	Soit $h$ fixé, on pose $\varphi(t) = f(x_0 + th)$ et on applique la formule de Taylor à $\varphi(t)$ en 0 :
+	
+	$$\varphi(t) = \varphi(0) + t \varphi'(0) + \frac{1}{2} t^2 \varphi''(0) + o(t^2)$$
+	
+	Donc $$f(x_0 + th) = f(x_0) + t f'(x_0) \cdot h + \frac{1}{2} t^2 \underbrace{f''(x_0)(h, h)}_{H_{x_0 (h, h)}} + o(t^2)$$ car $\varphi'(t) = f'(x_0 + th) \cdot
+	h$.
+	
+	Mais $f(x_0+th) \geqslant f(x_0)$ pour $t$ assez petit pour $t$ assez petit, alors $$f''(x_0)(h, h) = \frac{2}{t^2}(f(x_0+th) - f(x_0)) + o(1) \geqslant 0$$
+\end{myproof}
+
+\section{Condition suffisante pour avoir un extremum}
+
+\begin{mythm}
+	Soit $\funcshort{f}{U}{\mathbb{R}}$ de classe $\mathcal{C}^2$ avec $U$ ouvert, supposons que :
+	\begin{itemize}
+		\item $x_0$ est un point critique de $f$
+		\item La matrice hessienne de $f$ en $x_0$ est définie positive
+	\end{itemize}
+	Alors $x_0$ est un minimum local strict de $f$.
+\end{mythm}
+
+\begin{mythm}
+	On commence par montrer une hypothèse plus forte que la seconde hypothèse.
+	
+	Il existe $\delta > 0$ tel que $f''(x_0)\cdot h \cdot h \geqslant \delta$ pour tout $\|h\| = 1$, en effet la sphère unité $S^1$ est compacte dans $\mathbb{R}^2$ et la fonction $h \mapsto f''(x_0) (h, h)$ est continue, elle atteint donc ses bornes sur $S^1$, en particulier son minimum strictement positif.
+	
+	Ainsi, $\forall h, ~ f''(x_0) \cdot h \cdot h \geqslant \delta \|h\|^2$.
+	
+	On pose $g(x) = f(x) - \frac{1}{2} f''(x_0)(x-x_0, x-x_0)$ et on la différencie :
+	
+	$$g'(x) \cdot h = f'(x) \cdot h - \frac{1}{2} f''(x-x_0, h) - \frac{1}{2} f''(h, x-x_0) = f'(x) \cdot h - f''(x_0)(h, x-x_0)$$
+	
+	et en particulier $g'(x_0) = 0$, de plus $g'(x) \cdot h \cdot k = f''(x) \cdot h \cdot k - f''(x_0) \cdot h \cdot k$
+	
+	Donc si $\|x-x_0\|$ est suffisamment petit, alors $\|g''(x)\| \leqslant \frac{\delta}{2}$ car $f$ est continue en $x_0$.
+	
+	Par le théorème de Taylor-Lagrange, $|g(x) - g(x_0)| \leqslant \frac{1}{2} \sup_{y \in [x_0, x]} |g''(y)(x-x_0, x-x_0)|$ donc si $\|x-x_0\|$ est assez petit, $|g(x) - g(x_0)| \leqslant \frac{1}{2} \cdot \frac{\delta}{2} \cdot \|x-x_0\|^2$, autrement dit, $$|f(x)-f(x_0) - \frac{1}{2}f''(x_0) (x-x_0, x-x_0)| \leqslant \frac{\delta}{4} \|x-x_0\|^2$$
+	
+	Par l'inégalité triangulaire, on a $$f(x) \geqslant f(x_0) + \frac{1}{2} f''(x_0)(x-x_0, x-x_0) - \frac{\delta}{4} \|x-x_0\|^2$$
+	
+	En effet $$\underbrace{f(x_0) + \frac{1}{2} f''(x_0) (x-x_0, x-x_0)}_{G(x, x_0)} \leqslant |G(x,x_0) - f(x)| + f(x) \leqslant \frac{\delta}{4} \|x-x_0\|^2 + f(x)$$
+	
+	mais alors $$f(x) \geqslant f(x_0) + \frac{\delta}{2} \|x-x_0\|^2 - \frac{\delta}{4} \|x-x_0\|^2 \geqslant f(x_0) + \frac{\delta}{4} \|x-x_0\|$$
+\end{mythm}
+
+d'où en particulier $f(x) > f(x_0)$ pour $x$ suffisamment proche de $x_0$.
+
+\begin{mydef}
+	Soit $f$ de classe $\mathcal{C}^2$ sur $U$, on dit de $x_0 \in U$ qu'il est un \textit{point selle} (ou \textit{un col}) s'il est un point critique mais que $f$ prends au voisinage de $x_0$ des valeurs supérieures et des valeurs inférieures à $f(x_0)$.
+\end{mydef}
+
+\begin{myexmpl}
+	\begin{enumerate}
+		Soit $f(x, y) = x^2 - y^2$, $(0, 0)$ est un point selle.
+		
+		$$H_{(0, 0)} = \left(
+		\begin{array}{cc}
+			\frac{\partial^2f}{\partial x^2} & \frac{\partial^2f}{\partial x \partial y} \\
+			\frac{\partial^2f}{\partial x \partial y} & \frac{\partial^2f}{\partial y^2}\\
+		\end{array}
+		\right)(0, 0)$$
+		
+		Avec $\frac{\partial f}{\partial x}(x, y) = 2x$, $\frac{\partial f}{\partial y}(x, y) = -2y$ et  $\frac{\partial^2 f}{\partial x^2} = 2$, $\frac{\partial^2 f}{\partial y^2} (x,y)= -2$, $\frac{\partial^2f}{\partial x \partial y} (x, y) = 0$
+		
+		Donc $H=\left(
+		\begin{array}{cc}
+			2 & 0 \\
+			0 & -2
+		\end{array}\right)$
+		
+		\item $f(x, y) = xy$ un unique point critique : $(0, 0)$
+
+		Donc $H=\left(
+				\begin{array}{cc}
+					0 & 1 \\
+					1 & 0
+				\end{array}\right)$
+		ses valeurs propres sont $\pm 1$ donc c'est un point selle.
+		
+		\item $f(x, y) = \sin x + (y-1)^2$, les points critiques sont $(x_k), 1 := ((k+1/2)\pi, 1), ~ k \in \mathbb{Z}$
+		
+		La hessienne $H_k$ de $f$ en $(x_k, 1)$ est 
+		$$\left(
+		\begin{array}{cc}
+			- \sin x_k & 0 \\
+			0 & 2
+		\end{array}	\right)$$
+		
+		$(x_k, 1)$ est un minimum si $s\sin x_k > 0$ et un point selle si $s \sin x_k < 0$, or $\sin x_k = (-1)^k$ donc si $k$ est impair il s'agit d'un minimum, si $k$ est pair c'est un point selle. 
+				
+	\end{enumerate}
+\end{myexmpl}
+
+\part{Séries de Fourier}
+
+\section{Convergence en moyenne quadratique}
+
+Dans ce chapitre, on notera $T > 0$ la période, $\omega = \frac{2 \pi}{T}$ la fréquence ou pulsation, et on définira l'espace $L_T^2$ des fonctions continues par morceaux sur $\mathbb{R}$ à valeurs complexes de période $T$, dont la restriction à $[0, T]$ est de carré intégrable.
+
+On pose la norme suivante :
+$$\|f\|_{2,T} = \left(\int_{0}^{T} |f(t)|^2 \frac{dt}{T}\right)^{1/2}$$
+
+et un produit scalaire $(f|g)_{2, T} := \int_{0}^{T} f(t)\overline{g(t)} \frac{dt}{T}$
+
+On définit les fonctions $e_k(t) = e^{i k \omega t}$ pour tout $k \in \mathbb{Z}$
+
+$\omega T = 2 \pi$ donc $e_k$ est bien périodique, de plus elle est continue par morceau et de carré intégrable, donc $e_k \in L_{2, T}$.
+
+Par ailleurs $(e_k|e_l)_{2, T} = \int_{0}^{T} e^{i \omega t (k-l)}dt = \frac{1}{T} [\frac{e^{i \omega t (k-l)}}{i \omega t (k-l)}]^T_0 = 0$ si $k \neq l$ et $1$ si $k=l$.
+
+\begin{mythm}
+	Toute fonction de $L_{T}^2$ peut se décomposer de manière unique sous la forme $$f(t) = \sum_{p \in \mathbb{Z}} e_p(f) e_p(t)$$
+	où la convergence a lieu dans l'espace $L^2_T$, de plus $e_p(f):=(f|e_p)_{L^2_T}$, enfin $\|f\|_{2, T} = \sum_{p \in \mathbb{Z}} |e_p(f)|^2$
+	Réciproquement il existe une suite $(a_p)_{p \in \mathbb{Z}}$ de $l^2(\mathbb{Z})$ telle que $f(t) = \sum_{p \in \mathbb{Z}} a_p e_p(t)$ dans $L_T^2$, alors $a_p = e_p(f)$
+\end{mythm}
+
+\begin{myrem}
+	La convergence a lieu au sens
+	
+	$$\lim\limits_{M, N \to \infty} \int_{0}^{T} |f(t) - \sum_{p=-M}^{N} e_p(f) e_p(t)|^2 \frac{dt}{T} = 0$$
+\end{myrem}
+
 \end{document}
+
