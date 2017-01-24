@@ -1421,7 +1421,7 @@ Ainsi, si $\varphi$ vaut $1$ sur une (et donc toutes) les transpositions, alors 
 \end{myexmpl}
 
 \begin{myproposition}
-	S $h$ est le noyau d'un homomorphisme de groupe défini sur $G$, alors $H \vartriangleleft G$.
+	Si $H$ est le noyau d'un homomorphisme de groupe défini sur $G$, alors $H \vartriangleleft G$.
 \end{myproposition}
 
 En effet $\varphi$ est un homomorphisme tel que $H= \ker \varphi$, pour tout $h \in H$ et tout $g \in G$, $\varphi(g \star h \star g^{-1}) = \varphi(g)\varphi(h)\varphi(g)^{-1}=\varphi(g)\varphi(g)^{-1}=e$, donc $g H g^{-1} = H$.
@@ -1514,11 +1514,190 @@ On note $\funcshort{\pi}{G}{\ClGa{G}{H}}$ la surjection canonique.
 		
 		Soient $x, x' \in \ClGa{G}{H}$ il existe $g, g' \in G$ tels que $x = \pi(g)$ et $x'=\pi(g')$
 		
-		Alors $x x' = \pi(g)\pi(g') = \pi(gg')$ donc $\psi(x x') = \psi(\pi(gg')=\varphi(gg')=\varphi(g)\varphi(g')=\psi(x)\psi(x')$
+		Alors $x x' = \pi(g)\pi(g') = \pi(gg')$ donc $\psi(x x') = \psi(\pi(gg'))=\varphi(gg')=\varphi(g)\varphi(g')=\psi(x)\psi(x')$
 	\end{proofpart}
 \end{myproof}
 
+\begin{myproperty}
+	Soient deux groupes $G$ et $G'$, $H$ un sous-groupe distingué de $G$ et $f$ un homomorphisme de $G$ dans $G'$ tel que $H \subseteq \ker f$, alors il existe un unique homomorphisme $\varphi$ de $\ClGa{G}{H}$ dans $G'$ tel que $\varphi \circ \pi = f$.
+	
+	De plus $Im(f)=Im(\varphi)$ et $\ker \varphi = \ClGa{\ker f}{H}$.
+\end{myproperty}
+
+\begin{mycor}
+	\leavevmode
+	\begin{enumerate}
+		\item Il existe un unique homomorphisme injectif $\funcshort{\varphi}{\ClGa{G}{\ker f}}{G'}$ tel que $\varphi \circ \pi = f$.
+		
+		\item Les groupes $\ClGa{G}{\ker f}$ et $Im(f)$ sont isomorphes.
+		
+		\item Si de plus, $f$ est surjective, alors $f$ induit un isomorphisme de groupes $\funcshort{\varphi}{\ClGa{G}{\ker f}}{G'}$ tel que $\varphi \circ \pi = f$.
+	\end{enumerate}
+\end{mycor}
+
+\begin{myexer}
+	Soit $g \in GL_n(\mathbb{R})$, si pour tout $u \in \mathbb{K}^n \setminus \{0\}$ on a que $gu$ est proportionnel à $u$, alors il existe $\lambda \neq 0$ tel que $g= \lambda I_n$.
+\end{myexer}
+
+\begin{mydef}
+	Soit $H = \{\lambda I_n ~ | ~ \lambda \neq 0\} \leqslant GL_n(\mathbb{K})$, on note le groupe projectif linéaire
+	
+	$$PGL_n(\mathbb{K}) = \ClGa{GL_n(\mathbb{K})}{H}$$
+\end{mydef}
+
+\section{Un théorème d'isomorphisme}
+
+\begin{mythm}
+	Soit $G$ un groupe, $H$ et $K$ des sous-groupes distingués de $G$ tels que $K \subseteq H$, alors
+	
+	\begin{enumerate}
+		\item $K \vartriangleleft H$
+		\item $\ClGa{H}{K} \vartriangleleft \ClGa{G}{K}$
+		\item Les groupes $\ClGa{\left(\ClGa{G}{K}\right)}{\left(\ClGa{H}{K}\right)}$ et $\ClGa{G}{H}$ sont isomorphes.
+	\end{enumerate}
+\end{mythm}
+
+\begin{myproof}
+	\leavevmode
+	\begin{enumerate}
+		\item $\left\{
+		\begin{array}{l}
+			K \vartriangleleft G \text{ donc } K \vartriangleleft H \\
+			K \subseteq H
+		\end{array}
+		\right.$
+		
+		\item $\ClGa{H}{K} = \{hK ~ | ~ h \in H\} \subseteq \{gK ~ | ~ g \in G\} = \ClGa{G}{K}$
+		
+		On note $\pi_K$ la surjection canonique de $G$ dans $\ClGa{G}{K}$, on vérifie que $\forall \alpha \in \ClGa{G}{K}, \forall \beta \in \ClGa{H}{K}, ~ \alpha \beta \alpha^{-1} \in \ClGa{H}{K}$
+		
+		alors $\alpha \beta \alpha^{-1} = \pi_K(g) \pi_K(h) \pi_K(g)^{-1} = \pi_K(ghg^{-1}) \in \ClGa{H}{K}$ (car $\ClGa{H}{K} = \pi_K(H)$)
+		
+		Donc $\ClGa{H}{K} \vartriangleleft \ClGa{G}{K}$
+		
+		\item On note $\funcshort{\pi}{\ClGa{G}{K}}{\ClGa{\left(\ClGa{G}{K}\right)}{\left(\ClGa{H}{K}\right)}}$ la surjection canonique, $\pi \circ \pi_K=\funcshort{f}{G}{\ClGa{\left(\ClGa{G}{K}\right)}{\left(\ClGa{H}{K}\right)}}$
+		
+		$f$ est surjective comme composée d'applications surjectives.
+		
+		$f$ est une composée d'homomorphismes de groupes, donc c'est un homomorphisme de groupes.
+		
+		On vérifie que $H=\ker f$
+		
+		\begin{proofpart}{$H \subseteq \ker f$}
+			Soit $h \in H$, alors $f(h)=\pi(\pi_K(h))$, or $\pi_K(h) \in \pi_K(H) = \ClGa{H}{K} = \ker pi$, donc $f(h) = e$.
+		\end{proofpart}
+		
+		\begin{proofpart}{$\ker f \subseteq H$}
+			Soit $g \in \ker f$, donc $e = \pi(\pi_K(g))$ et donc $\pi_K(g) \in \ker \pi = \ClGa{H}{K} = \pi_K(H)$.
+			
+			Ainsi, il existe $h \in $ tel que $\pi_K(g) = \pi_K(h)$, en particulier $\pi_K(g^{-1}h)=e$, donc $g^{-1}h \in \ker \pi_K = K \subseteq H$ car $h \in h$.
+		\end{proofpart}
+	\end{enumerate}
+\end{myproof}
+
+\begin{myexmpl}
+	$G = \mathbb{Z}$, $m, n \in \mathbb{Z}$ tels que $m |n$ et $H = m\mathbb{Z}$ et $K = n \mathbb{Z}$
+	
+	On a $K \subseteq H$, alors $\mathbb{Z}$ tant abélien on a $H\vartriangleleft G$ et $K \vartriangleleft G$, alors
+	
+	$$\ClGa{\mathbb{Z}}{m\mathbb{Z}} \simeq (\ClGa{\ClGa{\mathbb{Z}}{n\mathbb{Z}})}{(\ClGa{m\mathbb{Z}}{n\mathbb{Z}})}$$
+\end{myexmpl}
+
 \part{Théorème de Sylow}
+
+\section{Théorèmes de Sylow}
+
+\begin{mythm}
+	Soit $G$ un groupe d'ordre fini et $p$ un entier premier divisant l'ordre de $G$. Soit $H$ un sous-groupe de $G$ d'ordre une puissance de $p$ alors il existe un sous-groupe $p$-Sylow de $G$ contenant $H$.
+	
+	En particulier, il existe un sous-groupe $p$-Sylow dans $G$.
+\end{mythm}
+
+\begin{myrem}
+ Si $H$ est un sous-groupe $p$-Sylow et si $g \in G$ alors $gHg^{-1}$est un sous-groupe $p$-Sylow de G.
+ 
+ L'opération de $G$ sur ses sous groupes $p$-Sylow définie par $g \cdot H = gHg^{-1} = ^gH$ est une opération de groupe.
+\end{myrem}
+
+\begin{mythm}
+	Soit $G$ un groupe fini d'ordre $p^\alpha m$ avec $p$ un diviseur premier de $\text{Card} G$, on note $n_p$ le nombre de sous-groupes $p$-Sylow de $G$, alors
+	
+	\begin{itemize}
+		\item L'opération par conjugaison de $G$ sur l'ensemble de ses sous-groupes est transitive, donc $n_p | p^\alpha m$
+		
+		\item $n_p \equiv 1 \mod p$ et $n_p | m$
+	\end{itemize}
+\end{mythm}
+
+\begin{mycor}
+	\leavevmode
+	\begin{itemize}
+		\item Si $n_p = 1$ alors l'unique $p$-Sylow de $G$ est distingué
+		\item Si au moins un sous-groupe $p$-Sylow est distingué dans $G$, alors il est l'unique $p$-Sylow de $G$
+	\end{itemize}
+\end{mycor}
+
+TODO: montrer (1) à l'aide de l'action de $G$ sur ses $p$-Sylow
+
+\begin{myexmpl}
+	On considère $\mathcal{A}_4$, ses sous-groupes $2$-Sylow sont d'ordre 4, et leur nombre $n_2$ vérifie :
+	$$\left\{\begin{array}{l}
+		n_2 \equiv 1 [2] \\
+		n_2 | 3
+	\end{array}
+	\right.$$
+	
+	donc $n_2 \in \{1, 3\}$.
+	
+	Si $S$ est un 2-Sylow et $\sigma \in S$, alors $\sigma$ est d'ordre 1, 2 ou 4, or les 4-cycles ne sont pas de signature pair, donc $S$ contient l'identité et les doubles transpositions.
+
+	Il n'existe donc q'un seul 2-Sylow, c'est le sous-groupe de Klein.
+\end{myexmpl}
+
+\begin{myrem}
+	Si un groupe $H$ est une réunion de classes de conjugaison de $G$, alors il est distingué.
+\end{myrem}
+
+\begin{myexmpl}
+	On considère $\mathcal{A}_4$, ses sous-groupes $3$-Sylow sont d'ordre 3, et leur nombre $n_3$ vérifie :
+		$$\left\{\begin{array}{l}
+			n_3 \equiv 1 [3] \\
+			n_2 | 4
+		\end{array}
+		\right.$$
+		
+	donc $n_3 \in \{1, 4\}$.
+	
+	Or $\langle(1 ~ 2 ~ 3)\rangle$ et $\langle(1 ~ 2 ~ 4)\rangle$ sont des 2-Sylow, donc $n_3 = 4$.
+\end{myexmpl}
+
+\begin{myexmpl}
+	On considère $\mathscr{S}_4$ et on pose $n_2$ le nombre de sous-groupes 2-Sylow; $n_2 \in \{1, 3\}$ les sous-groupes 2-Sylow sont d'ordre 8.
+	
+	Dans un sous-groupe d'ordre 8 on peut trouver :
+	\begin{itemize}
+		\item ordre 1 : L'identité
+		\item ordre 2 : Les transpositions et les doubles-transpositions
+		\item ordre 4 : Les 4-cycles
+		\item ordre 8 : Aucun
+	\end{itemize}
+	
+	Soit $S := \langle (1 ~ 2 ~ 3 ~ 4) , (1 ~ 2)(3~ 4)\rangle$, $S$ contient les 3 doubles transpositions, l'identité, $(1 ~ 2 ~ 3 ~ 4)$ et $(1 ~ 4 ~ 3 ~ 2)$, donc au moins 6 éléments.
+	
+	$|S|$ est un multiple de 4, donc $|S| \in \{4, 8, 12, 24\}$. On peut éliminer 4 et 24, $|S| \in \{8, 12\}$
+	
+	De plus, en considérant l'action de conjugaison de $\mathscr{S}_4$ sur l'ensemble de ses sous-groupes, on obtient que le stabilisateur de $H = \langle (1 ~ 2 ~ 3 ~ 4)\rangle$ est de cardinal 8.
+	
+	Enfin, $H = S$, en effet les générateurs de $S$ sont dans le stabilisateur, d'où $H \subseteq S$, et on conclut par un argument de cardinalité.
+\end{myexmpl}
+
+\begin{myexer}
+	\begin{enumerate}
+		\leavevmode
+		\item Décrire tous les sous-groupes de $\mathcal{A}_4$ et pour chacun décrire son stabilisateur pour l'opération de conjugaison
+		\item De même pour $S_4$.
+	\end{enumerate}
+\end{myexer}
 
 \part{Solutions des exercices}
 
@@ -1532,7 +1711,7 @@ $$\left( g^n \right)^{-1} = ((g^{n-2})^{-1}*g^{-1}*g^{-1})^{-1}$$
 
 $$\cdots$$
 
-$$\left( g^n \right)^{-1} = \underbrace{g^{-1}*g^{-1} ... g^{-1}}_{n \text{ fois}} = (g^{-1})^n = g^{-n}$$
+$$\left( g^n \right)^{-1} = \underbrace{g^{-1}*g^{-1} \dots g^{-1}}_{n \text{ fois}} = (g^{-1})^n = g^{-n}$$
 
 Pour tout $m, n \in \mathbb{Z}$, on distingue plusieurs cas :
 \begin{itemize}

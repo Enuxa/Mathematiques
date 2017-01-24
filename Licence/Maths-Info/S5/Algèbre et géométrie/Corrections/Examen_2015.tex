@@ -1,0 +1,102 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage[hidelinks]{hyperref}
+
+\geometry{hmargin=2cm}
+
+\title{Examen 2015}
+
+% Environnement type théorème
+\newtheorem{mythm}{Théorème}
+\newtheorem{myproposition}{Proposition}
+\newtheorem{myproperty}{Propriété}
+\newtheorem{mylemma}{Lemme}
+\newtheorem{mycor}{Corollaire}
+
+% Environnement type texte
+\theoremstyle{remark}
+\newtheorem{mynot}{Notation}
+\newtheorem{myrem}{Remarque}
+\newtheorem{myexer}{Exercice}
+\newtheorem{myproof}{Preuve}
+\newtheorem{myexmpl}{Exemple}
+
+% Environnement de définition
+\theoremstyle{definition}
+\newtheorem{mydef}{Définition}
+
+\setlist[itemize]{label=-}
+
+% Carré de fin de preuve
+\newcommand{\cqfd}{
+	\hfill$\square$
+}
+
+% "Checkmark" de fin d'étape de preuve
+\newcommand{\checked}{
+	\hfill$\checkmark$
+}
+
+% Définition de fonction
+\newcommand{\func}[5]{
+#1 \, : \, \left\{ \begin{array}{lcl}
+	#2 & \longrightarrow & #3 \\
+	#4 & \longmapsto & #5
+\end{array}
+\right.
+}
+
+\newcommand{\funcinline}[5]{
+#1 \, : \, #2 \longrightarrow #3, ~ #4 \longmapsto #5
+}
+
+\newcommand{\funcshort}[3]{
+#1 \, : \, #2 \longrightarrow #3
+}
+
+\newcommand{\anonfunc}[4]{
+\left\{ \begin{array}{lcl}
+	#1 & \longrightarrow & #2 \\
+	#3 & \longmapsto & #4
+\end{array}
+\right.
+}
+
+\newenvironment{proofpart}[1]{
+	\noindent
+	{\textbf{\boldmath #1}}
+}{
+	\checkmark
+}
+
+\newcommand*{\ClGa}[2]%
+{\ensuremath{%
+    #1/\!\raisebox{-.65ex}{\ensuremath{#2}}}}
+
+\newcommand*{\ClDr}[2]%
+{\ensuremath{%
+    \raisebox{-.65ex}{\ensuremath{#2}}\backslash #1}}
+
+\begin{document}
+
+\maketitle
+
+\section*{Exercice 4}
+
+\begin{enumerate}
+	\item
+	$C(g) = \{h \in G ~ | ~ h g h^{-1} = g\}$
+	
+	$N(S) = \{h \in G ~ | ~ h S h^{-1} = S\}$
+	
+\end{enumerate}
+
+\end{document}

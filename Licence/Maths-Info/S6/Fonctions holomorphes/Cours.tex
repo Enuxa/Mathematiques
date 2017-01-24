@@ -1,0 +1,251 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+
+\geometry{hmargin=2cm}
+
+\title{Fonctions holomorphes}
+\author{Pierre Gervais et David Gerard-Varet}
+
+% Environnement type théorème
+\newtheorem{mythm}{Théorème}
+\newtheorem{myproposition}{Proposition}
+\newtheorem{myproperty}{Propriété}
+\newtheorem{mylemma}{Lemme}
+
+% Environnement type texte
+\theoremstyle{remark}
+\newtheorem{mynot}{Notation}
+\newtheorem{myrem}{Remarque}
+\newtheorem{myexer}{Exercice}
+\newtheorem{myproof}{Preuve}
+\newtheorem{myexmpl}{Exemple}
+\newtheorem{myrapl}{Rappel}
+\newtheorem{mycor}{Corollaire}
+
+% Environnement de définition
+\theoremstyle{definition}
+\newtheorem{mydef}{Définition}
+\newtheorem{myquestion}{Question}
+
+\setlist[itemize]{label=-}
+
+% Carré de fin de preuve
+\newcommand{\cqfd}{
+	\hfill$\square$
+}
+
+% Définition de fonction
+\newcommand{\func}[5]{
+#1 ~ : ~ \left\{ \begin{array}{lcl}
+	#2 & \longrightarrow & #3 \\
+	#4 & \longmapsto & #5
+\end{array}
+\right.
+}
+
+\newcommand{\fun}[3]{
+#1 ~ : ~ #2 \longrightarrow #3
+}
+
+\newcommand{\funcinline}[5]{
+	#1 \, : \, #2 \longrightarrow #3, ~ #4 \longmapsto #5
+}
+
+\newcommand{\funcshort}[3]{
+	#1 \, : \, #2 \longrightarrow #3
+}
+
+\newcommand{\anonfunc}[4]{
+	\left\{ \begin{array}{lcl}
+		#1 & \longrightarrow & #2 \\
+		#3 & \longmapsto & #4
+	\end{array}
+	\right.
+}
+
+\newcommand{\DS}{\displaystyle}
+
+\newcommand{\prob}[1]{\mathbb{P}\left(#1\right)}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Rappels}
+
+\begin{myrapl}
+	$K \subseteq \mathbb{C}$ est un compact si et seulement si de tous recouvrement de $K$ par des ouverts on peut extraire un sous-recouvrement fini, ou de manière équivalente si $K$ est un fermé borné, ou encore si toute suite à valeurs dans $K$ admet une sous-suite convergente.
+\end{myrapl}
+
+\begin{myrapl}
+	$A \subseteq \mathbb{C}$ est connexe si $A$ ne peut pas s'écrire comme union disjointe de deux ouverts de $A$ non-vides, ou bien si $A$ ne peut pas s'écrire comme union disjointe de deux fermés de $A$ non-vides, ou bien si les seules parties ouvertes et fermées de $A$ sont $A$ et $\emptyset$.
+\end{myrapl}
+
+\begin{myexmpl}
+	$A = D(0, 1) \cup \overline{D}(3, 1)$ n'est pas connexe.
+\end{myexmpl}
+
+\begin{myrapl}
+	Soit $A \subseteq \mathbb{C}$, $\funcshort{f}{A}{\{0, 1\}}$, si $A$ est connexe et $f$ est continue alors $f$ est constante.
+\end{myrapl}
+
+\begin{myrapl}
+	$A \subseteq \mathbb{C}$ est connexe par arc si pour tous $x, y \in A$, il existe un chemin $\funcshort{\gamma}{[0, 1]}{A}$ continu tel que $\gamma(0)=x$ et $\gamma(1)=y$.
+\end{myrapl}
+
+\begin{myrapl}
+	Si $A$ est connexe par arc, alors $A$ est connexe.
+\end{myrapl}
+
+\begin{myrapl}
+	Si $A$ est convexe, alors $A$ est connexe.
+\end{myrapl}
+
+\begin{myrapl}
+	Soit $x \in A$, la composante connexe de $x$ est l'union des connexes de $A$ contenant $x$, c'est le plus grand connexe contenant $x$.
+
+	$A$ est l'union disjointe de ses composantes connexes.
+\end{myrapl}
+
+\begin{myexmpl}
+	$A = D(0, 1) \cup \overline{D}(3, 1)$ possède deux composantes connexes, elles apparaissent dans son écriture.
+\end{myexmpl}
+
+\begin{myexmpl}
+	$A = \mathbb{Z}$, les composantes connexes sont les singletons.
+\end{myexmpl}
+
+\section{Séries entières et fonctions DSE (fonctions développables en série entière)}
+
+Par la suite, on considérera toujours les fonctions $U \longrightarrow \mathbb{C}$ ou $U$ est un ouvert de $\mathbb{C}$.
+
+\begin{mydef}
+	Un \textit{série entière} est une série de fonctions de la forme $$z \longmapsto \sum_{n = 0}^{\infty} a_n z^n$$ où $(a_n)_n$ est une suite complexe.
+\end{mydef}
+
+\begin{myproposition}
+	Soit $\varrho := \sup \{r \geqslant 0 ~ | ~ \forall n \geqslant 0, ~ |a_n|r^n < +\infty\}$, alors pour tout $r < \varrho$ la série entière converge normalement sur $\overline{D}(0, r)$ et diverge pour tout $z$ tel que $|z| > r$.
+\end{myproposition}
+
+\begin{myrem}
+	$\varrho$ est appelé rayon de convergence de la série entière et $D(0, \varrho)$ est le disque de convergence de la série entière.
+	
+	On ne peut rien affirmer sur le cercle de rayon $\varrho$.
+\end{myrem}
+
+\begin{myproof}
+	Soit $r < \varrho$, il existe $r'$ tel que $r < r' \leqslant \varrho$ (par définition de la borne supérieure) tel que $|a_n|(r')^n$ soit borné, on a alors $$\sum_{n = 0}^{N} |a_n| r^n = \sum_{n = 0}^{N} |a_n| (r')^n \left(\frac{r}{r'}\right)^n \leqslant \left(\sup_k |a_k|(r')^k\right) \sum_{n=0}^{N} \left(\frac{r}{r'}\right)^n$$
+	
+	ce qui est borné (série géométrique).
+	
+	La série entière converge donc normalement.
+\end{myproof}
+
+\begin{myproposition}
+	Si $\displaystyle \left|\frac{a_{n+1}}{a_n}\right| \longrightarrow \ell, ~ (n \to +\infty)$ alors $\DS \varrho = \frac{1}{\ell}$ si $\ell > 0$, et $\varrho = +\infty$ si $\ell = 0$.
+	
+	Cette propriété vient du critère de D'Alembert.
+\end{myproposition}
+
+\begin{myexmpl}
+	Les séries entières suivantes ont pour rayon de convergence 1 : $\sum z^n$, $\sum n z^n$, $\sum (-1)^n z^n$.
+\end{myexmpl}
+
+\subsection*{Somme et produit de séries entières}
+
+Soient $\sum a_n z^n$ et $\sum b_n z^n$, deux séries entières de rayons de convergence $\varrho_1$ et $\varrho_2$ de sommes $f_1$ et $f_2$.
+
+On pose $s_n := a_n + b_n$ et $\displaystyle p_n := \sum_{k = 0}^{n} a_k b_{n - k}$. 
+
+\begin{myproposition}
+	Les séries entières somme et produit ont des rayons de convergence supérieurs ou égaux à $R := \min \{\varrho_1, \varrho_2\}$ et leurs sommes sur $D(0, R)$ sont $f_1+f_2$ et $f_1 \cdot f_2$.
+\end{myproposition}
+
+\begin{myrem}
+	Le produit (de Cauchy) de deux séries réelles converge si au moins l'une des deux séries converge absolument.
+\end{myrem}
+
+\section{Fonctions analytiques (ou DSE)}
+
+\begin{mydef}
+	Soit $U \subseteq \mathbb{C}$ un ouvert et $z_0 \in U$. $\funcshort{f}{U}{\mathbb{C}}$ est dite \textit{analytique} en $z_0$  s'il existe $r > 0$ tel qu'il existe une série entière $\sum a_n z^n$ de rayon de convergence $\varrho \geqslant r$ tels que $$\forall z \in D(z_0, r), ~ f(z) = \sum_{n = 0}^{\infty} a_n (z - z_0)^n$$
+	
+	$f$ est analytique sur $U$ si elle est analytique en tout point de $U$.
+\end{mydef}
+
+\begin{myexmpl}
+	Les polynômes sont analytiques sur $\mathbb{C}$. Soit $\displaystyle P(z) = \sum_{n = 0}^{N} p_n z^n$, on a pour tout $z_0 \in \mathbb{C}$
+	
+	$$P(z) = \sum_{n = 0}^{N} \frac{P^{(n)}(z_0)}{n!} (z - z_0)^n$$
+\end{myexmpl}
+
+\subsection{Zéros isolés et prolongement analytique}
+
+\begin{myproposition} Principe des zéros isolés (version série entière)
+	
+	Soit $f(z) = \sum a_n z^n$ la somme d'une série entière de rayon de convergence $\varrho > 0$ et telle que $f(0) = 0$ (donc que $a_0 = 0$).
+	S'il existe $n \geqslant 1$ tel que $a_n \neq 0$, alors $z = 0$ est un \textit{zéro isolé} de $f$ , c'est-à-dire qu'il existe $r > 0$ tel que $f$ soit non-nulle sur $D(0, r) \setminus \{0\}$
+\end{myproposition}
+
+\begin{myproof}
+	Soit $m := \min \{n ~ | ~ a_n \neq 0\}$, $m$ est bien défini par hypothèse et $$f(z) = z^m \underbrace{\sum_{n = m}^{\infty} a_n z^{n - m}}_{g(z)}$$ avec $g(0) = a_m \neq 0$ et $g$ est continue en 0.
+	
+	Donc il existe $r > 0$ telle que $g(z) \neq 0$ pour tout $z$ tel que $|z - z_0| < r$ et donc $f \neq 0$ sur $D(0, r) \setminus \{0\}$
+	
+	\cqfd	
+\end{myproof}
+
+\begin{myrem}
+	On en déduit que si $f = 0$ au voisinage de 0 (ou s'il n'existe aucun voisinage de 0 dans lequel $f \neq 0$), alors $a_n = 0, ~ \forall n$, mais aussi que si $\sum a_n z^n = \sum b_n z^n$ dans les mêmes conditions, alors $a_n = b_n, ~ \forall n$.
+\end{myrem}
+
+\begin{mycor}
+	Soient $\funcshort{f}{U}{\mathbb{C}}$ et $z_0 \in U$, si $f$ est analytique en $z_0$, alors le développement associé est unique.
+\end{mycor}
+
+\begin{myproof}
+	Si $f(z) = \sum a_n(z - z_0)^n = \sum b_n(z - z_0)^n$ pour $|z - z_0| < r$ avec $r$ assez petit, alors la série entière $\sum(a_n - b_n)z^n$ est nulle sur $D(0, r)$, donc $z = 0$ est un zéro non-isolé et $a_n - b_n = 0$ pour tout $n$.
+\end{myproof}
+
+\begin{mythm}Principe du prolongement analytique
+	
+	Soit $U$ un ouvert connexe de $\mathbb{C}$, $f$ et $g$ deux fonctions analytiques sur $U$.
+	
+	Si $f$ et $g$ coïncident sur une partie $\Sigma \subseteq U$ admettant un point d'accumulation de $U$, alors $f$ et $g$ coïncident sur $U$.
+\end{mythm}
+
+\begin{myrapl}
+	Un point d'accumulation $z_0 \in \mathbb{C}$ de $\Sigma$ est la limite de points dans $\Sigma \setminus \{z_0\}$
+\end{myrapl}
+
+\begin{myproof}
+	\leavevmode
+	\paragraph*{Etape 1}
+	$f$ et $g$ sont analytiques en $z_0$ avec $f(z) = \sum a_n (z - z_0)^n$ et $g(z)=\sum b_n (z - z_0)^n$ pour $z$ dans un voisinage de $z_0$.
+	
+	On a $f(z) - g(z) = \sum (a_n - b_n) (z - z_0)^n$ qui est nulle sur $\Sigma$, et donc en $z_0$ par passage à la limite. Comme $z_0$ est un point d'accumulation de $\Sigma$, $z_0$ n'est pas un zéro isolé de la série entière $\sum (a_n - b_n) (z - z_0)^n$ (car il n'existe aucun voisinage de $z_0$ dans lequel elle est nulle), donc $a_n = b_n$ pour tout $n$ par unicité du développement.
+	
+	\paragraph{Etape 2} On introduit $A = \{b \in U ~ | ~ f = g \text{ au voisinage de $b$ }\}$. On a $A \neq \emptyset$ car il contient $z_0$ par l'étape 1. Comme $U$ est connexe, il suffit de montrer que $A$ est ouvert et fermé dans $U$ (on aura ainsi $A = U$ et le résultat)
+	\begin{itemize}
+		\item $A$ est ouvert : soit $b \in A$, $f$ et $g$ coïncident sur le disque $D(b, r)$ pour un certain $r > 0$, alors $D(b, r) \subseteq A$.
+		\item $A$ est fermé : soit $(b_n)_n$ une suite convergente à valeurs dans $A$ et de limite $b$ (on peut supposer $b_n \neq b, ~ \forall n$). $(b_n)_n$ est alors une suite à valeurs dans $A \setminus \{b\}$ et $b$ est donc un point d'accumulation de $A$.
+		
+		Alors par l'étape 1, on a $f = g$ au voisinage de $b$, donc $b \in A$.
+	\end{itemize}
+	
+	\cqfd
+\end{myproof}
+
+\end{document}

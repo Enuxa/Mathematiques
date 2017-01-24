@@ -2013,22 +2013,9 @@ Si $n=1$ on détermine si un point critique est un extremum local en déterminan
 
 \begin{myexmpl}
 	Soit $\funcshort{f}{U}{\mathbb{R}}$ une application deux fois différentiable, alors pour $g \in \mathbb{R}^2$, l'application suivante est différentiable :
-	$\func{\phi}{U}{\mathbb{R}}{a}{f'(a) \cdot h}$
-	et on a pour tout vecteur $k \in \mathbb{R}^2$ :
-	
-	$$
-	\begin{aligned}
-		\phi'(a) \cdot k &= f''(a) \cdot k \cdot h\\
-		&= f''(a)(k, h)\\
-		&=(f''(a)\cdot k) \cdot h
-	\end{aligned}
-	$$
-	
-	En effet $\phi(a+k) = f'(a+k) \cdot h$, mais $f'(a+k) = f'(a) + f''(a) \cdot k + o(k)$, donc
-	$$\begin{aligned}
-		\phi(a+k) &= f'(a) \cdot h + f''(a) \cdot k \cdot h + o(k) \cdot h \\
-		&=\phi(a) + f''(a) \cdot k \cdot h + o(k)
-	\end{aligned}$$
+	$$\func{\phi}{U}{\mathbb{R}}{a}{f'(a) \cdot h}$$
+	et on a pour tout vecteur $k \in \mathbb{R}^2$, $\phi'(a) \cdot k = f''(a) \cdot k \cdot h$, en effet :
+	$$\frac{\phi(a + t k) - \phi(a)}{t} = \frac{f'(a + t k) \cdot h - f'(a) \cdot h}{t} = \frac{f'(a+tk) - f'(a)}{t} \cdot h \longrightarrow f'(a) \cdot k \cdot h = \phi'(a) \cdot k$$
 \end{myexmpl}
 
 \begin{myproposition}
@@ -2294,30 +2281,301 @@ d'où en particulier $f(x) > f(x_0)$ pour $x$ suffisamment proche de $x_0$.
 
 \section{Convergence en moyenne quadratique}
 
-Dans ce chapitre, on notera $T > 0$ la période, $\omega = \frac{2 \pi}{T}$ la fréquence ou pulsation, et on définira l'espace $L_T^2$ des fonctions continues par morceaux sur $\mathbb{R}$ à valeurs complexes de période $T$, dont la restriction à $[0, T]$ est de carré intégrable.
+Dans ce chapitre, on notera $T > 0$ la période, $\displaystyle \omega = \frac{2 \pi}{T}$ la fréquence ou pulsation, et on définira l'espace $L_T^2$ des fonctions continues par morceaux sur $\mathbb{R}$ à valeurs complexes de période $T$, dont la restriction à $[0, T]$ est de carré intégrable.
 
-On pose la norme suivante :
-$$\|f\|_{2,T} = \left(\int_{0}^{T} |f(t)|^2 \frac{dt}{T}\right)^{1/2}$$
+On pose le produit scalaire suivant (dit hermitien) :
 
-et un produit scalaire $(f|g)_{2, T} := \int_{0}^{T} f(t)\overline{g(t)} \frac{dt}{T}$
+$$(f|g)_{L_T^2} := \frac{1}{T}\int_{0}^{T} f(t)\overline{g(t)} dt$$
 
-On définit les fonctions $e_k(t) = e^{i k \omega t}$ pour tout $k \in \mathbb{Z}$
+et la norme associée
 
-$\omega T = 2 \pi$ donc $e_k$ est bien périodique, de plus elle est continue par morceau et de carré intégrable, donc $e_k \in L_{2, T}$.
-
-Par ailleurs $(e_k|e_l)_{2, T} = \int_{0}^{T} e^{i \omega t (k-l)}dt = \frac{1}{T} [\frac{e^{i \omega t (k-l)}}{i \omega t (k-l)}]^T_0 = 0$ si $k \neq l$ et $1$ si $k=l$.
-
-\begin{mythm}
-	Toute fonction de $L_{T}^2$ peut se décomposer de manière unique sous la forme $$f(t) = \sum_{p \in \mathbb{Z}} e_p(f) e_p(t)$$
-	où la convergence a lieu dans l'espace $L^2_T$, de plus $e_p(f):=(f|e_p)_{L^2_T}$, enfin $\|f\|_{2, T} = \sum_{p \in \mathbb{Z}} |e_p(f)|^2$
-	Réciproquement il existe une suite $(a_p)_{p \in \mathbb{Z}}$ de $l^2(\mathbb{Z})$ telle que $f(t) = \sum_{p \in \mathbb{Z}} a_p e_p(t)$ dans $L_T^2$, alors $a_p = e_p(f)$
-\end{mythm}
+$$\|f\|_{L_T^2} = \left(\frac{1}{T}\int_{0}^{T} |f(t)|^2 dt\right)^{1/2}$$
 
 \begin{myrem}
-	La convergence a lieu au sens
-	
-	$$\lim\limits_{M, N \to \infty} \int_{0}^{T} |f(t) - \sum_{p=-M}^{N} e_p(f) e_p(t)|^2 \frac{dt}{T} = 0$$
+	\leavevmode
+	Le produit scalaire vérifie les propriétés suivantes :
+	\begin{itemize}
+		\item $(g | f)_{L_T^2} = \overline{(f | g)}_{L_T^2}$ (symétrie hermitienne)
+		\item $\forall \lambda \in \mathbb{C}, ~ (f | \lambda g)_{L_T^2} = \lambda(f | g)_{L_T^2}$ et $\forall \lambda \in \mathbb{C}, ~ (f | \lambda g)_{L_T^2} = \overline{\lambda}(f | g)_{L_T^2}$ (sesquilinéaire à droite)
+	\end{itemize}
 \end{myrem}
 
-\end{document}
+On définit les fonctions $e_k(t) = e^{i k \omega t}$ pour tout $k \in \mathbb{Z}$, elles sont $T$-périodique et de carré intégrable, donc appartiennent à $L_T^2$.
 
+Par ailleurs, elles constituent une famille orthonormée :
+
+$$(e_k|e_l)_{L_T^2} = \frac{1}{T} \int_{0}^{T} e^{i \omega t (k-l)}dt = \frac{1}{T} \left[\frac{e^{i \omega t (k-l)}}{i \omega t (k-l)}\right]^T_0 = \left\{
+\begin{array}{l}
+	0 \text{ si } k \neq l \\
+	1 \text{ si } k = l
+\end{array}\right.$$ si $k \neq l$ et $1$ si $k=l$.
+
+\newpage
+\begin{mythm} (admis) Toute fonction de $L_{T}^2$ peut se décomposer de manière unique sous la forme $$f(t) = \sum_{p \in \mathbb{Z}} c_p(f) e_p(t)$$
+	où
+	\begin{itemize}
+		\item la convergence a lieu pour la norme $\|\cdot\|_{L_T^2}$
+		\item $\forall p \in \mathbb{Z}, c_p(f):=(f|e_p)_{L^2_T} = \displaystyle \int_0^T f(t)e^{-i p \omega t} dt$
+		\item $\|f\|_{L_T^2} = \sum_{p \in \mathbb{Z}} |e_p(f)|^2$
+	\end{itemize}
+\end{mythm}
+
+\begin{mynot}
+	Soit $f \in L_T^2$ de classe $\mathcal{C}^1$ par morceaux, on pose $$S_{N, M}(f)(t) = \sum_{p = -N}^{M} c_p(f)e^{i\omega p t}$$ et $S_N(f) = S_{N, N}(f)$, alors pour tout $t$ on a $\displaystyle S_N(f)(t) \longrightarrow \frac{f(t^+)+f(t^-)}{2} \quad (N \to +\infty)$ et si $f$ est continue, $S_N(f)(t)$ tend vers $f(t)$ (où $f(t^+)$ est la limite à droite de $f$ en $t$, et $f(t^-)$ sa limite à gauche).
+\end{mynot}
+
+\begin{myproposition}
+	Sous les hypothèses du théorème précédent, pour tout $M, N \in \mathbb{N}$ :
+	
+	\begin{enumerate}
+		\item $\displaystyle \|S_{N,M}(f)\|_{L_T^2} = \sum_{p=-N}^{M} |c_p(f)|^2$
+		\item $\displaystyle (f | S_{N, M}(f))_{L^2_T} = \|S_{N, M}(f)\|^2_{L_T^2}$
+		\item 
+	\end{enumerate}
+\end{myproposition}
+
+\begin{myproof}
+	\begin{enumerate}
+		\item $$\begin{aligned}
+			\|S_{N, M}(f)\|^2 &= \left(\sum_{p=-N}^{M} c_p(f)e_p |\sum_{p=-N}^{M} c_p(f)e_p\right) \\
+			&=\sum_{p=-N}^{M} c_p(f) \left(e_p |\sum_{p=-N}^{M} c_p(f)e^{i p \omega t}\right)\\
+			&=\sum_{p=-N}^{M} \sum_{l=-N}^{M} c_p(f) \overline{c_l(f)} \left(e_p |e_l\right) \\
+			&= \sum_{p=-N}^{M} c_p(f) \overline{c_p(f)} \\
+			&=\sum_{p=-N}^{M} |c_p(f)|^2
+		\end{aligned}
+		$$
+		
+		\item $$\begin{aligned}
+			\left(f | S_{N, M}(f)\right)_{L_T^2} &= \left(f | \sum_{p=-N}^{M} c_p(f) e_p\right)_{L_T^2}\\
+			&=\sum_{p=-N}^{M} \overline{c_p(f)} \left(f |e_p\right)_{L_T^2} \\
+			&=\sum_{p=-N}^{M} \overline{c_p(f)} c_p(f) \\
+			&= \sum_{p=-N}^{M} |c_p(f)|^2 \\
+			&= \|S_{N, M}(f)\|_{L_T^2}^2
+		\end{aligned}$$
+		
+		\item $$\begin{aligned}{}
+				\|f-S_{N, M}(f)\|^2_{L_T^2}&=(f - S_{N, M}(f) | f - S_{N, M}(f))_{L_T^2} \\
+				&= (f | f)_{L_T^2} - (f | S_{N, M}(f))_{L_T^2} - (S_{N, M} | f)_{L_T^2} + (S_{N, M}(f) | S_{N, M}(f)_{L_T^2}\\
+				&=\|f\|^2_{L_T^2} + \|S_{N, M}(f)\|_{L_T^2} - ((f | S_{N, M}(f)) + (S_{N, M}(f) | f)) \\
+				&=\|f\|^2_{L_T^2} + \|S_{N, M}(f)\|_{L_T^2} - ((f | S_{N, M}(f)) + \overline{(f | S_{N, M}(f))}) \\
+				&=\|f\|^2_{L_T^2} + \|S_{N, M}(f)\|_{L_T^2} - (\|S_{N, M}(f)\|^2_{L_T^2} + \overline{\|S_{N, M}(f)\|^2_{L_T^2}})\\
+				&=\|f\|^2_{L_T^2} + \|S_{N, M}(f)\|_{L_T^2} - 2 \|S_{N, M}(f)\|^2_{L_T^2}\\
+				&=\|f\|^2_{L_T^2} - \|S_{N, M}(f)\|^2_{L_T^2}	\end{aligned}$$
+	\end{enumerate}
+\end{myproof}
+
+\begin{mycor}Inégalité de Bressel
+
+	Sous les mêmes hypothèses, on a pour tout $M, N \geqslant 0$ $$\sum_{p=-N}^{M} |c_p(f)|^2 \leqslant \|f\|^2$$
+\end{mycor}
+
+En particulier $c_p(f) \longrightarrow 0 \quad (p \rightarrow \pm \infty)$
+
+\section{Coefficients de Fourrier dans $L^1_T$}
+
+On considère à présent la norme 1 :
+
+$$\|f\|_{L_T^1} = \frac{1}{T} \int_{0}^{T} |f(t)| dt$$
+
+\begin{mythm}Théorème de Riemann-Lebesgue
+
+	Soit $f \in L^1_T$, on a $\displaystyle c_p(f) = \frac{1}{T} \int_{0}^{T} f(t) e^{-i p \omega t} dt \longrightarrow 0 \quad (p \rightarrow \pm \infty)$
+\end{mythm}
+
+\begin{myproof}
+	Supposons $f$ uniformément continue
+	$$\begin{aligned}
+	c_p(f) &= \frac{1}{T} \int_{0}^{T} f(t) e^{-i p \omega t} dt \quad (*)\\
+	&=-\frac{1}{T} \int_{0}^{T} f(t) e^{-i p \omega t} e^{i \pi} dt\\
+	&=-\frac{1}{T} \int_{0}^{T} f(t)e^{\displaystyle -i p \omega \left(t - \frac{\pi}{p \omega}\right)} dt\\
+	&=- \frac{1}{T} \int_{\frac{\pi}{p \omega}}^{T + \frac{\pi}{p \omega}} f\left(s + \frac{\pi}{p \omega}\right) e^{-i p \omega s} ds ~ \text{ avec } s := t - \frac{\pi}{\omega p} \\
+	&=-\frac{1}{T}\int_0^T f \left(s + \frac{\pi}{\omega p}\right) e^{-i \omega p s} ds
+	\end{aligned}
+	$$
+	
+	En effet, $\displaystyle t \mapsto f\left(t + \frac{\pi}{\omega p}\right) e^{- i p \omega t}$ est $T$-périodique, alors $\displaystyle \int_{\frac{\pi}{\omega p}}^{T + \frac{\pi}{\omega p}} f \left(t + \frac{\pi}{\omega p}\right) e^{-i \omega p t} dt = \int_0^T f \left(t + \frac{\pi}{\omega p}\right) e^{-i \omega p t} dt$
+	
+	Donc en additionnant les égalités (*) et (**), on obtient
+	
+	$$2 c_p(f) = \frac{1}{T} \int_0^T \left(f(t) - f\left(t + \frac{\pi}{\omega p}\right)\right) e^{- i p \omega t} dt$$
+	
+	Alors par l'inégalité triangulaire :
+	
+	$$|c_p(f)| \leqslant \frac{1}{2T} \int_0^T \left|f(t) - f\left(t+\frac{\pi}{\omega p}\right)\right|\underbrace{|e^{-i p \omega t}|}_{1}dt$$
+	
+	Ainsi $$|c_p(f)| \leqslant \frac{1}{2} \int_0^T \sup\limits_{t \in [0, T]} \left|f(t) - f\left(t+\frac{\pi}{\omega p}\right)\right|dt$$
+	
+	or $f$ est uniformément continue, alors pour tout $\varepsilon > 0 $ pour $p$ assez grand $$\sup\limits_{t \in [0, T]} \left|f(t) - f\left(t+\frac{\pi}{\omega p}\right)\right| \leqslant \varepsilon$$ d'où le résultat.
+	
+	Si $f$ n'est pas uniformément continue, on peut l'approcher par une fonction continue car les fonctions intégrables périodiques sont denses dans les fonctions continues, et comme toute fonction continue sur un compact est uniformément continue on peut se ramener au cas précédent.
+\end{myproof}
+
+\section{Propriétés des coefficients de Fourrier}
+
+\subsection{Propriétés de symétrie}
+
+\begin{myrem}
+	$$c_p(f) = \frac{1}{T} \int_{-T/2}^{T/2} f(t) e^{-i p \omega t} dt$$
+\end{myrem}
+
+\begin{myproposition}
+	\begin{enumerate}
+	\leavevmode
+		\item Si $f$ est à valeurs réelles, alors $\overline{c_p(f)} = c_{-p}(f)$
+		\item Si $f(-t) = \overline{f(t)}$ alors $c_p(f) \in \mathbb{R}$
+		\item Si $f$ est paire (respectivement impaire) alors $c_p$ aussi : $c_p = c_{-p}$ (respectivement $c_p = -c_{-p}$)
+		
+		\item si $f$ est réelle et paire (respectivement impaire) alors $c_p = c_{-p} \in \mathbb{R}$ (respectivement $c_p = - c_{-p} \in \mathbb{R}$)
+		
+		Autre formulation (surtout utile si $f$ est réelle)
+		
+		$$f(t) = \frac{a_0}{2} + \sum_{p = 1}^{\infty} a_p cos(p \omega t) + b_p sin(p \omega t)$$
+		avec $a_p = c_p + c_{-p} = \frac{2}{T} \int_{0}^{T} f(t) cos (p \omega t) sin (p \omega t)$ et $b_p = i(c_p - c_{-p}) = \frac{2}{T} \int_{0}^{T} f(t) sin(p \omega t) dt$
+	\end{enumerate}
+\end{myproposition}
+
+\subsection{Lien entre régularité de $f$ et décroissance des coefficients de Fourrier}
+
+\begin{mythm}
+	Soit $f$ $T$-périodique de classe $\mathcal{C}^k$ alors $c_p(f^(k)) = (i p \omega)^k c_p(f)$ et il existe une constante $C$ telle que $\displaystyle |c_p(f)| \leqslant \frac{C}{|p|^k}$
+	
+	En particulier  si $f$ est de classe $\mathcal{C}^2$, sa série de Fourier converge uniformément vers $f$ car elle converge uniformément.
+\end{mythm}
+
+\begin{myproof}
+	Par récurrence sur $k$.
+	
+	Pour toute fonction $f$ dérivable, on a $$\begin{aligned}
+	c_p(f') &= \frac{1}{T} f'(t) dt e^{-i p \omega t} \\
+	&=-\frac{1}{T} f(t)(-i p \omega t) dt + \left[f(t) e^{-i p \omega t}\right]_0^T \\
+	&=i p \omega \frac{1}{T} \int_0^T f(t) e^{-i p \omega t} dt \\
+	&= i p \omega t c_p(f)
+	\end{aligned}$$
+	et par récurrence on obtient le résultat.
+	
+	De plus, $\displaystyle |c_p(f)| = \frac{|C_p(f^{(k)})|}{|p|^k \omega^k} \leqslant \frac{C_0}{\omega^k} \frac{1}{|p|^k}$
+\end{myproof}
+
+\section{Convolution}
+
+\begin{mydef}
+	Soient $f$ et $g$ deux fonctions $T$-périodiques continues par morceaux, on appelle \textit{convolution} de $f$ par $g$ la fonction $f * g$ définie par $$(f * g)(t) = \frac{1}{T} \int_{0}^{T} f(s)g(t - s)ds$$
+	
+	\begin{itemize}
+		\item Le produit de convolution est symétrique.
+		\item $f * g$ est $T$-périodique
+		\item Si $f$ ou $g$ est continue, alors $f * g$ est continue.
+	\end{itemize}
+\end{mydef}
+
+\begin{myproposition}
+	Si l'une des deux fonctions et de classe $\mathcal{C}^k$, alors $f * g$ est de classe $\mathcal{C}^k$
+	
+	Par exemple $(f * g) = f' * g = f * g'$
+\end{myproposition}
+
+
+\begin{myproof}
+	Supposons $f$ de classe $\mathcal{C}^1$.
+	
+	Soit $\varepsilon > 0$ et $t \in [0, T]$. 
+	
+	Soit $h \neq 0$, pour tout $s \in  [0, T]$, par le théorème des accroissements finis il existe $\xi_s$ tel que $|\xi_s - (t-s)| < h$ et
+	$$\frac{f(t - s + h) - f(t - s)}{h} = f'(\xi_s)$$
+	
+	or $f'$ est continue sur $[0, T]$ , donc par le théorème de Heine elle est uniformément continue sur cet intervalle. Pour $h$ assez petit, on a alors pour tout $s$ : $$f'(t-s) - \varepsilon \leqslant f'(\xi_s) \leqslant f'(t-s)+ \varepsilon$$
+	
+	$$f'(t-s) - \varepsilon \leqslant \frac{f(t - s + h) - f(t - s)}{h} \leqslant f'(t-s) + \varepsilon$$
+	
+	On exprime à présent le taux de variation :
+	
+	$$\begin{aligned}
+	\left|\frac{(f * g)(t + h) - (f*g)(t)}{h} - (f'*g)(t)\right| &= \left|\frac{1}{T} \int_0^T g(s) \left(\frac{f(t-s+h) - f(t-s)}{h} - f'(t-s)\right)ds\right|\\
+	& \leqslant \frac{1}{T} \int_0^T |g(s)| \left|\frac{f(t-s+h) - f(t-s)}{h} - f'(t-s)\right|ds \\
+	&\leqslant \frac{1}{T} \int_0^T |g(s)| \varepsilon ds \\
+	&\leqslant \varepsilon \|f\|_{L_T^1}
+	\end{aligned}
+	$$
+	
+	On a donc bien que $\displaystyle \lim\limits_{h \to 0} \frac{(f*g)(t + h) - (f*g)(t)}{h} = (f'*g)(t)$.
+	
+	\cqfd
+\end{myproof}
+
+\begin{myproposition}
+	Si $f$ et $g$ sont ans $L^1_T$ alors $f * g \in L_T^1$ et $\|f * g\| \leqslant \|f\| \|g\|$
+	Si $f$ et $g$ sont dans $L_T^2$ alors $f *g$ est borné :
+	
+	$$\sup_{[0, T]} |f * g(t)| \leqslant \|f\| \|g\|$$
+\end{myproposition}
+
+\begin{myproof}
+	$$\begin{aligned}
+	\frac{1}{T} \int_{0}^{T} |f * g (t)| dt &= \frac{1}{T} \int_{0}^{T} \left|\frac{1}{T} \int_{0}^{T} f(s) g(t - s) ds\right|dt \\
+	&\leqslant \frac{1}{T^2} \int_{0}^{T} \int_{0}^{T} |f(s)| |g(t - s)| ds dt \\
+	&\leqslant \frac{1}{T^2} \int_{0}^{T} |f(s)| \int_{0}^{T} |g(t - s)|dt ds \\
+	&\leqslant \|g\| \|f\|
+	\end{aligned}$$
+\end{myproof}
+
+\begin{myproposition}
+	On a $c_p(f * g) = c_p(f) c_p(g)$
+\end{myproposition}
+
+\begin{myproof}
+	$$c_p(f * g)(t) = \frac{1}{T} \int_{0}^{T} f * g(t) e^{- i p \omega t} dt \\
+	= \frac{1}{T^2} \int_{0}^{T} \int_{0}^{T} f(s) g(t - s) e^{- i p \omega t} dt ds$$
+	
+	mais $e^{-i p \omega t} = e^{-i p \omega (t - s)} e^{- i p \omega s}$ donc
+	
+	$$
+	\begin{aligned}
+	c_p(f * g)(t) &= \frac{1}{T^2} \int_{0}^{T} \int_{0}^{T} f(s) e^{-i p \omega s} g(t - s) e^{- i p \omega (t-s)} dt ds \\
+	&= \frac{1}{T^2} \int_{0}^{T} f(s) e^{- i p \omega s} \left(\int_{0}^{T} g(t - s) e^{- i p \omega (t - s)} dt\right) ds \\
+	&=c_p(f) c_p(g)
+	\end{aligned}$$
+\end{myproof}
+
+\section{Applications}
+
+\subsection{Résolution de l'équation de la chaleur}
+
+$x\in[0, 2 \pi], T = 2 \pi$ et $\omega = 1$
+
+\begin{equation}
+	\frac{\partial \theta}{\partial t} - \frac{\partial^2 \theta}{\partial x^2} = 0
+\end{equation}
+
+$\theta$ est $2 \pi$-périodique en $x$ alors $$\sum_{p \in \mathbb{Z}} c_p(t) e^{i p x}$$
+
+$$\frac{\partial \theta}{\partial t} = \sum_{p \in \mathbb{Z}} c'_p(t) e^{i p x}$$
+
+$$c_p\left(\frac{\partial^2 \theta}{\partial x^2}\right) = (ip)^2c_p(\theta) = -p^2 c_p(t)$$
+
+$$c'_p(t) + p^2 c_p(t) = 0, \forall p \in \mathbb{Z}$$
+
+$$c_p(t) = c_p(0) e^{-p^2 t}$$
+
+$$\theta(t, x) = \sum_{p \in \mathbb{Z}} c_p(0) e^{-p^2 t} e^{i p x}$$
+
+\subsection{Calculs de séries de Fourier}
+
+Soit $f(t) = t$ sur $[0, 2\pi]$, calculons $c_p(f)$.
+
+$$\text{si } p \neq 0, ~ c_p(f) = \frac{1}{2 \pi} \int_{0}^{2 \pi}t e^{- i p t}dt = \frac{i}{p}$$
+
+$$c_0(f) = \pi$$
+
+Donc $\displaystyle f(t) = \pi + \sum_{p \in \mathbb{Z} \setminus \{0\}} \frac{i}{p} e^{i p t}$
+
+$\|f\|^2_{L_{2 \pi}^2} = \sum_{p \in \mathbb{Z}} |c_p(f)|^2$
+
+$\|f\|^2_{L^{2\pi}_T} = \frac{4\pi^2}{3}$
+
+TODO
+
+\begin{myexer}
+	$f(t) = 1$ sur $[0, \pi$ et $f(t) = 0$ sur $[\pi, 2\pi]$ pour trouver $1 + 1/3^2 + 1/5^2 +... = 1/8$.
+\end{myexer}
+
+\end{document}

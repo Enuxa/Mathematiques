@@ -1,0 +1,142 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+
+\geometry{hmargin=2cm}
+
+\title{Algèbre II}
+\author{? - Notes prises par Pierre Gervais}
+
+% Environnement type théorème
+\newtheorem{mythm}{Théorème}
+\newtheorem{myproposition}{Proposition}
+\newtheorem{myproperty}{Propriété}
+\newtheorem{mylemma}{Lemme}
+
+% Environnement type texte
+\theoremstyle{remark}
+\newtheorem{mynot}{Notation}
+\newtheorem{myrem}{Remarque}
+\newtheorem{myexer}{Exercice}
+\newtheorem{myproof}{Preuve}
+\newtheorem{myexmpl}{Exemple}
+\newtheorem{myrapl}{Rappel}
+\newtheorem{mycor}{Corollaire}
+
+% Environnement de définition
+\theoremstyle{definition}
+\newtheorem{mydef}{Définition}
+\newtheorem{myquestion}{Question}
+
+\setlist[itemize]{label=-}
+
+% Carré de fin de preuve
+\newcommand{\cqfd}{
+	\hfill$\square$
+}
+
+% Définition de fonction
+\newcommand{\func}[5]{
+#1 ~ : ~ \left\{ \begin{array}{lcl}
+	#2 & \longrightarrow & #3 \\
+	#4 & \longmapsto & #5
+\end{array}
+\right.
+}
+
+\newcommand{\fun}[3]{
+#1 ~ : ~ #2 \longrightarrow #3
+}
+
+\newcommand{\funcinline}[5]{
+	#1 \, : \, #2 \longrightarrow #3, ~ #4 \longmapsto #5
+}
+
+\newcommand{\funcshort}[3]{
+	#1 \, : \, #2 \longrightarrow #3
+}
+
+\newcommand{\anonfunc}[4]{
+	\left\{ \begin{array}{lcl}
+		#1 & \longrightarrow & #2 \\
+		#3 & \longmapsto & #4
+	\end{array}
+	\right.
+}
+
+\newcommand{\DS}{\displaystyle}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\begin{myexer}
+	Soit $G$ un groupe abélien agissant transitivement sur un ensemble $A$, alors $G$ agit fidèlement si et seulement s'il agit librement.
+	
+	Supposons qu'il agisse fidèlement, montrons qu'il agit librement, c'est-à-dire que les stabilisateurs sont réduits à l'élément neutre.
+	
+	Soient $x, y \in A$, l'action est transitive alors il existe $g \in G$ tel que $y = g \cdot x$, leurs stabilisateurs sont alors conjugués. Or $G$ est abélien, donc leurs stabilisateurs sont égaux. De plus l'intersection des stabilisateurs est égale à tout stabilisateur, et celle-ci est réduite à l'élément neutre ar hypothèse. L'action est donc libre.
+\end{myexer}
+
+\section{Espaces affines}
+
+\begin{mydef}
+	Deux espaces affines $\mathcal{E}$ et $\mathcal{F}$ sont dit \textit{isomorphes} s'il existe une application affine bijective entre eux.
+\end{mydef}
+
+\begin{myproposition}
+	Soit $\mathcal{E}$ un espace affine, il est isomorphe à $\overrightarrow{\mathcal{E}}$.
+\end{myproposition}
+
+En effet, en fixant $O \in \mathcal{E}$, on définit $\funcshort{f}{\overrightarrow{\mathcal{E}}}{\mathcal{E}}$ définie par $f(u) := O + u$ pour tout $u \in \overrightarrow{\mathcal{E}}$
+
+\begin{mydef}
+	Une suite exacte est une suite de la forme
+	$$G_1 \xrightarrow{f_1} G_2 \xrightarrow{f_2} ... G_n$$
+	où pour tout $i$, $\ker f_{i+1} = Im (f_i)$
+\end{mydef}
+
+\begin{myexmpl}
+	\begin{itemize}
+		
+		\item Si $\{e\} \rightarrow G \xrightarrow{f} H$ est exacte, alors $f$ est injective.
+	
+		\item Si $G \rightarrow H \xrightarrow{f} \{e\}$ est exacte, alors $f$ est surjective.
+
+		\item $\{\text{groupe des translations}\} \rightarrow GA(\mathcal{E}) \rightarrow_\varphi GL(E)$ où $\varphi$ associe à une application affine son application linéaire associée.
+	\end{itemize}
+\end{myexmpl}
+
+\begin{mydef}
+	Soit $\mathcal{E}$ un espace affine de dimension $E$, $(\lambda_i)_{i \leqslant n}$ des scalaires de somme égale à 1 et $(A_i)_{i \leqslant n}$, on appelle \textit{barycentre} des points pondérés $((A_i, \lambda_i))_{i \leqslant n}$ l'unique point $G$ tel que
+	$$\sum_{i = 1}^{n} \lambda_i \overrightarrow{GA_i} = 0$$
+	Plus précisément pour tout $O \in \mathcal{E}$
+	$$\sum \lambda_i \overrightarrow{OA_i} = \overrightarrow{OG}$$
+	Par convention on note
+	$$\sum \lambda_i A_i$$
+\end{mydef}
+
+\begin{mythm}Soit $\mathcal{F} \subseteq \mathcal{E}$
+	\begin{enumerate}
+		\item $\mathcal{F}$ est un sous-espace affine s'il est stable par barycentre
+		\item $\funcshort{f}{\mathcal{E}}{\mathcal{F}}$ est affine si et seulement si elle préserve les barycentres
+	\end{enumerate}
+\end{mythm}
+
+\begin{myproperty}
+	Soit $(A_{i, j})$ une famille de suite de points. de coefficients $(\lambda_{i, j})$, $(G_i)$ leurs barycentres et $G$ le barycentre des barycentres affectés des poids $(\mu_i)$, alors $$G = \sum \lambda_{j, i} \mu_j A_{j, i}$$
+\end{myproperty}
+
+\end{document}

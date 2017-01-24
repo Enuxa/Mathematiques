@@ -1,0 +1,204 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+
+\geometry{hmargin=2cm}
+
+\title{Logique II}
+\author{Paul Rozière - Notes prises par Pierre Gervais}
+
+% Environnement type théorème
+\newtheorem{mythm}{Théorème}
+\newtheorem{myproposition}{Proposition}
+\newtheorem{myproperty}{Propriété}
+\newtheorem{mylemma}{Lemme}
+
+% Environnement type texte
+\theoremstyle{remark}
+\newtheorem{mynot}{Notation}
+\newtheorem{myrem}{Remarque}
+\newtheorem{myexer}{Exercice}
+\newtheorem{myproof}{Preuve}
+\newtheorem{myexmpl}{Exemple}
+\newtheorem{myrapl}{Rappel}
+\newtheorem{mycor}{Corollaire}
+
+% Environnement de définition
+\theoremstyle{definition}
+\newtheorem{mydef}{Définition}
+\newtheorem{myquestion}{Question}
+
+\setlist[itemize]{label=-}
+
+% Carré de fin de preuve
+\newcommand{\cqfd}{
+	\hfill$\square$
+}
+
+% Définition de fonction
+\newcommand{\func}[5]{
+#1 ~ : ~ \left\{ \begin{array}{lcl}
+	#2 & \longrightarrow & #3 \\
+	#4 & \longmapsto & #5
+\end{array}
+\right.
+}
+
+\newcommand{\fun}[3]{
+#1 ~ : ~ #2 \longrightarrow #3
+}
+
+\newcommand{\funcinline}[5]{
+	#1 \, : \, #2 \longrightarrow #3, ~ #4 \longmapsto #5
+}
+
+\newcommand{\funcshort}[3]{
+	#1 \, : \, #2 \longrightarrow #3
+}
+
+\newcommand{\anonfunc}[4]{
+	\left\{ \begin{array}{lcl}
+		#1 & \longrightarrow & #2 \\
+		#3 & \longmapsto & #4
+	\end{array}
+	\right.
+}
+
+\newcommand{\DS}{\displaystyle}
+
+\begin{document}
+
+\maketitle
+
+https://www.irif.fr/$\sim$roziere/logiqueL3MIS2/
+
+\tableofcontents
+
+\newpage
+
+\section{Axiomatisation de l'arithmétique}
+
+On cherche à décrire la notion d'entier naturel. (fin 19e siècle, Dedekind et Peano).
+
+\subsection{Définition inductive}
+
+On suppose se placer dans un contexte où 0 et la fonctions successeur $s$ sont définis avec $s(x) \neq 0$ pour tout $x$ et $s$ injectif.
+
+Un ensemble $A$ possède la propriété de clôture $cl(A)$ si $0 \in A$ et $\forall x \in A, ~ s(x) \in A$.
+
+$\mathbb{N}$ peut être défini comme le plus petit ensemble $A$ vérifiant $cl(A)$, c'est-à-dire $$\mathbb{N} = \bigcap_{A ~ : ~ cl(A)} A$$
+
+Pour que cela fonctionne, on doit
+\begin{enumerate}
+	\item avoir au moins un $A$ vérifiant $cl(A)$
+	\item pour toute famille $(A_i)_{i \in I}$ vérifiant chacun $cl(A_i)$, on a $\DS cl\left(\bigcap_{i \in I} A_i\right)$
+\end{enumerate}
+
+La propriété (1) est admise, pour la propriété 2 :
+\begin{itemize}
+	\item Pour tout $i \in I$, $cl(A_i)$, alors $0 \in Au_i$ et si $x \in \bigcap_i A_i$ alors $\forall i \in I, x \in A_i$ et $s(x) \in A_i$ donc $s(x) \in \bigcap_i A_i$ et $cl\left(\bigcap_i A_i\right)$
+\end{itemize}
+
+\begin{myproperty} Propriété de récurrence
+	
+	Pour toute propriété "bien définie" sur $\mathbb{N}$ $P$ vérifiant :
+	\begin{itemize}
+		\item $P(0)$
+		\item $\forall n \in \mathbb{N}, ~ (P(n) \Longrightarrow P(n+1))$
+	\end{itemize}
+	
+	on obtient, en posant $A = \{n \in \mathbb{N} ~ | ~ P(n)\}$ que $0 \in A$ et $\forall n \in A, ~ n+1 \in A$ donc $A = \mathbb{N}$
+\end{myproperty}
+
+\subsection{Approche axiomatique (définition implicite)}
+
+\subsubsection{Axiomes de Peano}
+
+Soient $\mathbb{N}, 0, s$ où $0 \in \mathbb{N}$ et $\funcshort{s}{\mathbb{N}}{\mathbb{N}}$, les axiomes de Peano sont les suivants :
+\begin{enumerate}
+	\item Pour tout $x \in \mathbb{N}$, $s (x) \neq 0$
+	\item $s$ est injectif
+	\item propriété de récurrence : $\mathbb{N}$ est l'unique partie de $\mathbb{N}$ qui contient 0 et le successeur de tout ses éléments
+\end{enumerate}
+
+\subsubsection{Définition par récurrence}
+
+\begin{myexmpl}
+	L'addition : $x + 0 = x$ et $x + s(y) = s (x + y)$
+\end{myexmpl}
+
+\begin{mythm} Définition par récurrence (énoncé par Dedekind)
+	
+	Soit $E$ un ensemble, $a \in E$ et $\funcshort{h}{E}{E}$, il existe une et une seule fonction $\funcshort{f}{\mathbb{N}}{E}$ vérifiant
+	$$
+	(*) ~\left\{
+	\begin{matrix}{c}
+		f(0) = a \\
+		\forall n \in \mathbb{N}, ~ f(s(n)) = h(f(n))
+	\end{matrix}
+	\right.
+	$$
+\end{mythm}
+
+On a besoin que $\mathbb{N}$ soit "librement engendré" à partir de 0
+
+\begin{myproof}
+	\leavevmode
+	\paragraph{Unicité}
+	Par récurrence \checkmark
+	\paragraph{Existence}
+	on va donner une définition inductive du graphe de $f$ (qui est un sous ensemble de $\mathbb{N} \times E$).
+	Soit $A \subseteq \mathbb{N} \times E$, on définit une nouvelle propriété de cloture pour $A$, notée $cl(A)$ :
+	\begin{itemize}
+		\item $(0, a) \in A$
+		\item si $(n, x) \in A$ alors $(s(n), h(x)) \in A$
+	\end{itemize}
+	
+	Montrons $G := \bigcap_{A ~ : ~ cl(A)} A$ est le graphe d'une fonction $f$ vérifiant $(*)$
+	
+	\begin{itemize}
+		\item Pour tout $n \in \mathbb{N}$ il existe $y \in E$ tel que $(n, y) \in G$ (partout définie)
+		\item Pour tout $n \in \mathbb{N}$ $\forall x, y \in E$ $(n, x) \in G$ et $(n ,y) \in G \Longrightarrow x = y$ (unicité de l'image)
+	\end{itemize}
+	
+	Premier point par récurrence sur $n$ :
+	\begin{itemize}
+		\item $n=0$ : $(0, a) \in G$ car $cl(G)$
+		\item $n > 0$ : supposons $(n, x) \in G$ alors ar $cl(G)$ : $(s(n), h(x)) \in G$
+	\end{itemize}
+	
+	Second point par récurrence sur $n$ :
+	\begin{itemize}
+		\item $(0, x) \in G$ et $(0, y) \in G$, $x \neq a$ ou $y \neq a$ (disons $x \neq a$)
+		$G' := G \setminus \{(0, x)\}$ vérifie la propriété de cloture $cl(G)$, $(0, a) \in G'$.
+		
+		Si $(n, y) \in G'$, $(s(n), h(y)) \in G'$ car $s(n) \neq 0$, on aurait $G \subseteq G'$, contradiction.
+		
+		\item suppososns $(n, x) \in G \text{ et } (x, y) \in G \Longrightarrow x = y$
+		
+		soit $f_n$ tel que $(n, f_n) \in G$ (on a vu l'existence) supposons $(s(n), x) \in G$ et $(s(n), y) \in G$
+		
+		supposons $x \neq h(f_n)$, si $m = n$ alors $(n, f_n) \in G$ donc $\in G'$ car $n \neq s(n)$
+		
+		$x \neq h(z)$, donc $(n, h(f_n)) \in G'$, on a bien l'unicité.
+	\end{itemize}
+	\cqfd
+\end{myproof}
+
+\begin{mycor} Définition par récurrence avec paramètres
+	
+	Soit $A$ un ensemble et $E$ un ensemble non-vide, deux fonctions $\funcshort{g}{A}{E}$ et $\funcshort{h}{(E \times A)}{E}$ alors il existe une unique fonction $\funcshort{f}{\mathbb{N} \times A}{E}$ vérifiant
+	\begin{itemize}
+		\item $f(0, y) = g(y)$
+		\item $f(s(n), y) = h(f(n, y), y)$
+	\end{itemize}
+\end{mycor}
+
+\end{document}
